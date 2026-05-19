@@ -1,0 +1,72 @@
+plugins {
+    id 'application'
+    id 'checkstyle'
+    id 'com.diffplug.spotless' version '8.3.0'
+    id 'org.openjfx.javafxplugin' version '0.1.0'
+}
+
+repositories {
+    mavenCentral()
+    maven { url 'https://jitpack.io' }
+}
+
+dependencies {
+    // Bricks — UI library (inclui JavaFX internamente)
+    implementation 'com.github.fabiorodrigues0:bricks:latest.release'
+
+    // SQLite — base de dados local
+    implementation 'org.xerial:sqlite-jdbc:3.45.1.0'
+
+    // MySQL e PostgreSQL — opcionais (compileOnly, não forçam dependência)
+    compileOnly 'com.mysql:mysql-connector-j:8.3.0'
+    compileOnly 'org.postgresql:postgresql:42.7.3'
+}
+
+// Inclui database/ e config/database/ na compilação (estilo Laravel)
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src/main/java', 'database/schema', 'database/seeds', 'config/database']
+        }
+    }
+}
+
+javafx {
+    version = '21.0.5'
+    modules = ['javafx.controls', 'javafx.graphics']
+}
+
+application {
+    mainClass = 'App'
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+// Checkstyle - Sun/Oracle conventions
+checkstyle {
+    toolVersion = '13.3.0'
+    configFile = file("${rootDir}/config/checkstyle/sun_checks.xml")
+    ignoreFailures = false
+    maxWarnings = 0
+}
+
+// Spotless - Formatação automática
+spotless {
+    java {
+        target 'src/**/*.java', 'database/**/*.java', 'config/database/**/*.java'
+        importOrder()
+        removeUnusedImports()
+        eclipse().configFile('config/formatter/eclipse-formatter.xml')
+        trimTrailingWhitespace()
+        endWithNewline()
+    }
+}
+
+// Formatar antes de compilar
+tasks.named('compileJava') {
+    dependsOn 'spotlessApply'
+}
