@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module external.linked.project.id="projeto_final:test" external.linked.project.path="/var/home/fabio/Documents/projeto_final" external.root.project.path="$MODULE_DIR$/.." external.system.id="GRADLE" external.system.module.group="" external.system.module.type="sourceSet" external.system.module.version="unspecified" type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <output-test url="file:///var/home/fabio/Documents/projeto_final/build/classes/java/test" />
+    <exclude-output />
+    <content url="file:///var/home/fabio/Documents/projeto_final/src/test" />
+    <orderEntry type="jdk" jdkName="21 (mise)" jdkType="JavaSDK" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module" module-name="projeto_final.main" />
+    <orderEntry type="library" name="Gradle: org.xerial:sqlite-jdbc:3.45.1.0" level="project" />
+    <orderEntry type="library" name="Gradle: org.openjfx:javafx-controls:linux:21.0.5" level="project" />
+    <orderEntry type="library" name="Gradle: org.openjfx:javafx-graphics:linux:21.0.5" level="project" />
+    <orderEntry type="library" name="Gradle: org.slf4j:slf4j-api:1.7.36" level="project" />
+    <orderEntry type="library" name="Gradle: org.openjfx:javafx-base:linux:21.0.5" level="project" />
+    <orderEntry type="library" name="Gradle: com.github.FabioRodrigues0:bricks:f134b244" level="project" />
+  </component>
+  <component name="TestModuleProperties" production-module="projeto_final.main" />
+</module>

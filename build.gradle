@@ -3,6 +3,14 @@ plugins {
     id 'checkstyle'
     id 'com.diffplug.spotless' version '8.3.0'
     id 'org.openjfx.javafxplugin' version '0.1.0'
+    id 'idea'
+}
+
+idea {
+    module {
+        downloadJavadoc = true
+        downloadSources = true
+    }
 }
 
 repositories {
@@ -12,7 +20,7 @@ repositories {
 
 dependencies {
     // Bricks — UI library (inclui JavaFX internamente)
-    implementation 'com.github.fabiorodrigues0:bricks:latest.release'
+    implementation 'com.github.FabioRodrigues0:bricks:ea7444b9'
 
     // SQLite — base de dados local
     implementation 'org.xerial:sqlite-jdbc:3.45.1.0'
