@@ -19,8 +19,12 @@ public class SubscricaoView extends BricksScene {
 
     @Override
     public Component render() {
-        return new Column().gap(2).modifier(new Modifier().padding(30, 0)).children(
+        return new Column()
+            .gap(2)
+            .modifier(new Modifier().padding(30, 0))
+            .children(
                 new Titulo("Subscrições Digitais", "Netflix, Spotify, software e serviços online")
-                        .render());
+                    .render()
+            );
     }
 }

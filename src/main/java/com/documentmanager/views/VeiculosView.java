@@ -19,7 +19,9 @@ public class VeiculosView extends BricksScene {
 
     @Override
     public Component render() {
-        return new Column().gap(2).modifier(new Modifier().padding(30, 0)).children(
-                new Titulo("Veiculos", "Seguro, IUC e inspeção de cada veículo").render());
+        return new Column()
+            .gap(2)
+            .modifier(new Modifier().padding(30, 0))
+            .children(new Titulo("Veiculos", "Seguro, IUC e inspeção de cada veículo").render());
     }
 }
