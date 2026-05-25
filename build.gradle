@@ -20,7 +20,7 @@ repositories {
 
 dependencies {
     // Bricks — UI library (inclui JavaFX internamente)
-    implementation 'com.github.FabioRodrigues0:bricks:ea7444b9'
+    implementation 'com.github.FabioRodrigues0:bricks:v0.6.3.2'
 
     // SQLite — base de dados local
     implementation 'org.xerial:sqlite-jdbc:3.45.1.0'
@@ -68,7 +68,7 @@ spotless {
         target 'src/**/*.java', 'database/**/*.java', 'config/database/**/*.java'
         importOrder()
         removeUnusedImports()
-        eclipse().configFile('config/formatter/eclipse-formatter.xml')
+        eclipse('4.26').configFile('config/formatter/eclipse-formatter.xml')
         trimTrailingWhitespace()
         endWithNewline()
     }
