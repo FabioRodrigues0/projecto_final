@@ -4,15 +4,16 @@
     <option name="providerId" value="com.android.tools.idea.GradleProjectSystem"/>
   </component>
   <component name="CompilerConfiguration">
-    <bytecodeTargetLevel target="21"/>
     <wildcardResourcePatterns>
       <entry name="!?*.class"/>
       <entry name="!?*.scala"/>
       <entry name="!?*.groovy"/>
       <entry name="!?*.java"/>
     </wildcardResourcePatterns>
+    <bytecodeTargetLevel target="21"/>
   </component>
   <component name="ExternalStorageConfigurationManager" enabled="true"/>
+  <component name="GradleMigrationSettings" migrationVersion="1"/>
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
@@ -43,5 +44,6 @@
   <component name="ProjectRootManager" version="2" languageLevel="JDK_21" default="true" project-jdk-name="21" project-jdk-type="JavaSDK" assert-keyword="true" assert-jdk-15="true"/>
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="Git"/>
+    <mapping directory="/var/home/fabio/Documents/projeto_final" vcs="Git"/>
   </component>
 </project>

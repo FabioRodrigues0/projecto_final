@@ -1,14 +1,12 @@
-import components.Sidebar;
-import fabiorodrigues.bricks.components.Column;
-import fabiorodrigues.bricks.components.IconButton;
-import fabiorodrigues.bricks.components.Row;
-import fabiorodrigues.bricks.components.Spacer;
-import fabiorodrigues.bricks.components.Text;
+import fabiorodrigues.bricks.components.*;
 import fabiorodrigues.bricks.core.*;
 import fabiorodrigues.bricks.style.BricksTheme;
-import fabiorodrigues.bricks.style.Modifier;
 import javafx.scene.paint.Color;
 import views.DashboardView;
+import views.DocumentosView;
+import views.SubscricaoView;
+import views.VeiculosView;
+
 
 /**
  * Ponto de entrada da aplicação Bricks. UI declarativa com estado reativo e
@@ -23,8 +21,14 @@ public class App extends BricksApplication {
         setTitle("App");
         setInitialScene(new DashboardView(this));
         // setTheme(BricksTheme.dark()); // descomenta para dark mode
-        setTheme(BricksTheme.material().colorScheme().primaryContainer(Color.web("#f8fafc"))
-                .secondary(Color.web("#958DA5")).and());
+        setTheme(
+            BricksTheme
+                .material()
+                .colorScheme()
+                .primaryContainer(Color.web("#f8fafc"))
+                .secondary(Color.web("#958DA5"))
+                .and()
+        );
     }
 
     // ── Effects ───────────────────────────────────────────────────────────────
@@ -36,23 +40,40 @@ public class App extends BricksApplication {
 
     @Override
     public Component root() {
-        return new Row().gap(0).children(new Sidebar(this, isSidebarOpen.get()).render(),
-                new Column().gap(0).modifier(new Modifier().fillMaxWidth())
-                        .children(new Row().gap(0)
-                                .modifier(new Modifier().fillMaxWidth().border(Color.DARKGRAY, 2))
-                                .children(new IconButton("fas-check").onClick(() -> {
-                                    isSidebarOpen.set(!isSidebarOpen.get());
-                                }), new Spacer()),
-                                currentScene() != null
-                                        ? currentScene().render()
-                                        : new Text("A carregar...")));
+        return new AppLayout()
+            .sidebar(
+                new Sidebar()
+                    .logo("/logo_faculdade.png")
+                    .item(
+                        new SidebarItem(
+                            "fas-chart-line", "Dashboard", () -> navigateTo(new DashboardView(this))
+                        )
+                    )
+                    .item(
+                        new SidebarItem(
+                            "fas-file", "Documentos", () -> navigateTo(new DocumentosView(this))
+                        )
+                    )
+                    .item(
+                        new SidebarItem(
+                            "fas-car", "Veiculos", () -> navigateTo(new VeiculosView(this))
+                        )
+                    )
+                    .item(
+                        new SidebarItem(
+                            "fas-star", "Subscricoes", () -> navigateTo(new SubscricaoView(this))
+                        )
+                    )
+            )
+            .navbar(new Navbar())
+            .content(currentScene() != null ? currentScene().render() : new Text("A carregar..."));
     }
 
     /**
      * Ponto de entrada da aplicação.
      *
      * @param args
-     *            argumentos da linha de comandos
+     *             argumentos da linha de comandos
      */
     public static void main(String[] args) {
         launch(args);

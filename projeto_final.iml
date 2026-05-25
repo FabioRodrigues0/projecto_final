@@ -42,13 +42,13 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/com.github.FabioRodrigues0/bricks/ea7444b9/2dc84fefe4068540ccef42def5cb7f08f7d4f77e/bricks-ea7444b9.jar!/"/>
+          <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/com.github.FabioRodrigues0/bricks/v0.6.3/2c1f4d4b19fee4947c58a933cb3db787af65d815/bricks-v0.6.3.jar!/"/>
         </CLASSES>
         <JAVADOC>
-          <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/com.github.FabioRodrigues0/bricks/ea7444b9/b9776fde2b4885a73c64ca3796be9d7cb7fbf6b0/bricks-ea7444b9-javadoc.jar!/"/>
+          <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/com.github.FabioRodrigues0/bricks/v0.6.3/72e3bdd5a337e5a18e84b68b71d7dba2ede0cd7c/bricks-v0.6.3-javadoc.jar!/"/>
         </JAVADOC>
         <SOURCES>
-          <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/com.github.FabioRodrigues0/bricks/ea7444b9/7523213b62441988613c737c3f1215a09304c57a/bricks-ea7444b9-sources.jar!/"/>
+          <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/com.github.FabioRodrigues0/bricks/v0.6.3/5b740b06791f2ea1ba7fe2b16c3da0dbdcfb350e/bricks-v0.6.3-sources.jar!/"/>
         </SOURCES>
       </library>
     </orderEntry>
