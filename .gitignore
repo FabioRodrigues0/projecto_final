@@ -228,7 +228,6 @@ gradle-app.setting
 ### Gradle Patch ###
 # Java heap dump
 *.hprof
-
 ### macOS ###
 # General
 .DS_Store
