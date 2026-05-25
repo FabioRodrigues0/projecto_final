@@ -17,9 +17,11 @@ public class Titulo {
     }
 
     public Component render() {
-        return new Column().gap(8).children(
+        return new Column()
+            .gap(8)
+            .children(
                 new Text(this.titulo).fontSize(24).modifier(new Modifier().bold()),
-                new Text(this.subTitulo).fontSize(13)
-                        .modifier(new Modifier().textColor(Color.GRAY)));
+                new Text(this.subTitulo).fontSize(13).modifier(new Modifier().textColor(Color.GRAY))
+            );
     }
 }
