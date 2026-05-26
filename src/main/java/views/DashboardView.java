@@ -21,6 +21,10 @@ public class DashboardView extends BricksScene {
     public DashboardView(BricksApplication app) {
         super(app);
         use(this.vm);
+        this.vm.carregarExpiracoes();
+        this.vm.carregarDocumentos();
+        this.vm.carregarVeiculos();
+        this.vm.carregarSubscricoes();
     }
 
     @Override
@@ -99,25 +103,21 @@ public class DashboardView extends BricksScene {
                                     )
                             )
                     ),
-                new Card()
-                    .elevation(2)
+                new Column()
+                    .gap(0)
                     .children(
-                        new Column()
-                            .gap(0)
-                            .children(
-                                new Text("Proximas Expiracoes (30 dias)"),
-                                new LazyColumn<Expiracoes>()
-                                    .gap(10)
-                                    .padding(0)
-                                    .items(vm.listExpiracoes.get())
-                                    .emptyState(new Text("Sem Expirações"))
-                                    .item(expiracao -> {
-                                        return new ExpiracaoCard(
-                                            expiracao.titulo(), expiracao.subTitulo(), expiracao
-                                                .dias(), expiracao.tipo()
-                                        ).render();
-                                    })
-                            )
+                        new Text("Proximas Expiracoes (30 dias)"),
+                        new LazyColumn<Expiracoes>()
+                            .gap(10)
+                            .padding(0)
+                            .items(vm.listExpiracoes.get())
+                            .emptyState(new Text("Sem Expirações"))
+                            .item(expiracao -> {
+                                return new ExpiracaoCard(
+                                    expiracao.titulo(), expiracao.subTitulo(), expiracao
+                                        .dias(), expiracao.tipo()
+                                ).render();
+                            })
                     ),
                 new Row()
                     .gap(8)
