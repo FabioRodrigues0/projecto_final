@@ -264,4 +264,6 @@ Temporary Items
 .settings/
 **/.settings/**
 
+AGENTS.md
+
 # End of https://www.toptal.com/developers/gitignore/api/java,emacs,jetbrains+all,visualstudiocode,gradle,maven,macos
