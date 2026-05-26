@@ -1,13 +1,13 @@
 package models.Pessoal;
 
-import java.util.Date;
+import java.time.LocalDate;
 import models.Documentos;
 import models.TipoDocumentoPessoal;
 
 public class DocumentosPessoal extends Documentos {
     public TipoDocumentoPessoal tipo;
-    public Date dataEmissao;
-    public Date dataValidade;
+    public LocalDate dataEmissao;
+    public LocalDate dataValidade;
 
     @Override
     public String getTitulo() {
@@ -35,19 +35,19 @@ public class DocumentosPessoal extends Documentos {
         this.tipo = tipo;
     }
 
-    public Date getDataEmissao() {
+    public LocalDate getDataEmissao() {
         return this.dataEmissao;
     }
 
-    public void setDataEmissao(Date dataEmissao) {
+    public void setDataEmissao(LocalDate dataEmissao) {
         this.dataEmissao = dataEmissao;
     }
 
-    public Date getDataValidade() {
+    public LocalDate getDataValidade() {
         return this.dataValidade;
     }
 
-    public void setDataValidade(Date dataValidade) {
+    public void setDataValidade(LocalDate dataValidade) {
         this.dataValidade = dataValidade;
     }
 }

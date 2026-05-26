@@ -1,6 +1,6 @@
 package models.Subscricao;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import models.Identidades;
 
 public class Subscricoes extends Identidades {
@@ -9,7 +9,7 @@ public class Subscricoes extends Identidades {
     public Subscricoes() {
     }
 
-    public Subscricoes(int id, String nome, Date data, String logo) {
+    public Subscricoes(int id, String nome, LocalDateTime data, String logo) {
         this.id = id;
         this.nome = nome;
         this.data = data;
@@ -27,7 +27,7 @@ public class Subscricoes extends Identidades {
     }
 
     @Override
-    public Date getData() {
+    public LocalDateTime getData() {
         return this.data;
     }
 
@@ -46,7 +46,7 @@ public class Subscricoes extends Identidades {
     }
 
     @Override
-    public void setData(Date data) {
+    public void setData(LocalDateTime data) {
         this.data = data;
     }
 

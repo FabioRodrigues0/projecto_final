@@ -1,6 +1,6 @@
 package models.Veiculo;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import models.Identidades;
 
 public class Veiculos extends Identidades {
@@ -11,7 +11,8 @@ public class Veiculos extends Identidades {
     public Veiculos() {
     }
 
-    public Veiculos(int id, String nome, int ano, String matricula, String foto, Date data) {
+    public Veiculos(
+                    int id, String nome, int ano, String matricula, String foto, LocalDateTime data) {
         this.id = id;
         this.nome = nome;
         this.ano = ano;
@@ -31,7 +32,7 @@ public class Veiculos extends Identidades {
     }
 
     @Override
-    public Date getData() {
+    public LocalDateTime getData() {
         return this.data;
     }
 
@@ -58,7 +59,7 @@ public class Veiculos extends Identidades {
     }
 
     @Override
-    public void setData(Date data) {
+    public void setData(LocalDateTime data) {
         this.data = data;
     }
 

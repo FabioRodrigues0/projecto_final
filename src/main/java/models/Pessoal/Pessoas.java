@@ -1,6 +1,6 @@
 package models.Pessoal;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import models.Identidades;
 
 public class Pessoas extends Identidades {
@@ -8,7 +8,7 @@ public class Pessoas extends Identidades {
     public Pessoas() {
     }
 
-    public Pessoas(int id, String nome, Date data) {
+    public Pessoas(int id, String nome, LocalDateTime data) {
         this.id = id;
         this.nome = nome;
         this.data = data;
@@ -25,7 +25,7 @@ public class Pessoas extends Identidades {
     }
 
     @Override
-    public Date getData() {
+    public LocalDateTime getData() {
         return this.data;
     }
 
@@ -40,7 +40,7 @@ public class Pessoas extends Identidades {
     }
 
     @Override
-    public void setData(Date data) {
+    public void setData(LocalDateTime data) {
         this.data = data;
     }
 }
