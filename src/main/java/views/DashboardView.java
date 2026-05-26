@@ -1,5 +1,6 @@
 package views;
 
+import components.ExpiracaoCard;
 import components.Titulo;
 import fabiorodrigues.bricks.components.Card;
 import fabiorodrigues.bricks.components.Column;
@@ -10,6 +11,7 @@ import fabiorodrigues.bricks.core.BricksApplication;
 import fabiorodrigues.bricks.core.BricksScene;
 import fabiorodrigues.bricks.core.Component;
 import fabiorodrigues.bricks.style.Modifier;
+import models.Expiracoes;
 import viewModels.DashboardViewModel;
 
 public class DashboardView extends BricksScene {
@@ -102,7 +104,20 @@ public class DashboardView extends BricksScene {
                     .children(
                         new Column()
                             .gap(0)
-                            .children(new Text("Proximas Expiracoes (30 dias)"), new LazyColumn<>())
+                            .children(
+                                new Text("Proximas Expiracoes (30 dias)"),
+                                new LazyColumn<Expiracoes>()
+                                    .gap(10)
+                                    .padding(0)
+                                    .items(vm.listExpiracoes.get())
+                                    .emptyState(new Text("Sem Expirações"))
+                                    .item(expiracao -> {
+                                        return new ExpiracaoCard(
+                                            expiracao.titulo(), expiracao.subTitulo(), expiracao
+                                                .dias(), expiracao.tipo()
+                                        ).render();
+                                    })
+                            )
                     ),
                 new Row()
                     .gap(8)
