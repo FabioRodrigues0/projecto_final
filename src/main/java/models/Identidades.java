@@ -1,6 +1,6 @@
 package models;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * SuperClasse identidade
@@ -13,7 +13,7 @@ public abstract class Identidades {
 
     protected int id;
     protected String nome;
-    protected Date data;
+    protected LocalDateTime data;
 
     /**
      * getters e setters
@@ -24,11 +24,11 @@ public abstract class Identidades {
 
     public abstract String getNome();
 
-    public abstract Date getData();
+    public abstract LocalDateTime getData();
 
     public abstract void setId(int id);
 
     public abstract void setNome(String nome);
 
-    public abstract void setData(Date data);
+    public abstract void setData(LocalDateTime data);
 }

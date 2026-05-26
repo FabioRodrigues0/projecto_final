@@ -1,6 +1,6 @@
 package models.Subscricao;
 
-import java.util.Date;
+import java.time.LocalDate;
 import models.Documentos;
 import models.TipoDocumentoSubscricao;
 import models.TipoPagamento;
@@ -10,15 +10,14 @@ public class DocumentosSubscricao extends Documentos {
     public TipoPagamento modeloPagamento;
     public double custo;
     public String plano;
-    public Date dataRenovacao;
+    public LocalDate dataRenovacao;
     public boolean ativa;
 
     public DocumentosSubscricao() {
     }
 
     public DocumentosSubscricao(
-                                String titulo, TipoDocumentoSubscricao tipo, TipoPagamento modeloPagamento, double custo, String plano, Date dataRenovacao, boolean ativa, String notas
-    ) {
+                                String titulo, TipoDocumentoSubscricao tipo, TipoPagamento modeloPagamento, double custo, String plano, LocalDate dataRenovacao, boolean ativa, String notas) {
         this.titulo = titulo;
         this.tipo = tipo;
         this.modeloPagamento = modeloPagamento;
@@ -79,11 +78,11 @@ public class DocumentosSubscricao extends Documentos {
         this.plano = plano;
     }
 
-    public Date getDataRenovacao() {
+    public LocalDate getDataRenovacao() {
         return this.dataRenovacao;
     }
 
-    public void setDataRenovacao(Date dataRenovacao) {
+    public void setDataRenovacao(LocalDate dataRenovacao) {
         this.dataRenovacao = dataRenovacao;
     }
 

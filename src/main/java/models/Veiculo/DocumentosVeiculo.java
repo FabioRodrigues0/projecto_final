@@ -1,12 +1,12 @@
 package models.Veiculo;
 
-import java.util.Date;
+import java.time.LocalDate;
 import models.Documentos;
 import models.TipoDocumentoVeiculo;
 
 public class DocumentosVeiculo extends Documentos {
     public TipoDocumentoVeiculo tipo;
-    public Date dataValidade;
+    public LocalDate dataValidade;
     public String seguradora;
     public String cobertura;
     public double valor;
@@ -14,7 +14,8 @@ public class DocumentosVeiculo extends Documentos {
     public DocumentosVeiculo() {
     }
 
-    public DocumentosVeiculo(String titulo, TipoDocumentoVeiculo tipo, Date dataValidade, String seguradora, String cobertura, double valor, String notas) {
+    public DocumentosVeiculo(
+                             String titulo, TipoDocumentoVeiculo tipo, LocalDate dataValidade, String seguradora, String cobertura, double valor, String notas) {
         this.titulo = titulo;
         this.tipo = tipo;
         this.dataValidade = dataValidade;
@@ -50,11 +51,11 @@ public class DocumentosVeiculo extends Documentos {
         this.tipo = tipo;
     }
 
-    public Date getDataValidade() {
+    public LocalDate getDataValidade() {
         return dataValidade;
     }
 
-    public void setDataValidade(Date dataValidade) {
+    public void setDataValidade(LocalDate dataValidade) {
         this.dataValidade = dataValidade;
     }
 
