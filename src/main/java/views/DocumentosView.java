@@ -22,6 +22,10 @@ public class DocumentosView extends BricksScene {
         return new Column()
             .gap(2)
             .modifier(new Modifier().padding(30, 0))
-            .children(new Titulo("Documentos", "Garantias, contratos, faturas e outros").render());
+            .children(
+                new Titulo(
+                    "Documentos", "Garantias, contratos, faturas e outros", "fas-plus", "Novo Documento"
+                ).render()
+            );
     }
 }

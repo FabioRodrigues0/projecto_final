@@ -22,6 +22,10 @@ public class VeiculosView extends BricksScene {
         return new Column()
             .gap(2)
             .modifier(new Modifier().padding(30, 0))
-            .children(new Titulo("Veiculos", "Seguro, IUC e inspeção de cada veículo").render());
+            .children(
+                new Titulo(
+                    "Veiculos", "Seguro, IUC e inspeção de cada veículo", "fas-plus", "Novo Veiculo"
+                ).render()
+            );
     }
 }

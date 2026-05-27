@@ -23,8 +23,9 @@ public class SubscricaoView extends BricksScene {
             .gap(2)
             .modifier(new Modifier().padding(30, 0))
             .children(
-                new Titulo("Subscrições Digitais", "Netflix, Spotify, software e serviços online")
-                    .render()
+                new Titulo(
+                    "Subscrições Digitais", "Netflix, Spotify, software e serviços online", "fas-plus", "Nova Subscricao"
+                ).render()
             );
     }
 }
