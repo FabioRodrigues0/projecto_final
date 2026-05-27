@@ -1,6 +1,7 @@
 import fabiorodrigues.bricks.components.*;
 import fabiorodrigues.bricks.core.*;
 import fabiorodrigues.bricks.style.BricksTheme;
+import fabiorodrigues.bricks.style.Modifier;
 import javafx.scene.paint.Color;
 import views.DashboardView;
 import views.DocumentosView;
@@ -88,6 +89,11 @@ public class App extends BricksApplication {
         return new AppLayout()
             .sidebar(
                 new Sidebar()
+                    .modifier(
+                        new Modifier()
+                            .background(BricksTheme.current().colorScheme().surface())
+                            .border(Color.rgb(225, 231, 239), 1)
+                    )
                     .logo("/logo_faculdade.png")
                     .item(
                         new SidebarItem(
@@ -110,7 +116,14 @@ public class App extends BricksApplication {
                         )
                     )
             )
-            .navbar(new Navbar())
+            .navbar(
+                new Navbar()
+                    .modifier(
+                        new Modifier()
+                            .background(BricksTheme.current().colorScheme().surface())
+                            .border(Color.rgb(225, 231, 239), 1)
+                    )
+            )
             .content(currentScene() != null ? currentScene().render() : new Text("A carregar..."));
     }
 
