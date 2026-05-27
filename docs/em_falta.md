@@ -3,14 +3,17 @@
 ## Dashboard (`views/DashboardView.java` + `viewModels/DashboardViewModel.java`)
 
 ### Visual
-- [ ] Botão **"Ativar Notificações"** no canto superior direito do título.
+- [x] Botão **"Ativar Notificações"** no canto superior direito do título.
 - [ ] **Ícones** dentro dos 4 cards de contadores (documento / carro / cartão / alerta).
 - [ ] Card **Subscrições**: subtexto com custo mensal total (ex.: `€83.44/mês`).
 - [ ] Card **Alertas**: subtexto com breakdown (ex.: `4 expirados · 1 urgentes`).
 - [ ] Ícone de aviso (⚠) ao lado de "Próximas Expirações (30 dias)".
 - [ ] Cards de atalho do fundo (Gerir Documentos / Veículos / Subscrições) precisam de ícone + estilo hover/clicável.
 - [ ] Sidebar: falta entrada **Calendário** (5º item).
-- [ ] Acertar paleta para a do alvo (sidebar branca, cards com sombra subtil, fundo `#f7f8fa`).
+- [ ] Acertar paleta para a do alvo 
+  - [x] sidebar branca, 
+  - [ ] cards com sombra subtil, 
+  - [x] fundo `#f7f8fa
 
 ### Backend / Queries
 - [ ] `carregarDocumentos()` faz `COUNT` em `pessoas` em vez de documentos — corrigir para somar `documentos_pessoal + documentos_veiculo + documentos_subscricao` ou só `documentos_pessoal` (decidir semântica).
@@ -29,7 +32,7 @@ Estado: só renderiza título. **Tudo o resto em falta.**
 - [x] `models/Pessoal/DocumentosPessoal.java`
 
 ### Visual
-- [ ] Botão **"+ Novo Documento"** no topo direito.
+- [x] Botão **"+ Novo Documento"** no topo direito.
 - [ ] **Tabs de filtro**: Todos / Garantia / Contrato / Fatura / Outro.
 - [ ] **Lista** de cards de documento com:
   - [ ] barra colorida lateral por categoria (vermelho expirado, amarelo breve, verde válido)
@@ -61,7 +64,7 @@ Estado: só renderiza título. **Tudo o resto em falta.**
 - [x] `models/Veiculo/Veiculos.java` + `DocumentosVeiculo.java`
 
 ### Visual
-- [ ] Botão **"+ Novo Veículo"** no topo direito.
+- [x] Botão **"+ Novo Veículo"** no topo direito.
 - [ ] **Grid de cards** (3 colunas) por veículo:
   - [ ] área de foto no topo (placeholder com ícone de carro se sem foto)
   - [ ] botão câmara para upload de foto
@@ -96,7 +99,7 @@ Estado: só renderiza título. **Tudo o resto em falta.**
 - [ ] Falta campo `plano` (string, ex.: "Premium 4K").
 
 ### Visual
-- [ ] Botão **"+ Nova Subscrição"** topo direito.
+- [x] Botão **"+ Nova Subscrição"** topo direito.
 - [ ] **Banner azul** no topo com:
   - [ ] "Custo Total Mensal" + `€XX.XX` grande
   - [ ] direita: "N subscrições ativas" + `€XX.XX/ano`
