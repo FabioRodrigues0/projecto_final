@@ -31,9 +31,11 @@ public class DashboardView extends BricksScene {
     public Component render() {
         return new Column()
             .gap(20)
-            .modifier(new Modifier().padding(30, 20))
+            .modifier(new Modifier().padding(30, 20).fillMaxHeight())
             .children(
-                new Titulo("Dashboard", "Visão geral dos seus documentos e subscrições").render(),
+                new Titulo(
+                    "Dashboard", "Visão geral dos seus documentos e subscrições", "fas-bell-slash", "Ativar Notificacoes"
+                ).render(),
                 new Row()
                     .gap(10)
                     .modifier(new Modifier().fillMaxWidth())
@@ -103,21 +105,29 @@ public class DashboardView extends BricksScene {
                                     )
                             )
                     ),
-                new Column()
-                    .gap(0)
+                new Card()
+                    .elevation(2)
+                    .modifier(new Modifier().fillMaxHeight())
                     .children(
-                        new Text("Proximas Expiracoes (30 dias)"),
-                        new LazyColumn<Expiracoes>()
-                            .gap(10)
-                            .padding(0)
-                            .items(vm.listExpiracoes.get())
-                            .emptyState(new Text("Sem Expirações"))
-                            .item(expiracao -> {
-                                return new ExpiracaoCard(
-                                    expiracao.titulo(), expiracao.subTitulo(), expiracao
-                                        .dias(), expiracao.tipo()
-                                ).render();
-                            })
+                        new Column()
+                            .gap(0)
+                            .modifier(new Modifier().padding(20).fillMaxHeight())
+                            .children(
+                                new Text("Proximas Expiracoes (30 dias)")
+                                    .modifier(new Modifier().bold().fontSize(18)),
+                                new LazyColumn<Expiracoes>()
+                                    .gap(10)
+                                    .padding(0)
+                                    .modifier(new Modifier().fillMaxHeight())
+                                    .items(vm.listExpiracoes.get())
+                                    .emptyState(new Text("Sem Expirações"))
+                                    .item(expiracao -> {
+                                        return new ExpiracaoCard(
+                                            expiracao.titulo(), expiracao.subTitulo(), expiracao
+                                                .dias(), expiracao.tipo()
+                                        ).render();
+                                    })
+                            )
                     ),
                 new Row()
                     .gap(8)
