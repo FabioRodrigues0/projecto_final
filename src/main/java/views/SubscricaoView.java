@@ -20,8 +20,8 @@ public class SubscricaoView extends BricksScene {
     @Override
     public Component render() {
         return new Column()
-            .gap(2)
-            .modifier(new Modifier().padding(30, 0))
+            .gap(20)
+            .modifier(new Modifier().padding(30, 20).fillMaxHeight())
             .children(
                 new Titulo(
                     "Subscrições Digitais", "Netflix, Spotify, software e serviços online", "fas-plus", "Nova Subscricao"

@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="AndroidProjectSystem">
-    <option name="providerId" value="com.android.tools.idea.GradleProjectSystem"/>
+    <option name="providerId" value="com.android.tools.idea.GradleProjectSystem" />
   </component>
   <component name="CompilerConfiguration">
     <wildcardResourcePatterns>
-      <entry name="!?*.class"/>
-      <entry name="!?*.scala"/>
-      <entry name="!?*.groovy"/>
-      <entry name="!?*.java"/>
+      <entry name="!?*.class" />
+      <entry name="!?*.scala" />
+      <entry name="!?*.groovy" />
+      <entry name="!?*.java" />
     </wildcardResourcePatterns>
-    <bytecodeTargetLevel target="21"/>
+    <bytecodeTargetLevel target="21" />
   </component>
-  <component name="ExternalStorageConfigurationManager" enabled="true"/>
-  <component name="GradleMigrationSettings" migrationVersion="1"/>
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="GradleMigrationSettings" migrationVersion="1" />
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
-        <option name="externalProjectPath" value="$PROJECT_DIR$"/>
-        <option name="gradleJvm" value="#JAVA_HOME"/>
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="gradleJvm" value="#JAVA_HOME" />
         <option name="modules">
           <set>
-            <option value="/var/home/fabio/Documents/projeto_final"/>
+            <option value="/var/home/fabio/Documents/projeto_final" />
           </set>
         </option>
       </GradleProjectSettings>
@@ -29,21 +29,167 @@
   </component>
   <component name="InspectionProjectProfileManager">
     <profile version="1.0">
-      <option name="myName" value="Project Default"/>
+      <option name="myName" value="Project Default" />
     </profile>
-    <version value="1.0"/>
+    <version value="1.0" />
   </component>
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/-666321368/projeto_final.iml" filepath="$PROJECT_DIR$/-666321368/projeto_final.iml"/>
-      <module fileurl="file://$PROJECT_DIR$/-666321368/projeto_final.main.iml" filepath="$PROJECT_DIR$/-666321368/projeto_final.main.iml"/>
-      <module fileurl="file://$PROJECT_DIR$/-666321368/projeto_final.test.iml" filepath="$PROJECT_DIR$/-666321368/projeto_final.test.iml"/>
-      <module fileurl="file://$PROJECT_DIR$/projeto_final.iml" filepath="$PROJECT_DIR$/projeto_final.iml"/>
+      <module fileurl="file://$PROJECT_DIR$/-666321368/Documents.projeto_final.iml" filepath="$PROJECT_DIR$/-666321368/Documents.projeto_final.iml" />
+      <module fileurl="file://$PROJECT_DIR$/projeto_final.iml" filepath="$PROJECT_DIR$/projeto_final.iml" />
+      <module fileurl="file://$PROJECT_DIR$/-666321368/projeto_final.main.iml" filepath="$PROJECT_DIR$/-666321368/projeto_final.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/-666321368/projeto_final.test.iml" filepath="$PROJECT_DIR$/-666321368/projeto_final.test.iml" />
     </modules>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_21" default="true" project-jdk-name="21" project-jdk-type="JavaSDK" assert-keyword="true" assert-jdk-15="true"/>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_21" default="true" project-jdk-name="21" project-jdk-type="JavaSDK" />
   <component name="VcsDirectoryMappings">
-    <mapping directory="" vcs="Git"/>
-    <mapping directory="/var/home/fabio/Documents/projeto_final" vcs="Git"/>
+    <mapping directory="" vcs="Git" />
+    <mapping directory="/var/home/fabio/Documents/projeto_final" vcs="Git" />
+  </component>
+  <component name="libraryTable">
+    <library name="Gradle: com.github.FabioRodrigues0:bricks:v0.6.3.5" type="java-imported" external-system-id="GRADLE">
+      <properties groupId="com.github.FabioRodrigues0" artifactId="bricks" version="v0.6.3.5" baseVersion="v0.6.3.5" />
+      <CLASSES>
+        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/com.github.FabioRodrigues0/bricks/v0.6.3.5/706f60abf24f2afd16d6aa1ca28d434df626b5a4/bricks-v0.6.3.5.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/com.github.FabioRodrigues0/bricks/v0.6.3.5/b485b670aeaebc8d3bc7ea198b6f3e3e53308c91/bricks-v0.6.3.5-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/com.github.FabioRodrigues0/bricks/v0.6.3.5/4f49ff3d148a4cacf398678d6d451717a1a0f0c0/bricks-v0.6.3.5-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: com.google.protobuf:protobuf-java:3.25.1" type="java-imported" external-system-id="GRADLE">
+      <properties groupId="com.google.protobuf" artifactId="protobuf-java" version="3.25.1" baseVersion="3.25.1" />
+      <CLASSES>
+        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/com.google.protobuf/protobuf-java/3.25.1/2933a5c3f022456d8842323fe0d7fb2d25a7e3c7/protobuf-java-3.25.1.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/com.google.protobuf/protobuf-java/3.25.1/3d5226c680745e4e7a7ba31a51e74c49cd8cb523/protobuf-java-3.25.1-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/com.google.protobuf/protobuf-java/3.25.1/4987d65351b8ab80c02e9bf8491b9285dba12a8f/protobuf-java-3.25.1-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: com.mysql:mysql-connector-j:8.3.0" type="java-imported" external-system-id="GRADLE">
+      <properties groupId="com.mysql" artifactId="mysql-connector-j" version="8.3.0" baseVersion="8.3.0" />
+      <CLASSES>
+        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/com.mysql/mysql-connector-j/8.3.0/1cc7fa5d61f4bbc113531a4ba6d85d41cf3d57e1/mysql-connector-j-8.3.0.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/com.mysql/mysql-connector-j/8.3.0/85b6b337ca48b465e59ca44c7880051d596e31a7/mysql-connector-j-8.3.0-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/com.mysql/mysql-connector-j/8.3.0/8d17dc45e67cc13840ad6ee05e31adabe65e804c/mysql-connector-j-8.3.0-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: org.kordamp.ikonli:ikonli-core:12.3.1" type="java-imported" external-system-id="GRADLE">
+      <properties groupId="org.kordamp.ikonli" artifactId="ikonli-core" version="12.3.1" baseVersion="12.3.1" />
+      <CLASSES>
+        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/org.kordamp.ikonli/ikonli-core/12.3.1/50c5658c1a5aeeec30320c6be71274d01f5fb869/ikonli-core-12.3.1.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/org.kordamp.ikonli/ikonli-core/12.3.1/8eabfcb4791aa90ff038cf299aa33e969d536b02/ikonli-core-12.3.1-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/org.kordamp.ikonli/ikonli-core/12.3.1/9ffba8c7ebe94447313bc51f2204f4035d1c037/ikonli-core-12.3.1-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: org.kordamp.ikonli:ikonli-fontawesome5-pack:12.3.1" type="java-imported" external-system-id="GRADLE">
+      <properties groupId="org.kordamp.ikonli" artifactId="ikonli-fontawesome5-pack" version="12.3.1" baseVersion="12.3.1" />
+      <CLASSES>
+        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/org.kordamp.ikonli/ikonli-fontawesome5-pack/12.3.1/ff0d7435a58fb4262abea6f586d4305aa2c1a3ac/ikonli-fontawesome5-pack-12.3.1.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/org.kordamp.ikonli/ikonli-fontawesome5-pack/12.3.1/cbe643fa85a5d17c6647e9a0364a2ac7d35b30ca/ikonli-fontawesome5-pack-12.3.1-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/org.kordamp.ikonli/ikonli-fontawesome5-pack/12.3.1/b25f27edbbee6ef026540eba2bcc27cde95d1989/ikonli-fontawesome5-pack-12.3.1-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: org.kordamp.ikonli:ikonli-javafx:12.3.1" type="java-imported" external-system-id="GRADLE">
+      <properties groupId="org.kordamp.ikonli" artifactId="ikonli-javafx" version="12.3.1" baseVersion="12.3.1" />
+      <CLASSES>
+        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/org.kordamp.ikonli/ikonli-javafx/12.3.1/6df78c8f23f4509f88b8e05c32da64b7dc494356/ikonli-javafx-12.3.1.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/org.kordamp.ikonli/ikonli-javafx/12.3.1/6cf54925cc922e90782ff21a4b25de27e1919c32/ikonli-javafx-12.3.1-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/org.kordamp.ikonli/ikonli-javafx/12.3.1/b86ebf097a552c72c4ea729703118e879e440042/ikonli-javafx-12.3.1-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: org.openjfx:javafx-base:linux:21.0.5" type="java-imported" external-system-id="GRADLE">
+      <properties groupId="org.openjfx" artifactId="javafx-base" version="21.0.5" baseVersion="21.0.5" />
+      <CLASSES>
+        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/org.openjfx/javafx-base/21.0.5/383ee2d573aee0b571125b19d56d95a8cbbda0f7/javafx-base-21.0.5-linux.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/org.openjfx/javafx-base/21.0.5/86f089113ed3e1519493119478b1b8704a3215e1/javafx-base-21.0.5-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/org.openjfx/javafx-base/21.0.5/1800011b97dff9f59dd9d0c52e806b74f47fc43e/javafx-base-21.0.5-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: org.openjfx:javafx-controls:linux:21.0.5" type="java-imported" external-system-id="GRADLE">
+      <properties groupId="org.openjfx" artifactId="javafx-controls" version="21.0.5" baseVersion="21.0.5" />
+      <CLASSES>
+        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/org.openjfx/javafx-controls/21.0.5/232f4a2460632c49eaebee40c4c1e08fd9627614/javafx-controls-21.0.5-linux.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/org.openjfx/javafx-controls/21.0.5/94c591e47f610b5c918fbe963b1708bb23ff00a2/javafx-controls-21.0.5-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/org.openjfx/javafx-controls/21.0.5/48378999442ac7217289911630a147d5c212b8f/javafx-controls-21.0.5-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: org.openjfx:javafx-graphics:linux:21.0.5" type="java-imported" external-system-id="GRADLE">
+      <properties groupId="org.openjfx" artifactId="javafx-graphics" version="21.0.5" baseVersion="21.0.5" />
+      <CLASSES>
+        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/org.openjfx/javafx-graphics/21.0.5/e0c5066f860dbcceb7e9ed821c97c031e180788b/javafx-graphics-21.0.5-linux.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/org.openjfx/javafx-graphics/21.0.5/98357c715d9b7ff59d6a57a71e34667877f96e04/javafx-graphics-21.0.5-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/org.openjfx/javafx-graphics/21.0.5/b8327323c2c02feae6fc8c256410d262cb701d41/javafx-graphics-21.0.5-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: org.postgresql:postgresql:42.7.3" type="java-imported" external-system-id="GRADLE">
+      <properties groupId="org.postgresql" artifactId="postgresql" version="42.7.3" baseVersion="42.7.3" />
+      <CLASSES>
+        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/org.postgresql/postgresql/42.7.3/24f3e9f7231428cd20eb4dde00dd3fce44e05464/postgresql-42.7.3.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/org.postgresql/postgresql/42.7.3/414ac3dfa9274a91ae14ac26040185c585fc3fc5/postgresql-42.7.3-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/org.postgresql/postgresql/42.7.3/d32df46259ce227fb10139bd707728f83354c1d1/postgresql-42.7.3-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: org.slf4j:slf4j-api:1.7.36" type="java-imported" external-system-id="GRADLE">
+      <properties groupId="org.slf4j" artifactId="slf4j-api" version="1.7.36" baseVersion="1.7.36" />
+      <CLASSES>
+        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.7.36/6c62681a2f655b49963a5983b8b0950a6120ae14/slf4j-api-1.7.36.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.7.36/f91b284d55365e88248e6493bc5959c8e81d5fa3/slf4j-api-1.7.36-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.7.36/ae9c1aae0033af915cfa75d850eb9d880f21a701/slf4j-api-1.7.36-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: org.xerial:sqlite-jdbc:3.45.1.0" type="java-imported" external-system-id="GRADLE">
+      <properties groupId="org.xerial" artifactId="sqlite-jdbc" version="3.45.1.0" baseVersion="3.45.1.0" />
+      <CLASSES>
+        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/org.xerial/sqlite-jdbc/3.45.1.0/7cd66c2793e4d9511f6da8fc6c621575171c2da1/sqlite-jdbc-3.45.1.0.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/org.xerial/sqlite-jdbc/3.45.1.0/42a8ed43693db358d5d860c9e8309507b4098016/sqlite-jdbc-3.45.1.0-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/org.xerial/sqlite-jdbc/3.45.1.0/a61c129637e41a7fd10262648a6ff356e8d01476/sqlite-jdbc-3.45.1.0-sources.jar!/" />
+      </SOURCES>
+    </library>
   </component>
 </project>

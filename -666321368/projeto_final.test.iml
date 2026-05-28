@@ -7,12 +7,15 @@
     <orderEntry type="jdk" jdkName="21 (mise)" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="projeto_final.main" />
+    <orderEntry type="library" name="Gradle: com.github.FabioRodrigues0:bricks:v0.6.3.5" level="project" />
     <orderEntry type="library" name="Gradle: org.xerial:sqlite-jdbc:3.45.1.0" level="project" />
     <orderEntry type="library" name="Gradle: org.openjfx:javafx-controls:linux:21.0.5" level="project" />
     <orderEntry type="library" name="Gradle: org.openjfx:javafx-graphics:linux:21.0.5" level="project" />
+    <orderEntry type="library" name="Gradle: org.kordamp.ikonli:ikonli-javafx:12.3.1" level="project" />
+    <orderEntry type="library" name="Gradle: org.kordamp.ikonli:ikonli-fontawesome5-pack:12.3.1" level="project" />
     <orderEntry type="library" name="Gradle: org.slf4j:slf4j-api:1.7.36" level="project" />
     <orderEntry type="library" name="Gradle: org.openjfx:javafx-base:linux:21.0.5" level="project" />
-    <orderEntry type="library" name="Gradle: com.github.FabioRodrigues0:bricks:f134b244" level="project" />
+    <orderEntry type="library" name="Gradle: org.kordamp.ikonli:ikonli-core:12.3.1" level="project" />
   </component>
   <component name="TestModuleProperties" production-module="projeto_final.main" />
 </module>
