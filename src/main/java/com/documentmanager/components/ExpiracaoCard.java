@@ -2,7 +2,6 @@ package components;
 
 import fabiorodrigues.bricks.components.Badge;
 import fabiorodrigues.bricks.components.BadgeVariant;
-import fabiorodrigues.bricks.components.Card;
 import fabiorodrigues.bricks.components.Column;
 import fabiorodrigues.bricks.components.Row;
 import fabiorodrigues.bricks.components.Spacer;
@@ -31,7 +30,7 @@ public class ExpiracaoCard {
         BadgeVariant variant = this.tipo == TipoExpiracoes.BREVE ? BadgeVariant.WARNING : BadgeVariant.DANGER;
 
         String texto = this.tipo == TipoExpiracoes.BREVE ? "Expira em Breve" : "Expirado";
-        return new Badge(texto).variant(variant);
+        return new Badge(texto).variant(variant).soft();
     }
 
     private Component renderTempo() {
@@ -47,28 +46,28 @@ public class ExpiracaoCard {
         return new Column()
             .gap(0)
             .modifier(new Modifier().fillMaxHeight().alignment(Pos.CENTER))
-            .children(new Text(texto).modifier(new Modifier().textColor(corTexto).bold()));
+            .children(new Text(texto).modifier(new Modifier().bold().textColor(corTexto).bold()));
     }
 
     public Component render() {
-        return new Card()
-            .padding(16)
-            .elevation(2)
+        return new Column()
+            .gap(5)
+            .modifier(new Modifier().border(Color.rgb(225, 231, 239), 1).borderRadius(10))
             .children(
-                new Column()
-                    .gap(5)
+                new Row()
+                    .gap(8)
+                    .modifier(new Modifier().alignment(Pos.CENTER).padding(10, 10))
                     .children(
-                        new Row()
-                            .gap(8)
-                            .modifier(new Modifier().alignment(Pos.CENTER))
+                        new Column()
+                            .gap(2)
                             .children(
-                                new Column()
-                                    .gap(2)
-                                    .children(new Text(this.titulo), new Text(this.subTitulo)),
-                                new Spacer(),
-                                renderTempo(),
-                                renderTipo()
-                            )
+                                new Text(this.titulo).modifier(new Modifier().bold()),
+                                new Text(this.subTitulo)
+                                    .modifier(new Modifier().textColor(Color.GRAY))
+                            ),
+                        new Spacer(),
+                        renderTempo(),
+                        renderTipo()
                     )
             );
     }

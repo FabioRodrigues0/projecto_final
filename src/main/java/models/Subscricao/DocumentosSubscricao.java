@@ -6,6 +6,7 @@ import models.TipoDocumentoSubscricao;
 import models.TipoPagamento;
 
 public class DocumentosSubscricao extends Documentos {
+    public int subscricaoId;
     public TipoDocumentoSubscricao tipo;
     public TipoPagamento modeloPagamento;
     public double custo;
@@ -14,18 +15,71 @@ public class DocumentosSubscricao extends Documentos {
     public boolean ativa;
 
     public DocumentosSubscricao() {
+        super();
     }
 
     public DocumentosSubscricao(
-                                String titulo, TipoDocumentoSubscricao tipo, TipoPagamento modeloPagamento, double custo, String plano, LocalDate dataRenovacao, boolean ativa, String notas) {
-        this.titulo = titulo;
+                                int id, int subscricaoId, String titulo, TipoDocumentoSubscricao tipo, TipoPagamento modeloPagamento, double custo, String plano, LocalDate dataRenovacao, boolean ativa, String notas) {
+        super(id, titulo, notas);
+        this.subscricaoId = subscricaoId;
         this.tipo = tipo;
         this.modeloPagamento = modeloPagamento;
         this.custo = custo;
         this.plano = plano;
         this.dataRenovacao = dataRenovacao;
         this.ativa = ativa;
-        this.notas = notas;
+    }
+
+    public DocumentosSubscricao(
+                                int id, int subscricaoId, String titulo, TipoDocumentoSubscricao tipo, TipoPagamento modeloPagamento, double custo, LocalDate dataRenovacao, boolean ativa, String notas) {
+        super(id, titulo, notas);
+        this.subscricaoId = subscricaoId;
+        this.tipo = tipo;
+        this.modeloPagamento = modeloPagamento;
+        this.custo = custo;
+        this.dataRenovacao = dataRenovacao;
+        this.ativa = ativa;
+    }
+
+    public DocumentosSubscricao(
+                                int id, int subscricaoId, String titulo, TipoDocumentoSubscricao tipo, TipoPagamento modeloPagamento, double custo, String plano, LocalDate dataRenovacao, boolean ativa) {
+        super(id, titulo);
+        this.subscricaoId = subscricaoId;
+        this.tipo = tipo;
+        this.modeloPagamento = modeloPagamento;
+        this.custo = custo;
+        this.plano = plano;
+        this.dataRenovacao = dataRenovacao;
+        this.ativa = ativa;
+    }
+
+    public DocumentosSubscricao(
+                                int id, int subscricaoId, String titulo, TipoDocumentoSubscricao tipo, TipoPagamento modeloPagamento, double custo, LocalDate dataRenovacao, boolean ativa) {
+        super(id, titulo);
+        this.subscricaoId = subscricaoId;
+        this.tipo = tipo;
+        this.modeloPagamento = modeloPagamento;
+        this.custo = custo;
+        this.dataRenovacao = dataRenovacao;
+        this.ativa = ativa;
+    }
+
+    @Override
+    public int getId() {
+        return this.id;
+    }
+
+    @Override
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getSubscricaoId() {
+        return this.subscricaoId;
+    }
+
+    public void setSubscricaoId(int subscricaoId) {
+        this.subscricaoId = subscricaoId;
     }
 
     @Override
@@ -34,14 +88,16 @@ public class DocumentosSubscricao extends Documentos {
     }
 
     @Override
-    public String getNotas() {
-        return this.notas;
-    }
-
     public void setTitulo(String titulo) {
         this.titulo = titulo;
     }
 
+    @Override
+    public String getNotas() {
+        return this.notas;
+    }
+
+    @Override
     public void setNotas(String notas) {
         this.notas = notas;
     }

@@ -5,9 +5,30 @@ import models.Documentos;
 import models.TipoDocumentoPessoal;
 
 public class DocumentosPessoal extends Documentos {
+    public int pessoaId;
     public TipoDocumentoPessoal tipo;
     public LocalDate dataEmissao;
     public LocalDate dataValidade;
+
+    public DocumentosPessoal() {
+        super();
+    }
+
+    public DocumentosPessoal(int id, String titulo, int pessoaId, TipoDocumentoPessoal tipo, LocalDate dataEmissao, LocalDate dataValidade) {
+        super(id, titulo);
+        this.pessoaId = pessoaId;
+        this.tipo = tipo;
+        this.dataEmissao = dataEmissao;
+        this.dataValidade = dataValidade;
+    }
+
+    public DocumentosPessoal(int id, int pessoaId, String titulo, TipoDocumentoPessoal tipo, LocalDate dataEmissao, LocalDate dataValidade, String notas) {
+        super(id, titulo, notas);
+        this.pessoaId = pessoaId;
+        this.tipo = tipo;
+        this.dataEmissao = dataEmissao;
+        this.dataValidade = dataValidade;
+    }
 
     @Override
     public String getTitulo() {
@@ -15,14 +36,16 @@ public class DocumentosPessoal extends Documentos {
     }
 
     @Override
-    public String getNotas() {
-        return this.notas;
-    }
-
     public void setTitulo(String titulo) {
         this.titulo = titulo;
     }
 
+    @Override
+    public String getNotas() {
+        return this.notas;
+    }
+
+    @Override
     public void setNotas(String notas) {
         this.notas = notas;
     }
@@ -49,5 +72,23 @@ public class DocumentosPessoal extends Documentos {
 
     public void setDataValidade(LocalDate dataValidade) {
         this.dataValidade = dataValidade;
+    }
+
+    @Override
+    public int getId() {
+        return this.id;
+    }
+
+    @Override
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getPessoaId() {
+        return this.pessoaId;
+    }
+
+    public void setPessoaId(int id) {
+        this.pessoaId = id;
     }
 }

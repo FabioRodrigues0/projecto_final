@@ -5,6 +5,7 @@ import models.Documentos;
 import models.TipoDocumentoVeiculo;
 
 public class DocumentosVeiculo extends Documentos {
+    public int veiculoId;
     public TipoDocumentoVeiculo tipo;
     public LocalDate dataValidade;
     public String seguradora;
@@ -12,17 +13,65 @@ public class DocumentosVeiculo extends Documentos {
     public double valor;
 
     public DocumentosVeiculo() {
+        super();
     }
 
     public DocumentosVeiculo(
-                             String titulo, TipoDocumentoVeiculo tipo, LocalDate dataValidade, String seguradora, String cobertura, double valor, String notas) {
-        this.titulo = titulo;
+                             int id, int veiculoId, String titulo, TipoDocumentoVeiculo tipo, LocalDate dataValidade, String seguradora, String cobertura, double valor, String notas) {
+        super(id, titulo, notas);
+        this.veiculoId = veiculoId;
         this.tipo = tipo;
         this.dataValidade = dataValidade;
         this.seguradora = seguradora;
         this.cobertura = cobertura;
         this.valor = valor;
-        this.notas = notas;
+    }
+
+    public DocumentosVeiculo(
+                             int id, int veiculoId, String titulo, TipoDocumentoVeiculo tipo, LocalDate dataValidade, String seguradora, String cobertura, double valor) {
+        super(id, titulo);
+        this.veiculoId = veiculoId;
+        this.tipo = tipo;
+        this.dataValidade = dataValidade;
+        this.seguradora = seguradora;
+        this.cobertura = cobertura;
+        this.valor = valor;
+    }
+
+    public DocumentosVeiculo(
+                             int id, int veiculoId, String titulo, TipoDocumentoVeiculo tipo, LocalDate dataValidade, double valor, String notas) {
+        super(id, titulo, notas);
+        this.veiculoId = veiculoId;
+        this.tipo = tipo;
+        this.dataValidade = dataValidade;
+        this.valor = valor;
+    }
+
+    public DocumentosVeiculo(
+                             int id, int veiculoId, String titulo, TipoDocumentoVeiculo tipo, LocalDate dataValidade, double valor) {
+        super(id, titulo);
+        this.veiculoId = veiculoId;
+        this.tipo = tipo;
+        this.dataValidade = dataValidade;
+        this.valor = valor;
+    }
+
+    @Override
+    public int getId() {
+        return this.id;
+    }
+
+    @Override
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getVeiculoId() {
+        return this.veiculoId;
+    }
+
+    public void setVeiculoId(int veiculoId) {
+        this.veiculoId = veiculoId;
     }
 
     @Override
@@ -31,20 +80,22 @@ public class DocumentosVeiculo extends Documentos {
     }
 
     @Override
-    public String getNotas() {
-        return this.notas;
-    }
-
     public void setTitulo(String titulo) {
         this.titulo = titulo;
     }
 
+    @Override
+    public String getNotas() {
+        return this.notas;
+    }
+
+    @Override
     public void setNotas(String notas) {
         this.notas = notas;
     }
 
     public TipoDocumentoVeiculo getTipo() {
-        return tipo;
+        return this.tipo;
     }
 
     public void setTipo(TipoDocumentoVeiculo tipo) {
@@ -52,7 +103,7 @@ public class DocumentosVeiculo extends Documentos {
     }
 
     public LocalDate getDataValidade() {
-        return dataValidade;
+        return this.dataValidade;
     }
 
     public void setDataValidade(LocalDate dataValidade) {
@@ -60,7 +111,7 @@ public class DocumentosVeiculo extends Documentos {
     }
 
     public String getSeguradora() {
-        return seguradora;
+        return this.seguradora;
     }
 
     public void setSeguradora(String seguradora) {
@@ -68,7 +119,7 @@ public class DocumentosVeiculo extends Documentos {
     }
 
     public String getCobertura() {
-        return cobertura;
+        return this.cobertura;
     }
 
     public void setCobertura(String cobertura) {
@@ -76,7 +127,7 @@ public class DocumentosVeiculo extends Documentos {
     }
 
     public double getValor() {
-        return valor;
+        return this.valor;
     }
 
     public void setValor(double valor) {

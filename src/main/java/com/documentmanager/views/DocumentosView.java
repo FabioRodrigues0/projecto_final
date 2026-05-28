@@ -20,8 +20,12 @@ public class DocumentosView extends BricksScene {
     @Override
     public Component render() {
         return new Column()
-            .gap(2)
-            .modifier(new Modifier().padding(30, 0))
-            .children(new Titulo("Documentos", "Garantias, contratos, faturas e outros").render());
+            .gap(20)
+            .modifier(new Modifier().padding(30, 20).fillMaxHeight())
+            .children(
+                new Titulo(
+                    "Documentos", "Garantias, contratos, faturas e outros", "fas-plus", "Novo Documento"
+                ).render()
+            );
     }
 }

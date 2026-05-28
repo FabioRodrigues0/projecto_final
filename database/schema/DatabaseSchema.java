@@ -136,6 +136,7 @@ public class DatabaseSchema {
             .column("plano", "TEXT")
             .column("data_renovacao", "TEXT NOT NULL")
             .column("ativa", ATIVA_BOOLEAN)
+            .column("notas", "TEXT")
             .column("FOREIGN KEY (subscricao_id)", FK_SUBSCRICAO)
             .execute();
     }
