@@ -65,23 +65,25 @@ Estado: só renderiza título. **Tudo o resto em falta.**
 
 ### Visual
 - [x] Botão **"+ Novo Veículo"** no topo direito.
-- [ ] **Grid de cards** (3 colunas) por veículo:
-  - [ ] área de foto no topo (placeholder com ícone de carro se sem foto)
+- [x] **Grid de cards** (3 colunas) por veículo:
+  - [x] área de foto no topo (placeholder com ícone de carro se sem foto)
   - [ ] botão câmara para upload de foto
-  - [ ] nome (marca + modelo)
-  - [ ] linha "Ano · Matrícula"
-  - [ ] botão **"Ver Documentos →"** (abre detalhe / lista docs do veículo)
+  - [x] nome (marca + modelo)
+  - [x] linha "Ano · Matrícula"
+  - [x] botão **"Ver Documentos →"** (abre detalhe / lista docs do veículo)
   - [ ] botões editar + apagar
+        - [ ] logica apagar
+        - [ ] logica editar
 - [ ] **Modal "Novo Veículo"** com: Marca, Modelo, Ano, Matrícula, Notas.
-- [ ] Vista de detalhe / sub-página com documentos do veículo (seguro, IUC, inspeção).
+- [x] Vista de detalhe / sub-página com documentos do veículo (seguro, IUC, inspeção).
 - [ ] Estado vazio.
 
 ### Backend / Queries
 - [ ] `VeiculosViewModel` está vazio — adicionar:
-  - [ ] `StateList<Veiculos> listVeiculos`
-  - [ ] `carregarVeiculos()` — SELECT em `veiculos`.
+  - [x] `StateList<Veiculos> listVeiculos`
+  - [x] `carregarVeiculos()` — SELECT em `veiculos`.
   - [ ] `criar / atualizar / apagar`.
-  - [ ] `carregarDocumentosVeiculo(int veiculoId)` para sub-vista.
+  - [x] `carregarDocumentosVeiculo(int veiculoId)` para sub-vista.
   - [ ] upload de foto (guardar path/blob, decidir estratégia).
 - [ ] Veiculos só tem campo `nome` — separar em `marca` + `modelo` (model + schema) ou parse string.
 
