@@ -39,7 +39,7 @@ public class Titulo {
                 new Spacer(),
                 new IconButton(this.iconButton, this.textButton)
                     .color(BricksTheme.current().colorScheme().onPrimary())
-                    .modifier(new Modifier().height(30))
+                    .modifier(new Modifier().height(35).padding(0))
             );
     }
 }
