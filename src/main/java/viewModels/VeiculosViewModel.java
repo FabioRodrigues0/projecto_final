@@ -17,7 +17,9 @@ public class VeiculosViewModel extends BricksViewModel implements IViewModel<Vei
         listVeiculos.addAll(ver());
     }
 
-    public void carregarDocumentos() {
+    public void carregarDocumentos(int id) {
+
+
         listDocumentos.clear();
         listDocumentos.addAll(verDocumentos());
     }
@@ -26,7 +28,7 @@ public class VeiculosViewModel extends BricksViewModel implements IViewModel<Vei
     public List<Veiculos> ver() {
         return DB
             .query()
-            .select("id", "nome", "data", "ano", "matricula", "foto")
+            .select("id", "nome", "ano", "matricula", "foto", "data")
             .from("veiculos")
             .execute(Veiculos.class);
     }
@@ -81,7 +83,7 @@ public class VeiculosViewModel extends BricksViewModel implements IViewModel<Vei
             .value("veiculo_id", doc.getVeiculoId())
             .value("titulo", doc.getTitulo())
             .value("tipo", doc.getTipo())
-            .value("data_validade", doc.getDataValidade())
+            .value("data_validade", DateValues.atStartOfDay(doc.getDataValidade()))
             .value("valor", doc.getValor())
             .when(doc.getSeguradora() != null, q -> q.value("seguradora", doc.getSeguradora()))
             .when(doc.getCobertura() != null, q -> q.value("cobertura", doc.getCobertura()))
