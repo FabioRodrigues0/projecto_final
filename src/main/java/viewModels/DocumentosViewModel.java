@@ -1,12 +1,19 @@
 package viewModels;
 
 import fabiorodrigues.bricks.core.BricksViewModel;
+import fabiorodrigues.bricks.core.StateList;
 import fabiorodrigues.bricks.data.DB;
 import java.util.List;
 import models.Pessoal.DocumentosPessoal;
 import models.Pessoal.Pessoas;
 
 public class DocumentosViewModel extends BricksViewModel implements IViewModel<Pessoas>, IViewModelDocumentos<DocumentosPessoal> {
+    public final StateList<DocumentosPessoal> listDocumentos = stateList(List.of());
+
+    public void carregarDocumentos() {
+        listDocumentos.clear();
+        listDocumentos.addAll(verDocumentos());
+    }
 
     @Override
     public List<Pessoas> ver() {
@@ -50,8 +57,8 @@ public class DocumentosViewModel extends BricksViewModel implements IViewModel<P
             .value("pessoa_id", doc.getPessoaId())
             .value("titulo", doc.getTitulo())
             .value("tipo", doc.getTipo())
-            .value("data_emissao", doc.getDataEmissao())
-            .value("data_validade", doc.getDataValidade())
+            .value("data_emissao", DateValues.atStartOfDay(doc.getDataEmissao()))
+            .value("data_validade", DateValues.atStartOfDay(doc.getDataValidade()))
             .when(doc.getNotas() != null, q -> q.value("notas", doc.getNotas()))
             .execute();
     }

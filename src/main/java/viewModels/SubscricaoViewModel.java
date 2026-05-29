@@ -68,7 +68,7 @@ public class SubscricaoViewModel extends BricksViewModel implements IViewModel<S
             .value("tipo", doc.getTipo())
             .value("modelo_pagamento", doc.getModeloPagamento())
             .value("custo", doc.getCusto())
-            .value("data_renovacao", doc.getDataRenovacao())
+            .value("data_renovacao", DateValues.atStartOfDay(doc.getDataRenovacao()))
             .value("ativa", doc.isAtiva())
             .when(doc.getPlano() != null, q -> q.value("plano", doc.getPlano()))
             .when(doc.getNotas() != null, q -> q.value("notas", doc.getNotas()))

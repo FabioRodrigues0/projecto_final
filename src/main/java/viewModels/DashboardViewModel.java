@@ -107,7 +107,7 @@ public class DashboardViewModel extends BricksViewModel {
     }
 
     private ExpiracaoCalculada toExpiracaoCalculada(ExpiracaoRow row) {
-        LocalDate dataExpiracao = LocalDate.parse(row.dataExpiracao());
+        LocalDate dataExpiracao = LocalDate.parse(row.dataExpiracao().substring(0, 10));
         int diasReais = (int) ChronoUnit.DAYS.between(LocalDate.now(), dataExpiracao);
         TipoExpiracoes tipo = diasReais < 0 ? TipoExpiracoes.EXPIRADO : TipoExpiracoes.BREVE;
 

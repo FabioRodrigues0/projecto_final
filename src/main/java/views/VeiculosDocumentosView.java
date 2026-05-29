@@ -10,29 +10,40 @@ import fabiorodrigues.bricks.core.BricksApplication;
 import fabiorodrigues.bricks.core.BricksScene;
 import fabiorodrigues.bricks.core.Component;
 import fabiorodrigues.bricks.style.Modifier;
-import models.Pessoal.DocumentosPessoal;
-import viewModels.DocumentosViewModel;
+import models.Veiculo.DocumentosVeiculo;
+import viewModels.VeiculosDocumentosViewModel;
 
-public class DocumentosView extends BricksScene {
+public class VeiculosDocumentosView extends BricksScene {
+    private final VeiculosDocumentosViewModel vm = new VeiculosDocumentosViewModel();
+    private final int id;
+    private final String nome;
+    private final int ano;
+    private final String matricula;
+    private final String foto;
 
-    private final DocumentosViewModel vm = new DocumentosViewModel();
-
-    public DocumentosView(BricksApplication app) {
+    public VeiculosDocumentosView(BricksApplication app, int id, String nome, int ano, String matricula, String foto) {
         super(app);
         use(this.vm);
-        this.vm.carregarDocumentos();
+        this.vm.carregarDocumentos(id);
+        this.id = id;
+        this.nome = nome;
+        this.ano = ano;
+        this.matricula = matricula;
+        this.foto = foto;
     }
 
     @Override
     public Component render() {
         return new Column()
             .gap(20)
-            .modifier(new Modifier().padding(30, 20).fillMaxHeight())
+            .modifier(new Modifier().padding(30, 20).fillMaxHeight().fillMaxWidth())
             .children(
                 new Titulo(
-                    "Documentos", "Garantias, contratos, faturas e outros", "fas-plus", "Novo Documento"
+                    this.nome, String
+                        .valueOf(this.ano) + "." + this.matricula, "fas-plus", "Adicionar"
                 ).render(),
-                new LazyColumn<DocumentosPessoal>()
+
+                new LazyColumn<DocumentosVeiculo>()
                     .gap(10)
                     .columns(3)
                     .modifier(new Modifier().fillMaxWidth().fillMaxHeight())
@@ -40,5 +51,6 @@ public class DocumentosView extends BricksScene {
                     .items(this.vm.listDocumentos.get())
                     .item(documento -> new DocumentoCard(documento).render())
             );
+
     }
 }

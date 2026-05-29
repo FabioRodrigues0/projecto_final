@@ -1,6 +1,7 @@
 package views;
 
 import components.Titulo;
+import components.VeiculosCard;
 import fabiorodrigues.bricks.components.Card;
 import fabiorodrigues.bricks.components.Column;
 import fabiorodrigues.bricks.components.LazyColumn;
@@ -9,6 +10,7 @@ import fabiorodrigues.bricks.core.BricksApplication;
 import fabiorodrigues.bricks.core.BricksScene;
 import fabiorodrigues.bricks.core.Component;
 import fabiorodrigues.bricks.style.Modifier;
+import javafx.scene.Group;
 import models.Veiculo.Veiculos;
 import viewModels.VeiculosViewModel;
 
@@ -32,12 +34,16 @@ public class VeiculosView extends BricksScene {
                     "Veiculos", "Seguro, IUC e inspeção de cada veículo", "fas-plus", "Novo Veiculo"
                 ).render(),
 
-                new Column()
-                    .gap(8)
-                    .children(
-                        new LazyColumn<Veiculos>()
-                            .emptyState(new Card().elevation(2).children(new Text("Sem veiculos")))
-                            .items(this.vm.listVeiculos.get())
+                new LazyColumn<Veiculos>()
+                    .gap(10)
+                    .columns(3)
+                    .modifier(new Modifier().fillMaxWidth().fillMaxHeight())
+                    .emptyState(new Card().elevation(2).children(new Text("Sem veiculos")))
+                    .items(this.vm.listVeiculos.get())
+                    .item(
+                        veiculo -> () -> new Group(
+                            new VeiculosCard(this.app, veiculo).render().render()
+                        )
                     )
             );
     }
