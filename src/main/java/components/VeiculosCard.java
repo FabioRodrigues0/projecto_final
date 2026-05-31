@@ -1,8 +1,10 @@
 package components;
 
+import fabiorodrigues.bricks.components.Box;
 import fabiorodrigues.bricks.components.Button;
 import fabiorodrigues.bricks.components.Card;
 import fabiorodrigues.bricks.components.Column;
+import fabiorodrigues.bricks.components.Icon;
 import fabiorodrigues.bricks.components.IconButton;
 import fabiorodrigues.bricks.components.Row;
 import fabiorodrigues.bricks.components.Spacer;
@@ -10,6 +12,7 @@ import fabiorodrigues.bricks.components.Text;
 import fabiorodrigues.bricks.core.BricksApplication;
 import fabiorodrigues.bricks.core.Component;
 import fabiorodrigues.bricks.style.Modifier;
+import java.io.File;
 import javafx.geometry.Pos;
 import javafx.scene.paint.Color;
 import models.Veiculo.Veiculos;
@@ -32,14 +35,25 @@ public class VeiculosCard {
         this.foto = veiculo.getFoto();
     }
 
+
     public Component render() {
-        boolean hasFoto = this.foto != null && !this.foto.isBlank();
-        String imagePath = hasFoto ? this.foto : "/car.png";
+        String imagePath = resolveImagePath();
 
         return new Card()
             .elevation(2)
             .cornerRadius(10)
             .coverImage(imagePath, 160)
+            .coverPlaceholder(
+                new Box()
+                    .modifier(
+                        new Modifier()
+                            .background(Color.LIGHTGRAY)
+                            .alignment(Pos.CENTER)
+                            .fillMaxWidth()
+                            .fillMaxHeight()
+                    )
+                    .children(new Icon("fas-car-side").size(48))
+            )
             .width(380)
             .padding(15)
             .children(
@@ -84,5 +98,18 @@ public class VeiculosCard {
                             )
                     )
             );
+    }
+
+    private String resolveImagePath() {
+        if (this.foto == null || this.foto.isBlank()) {
+            return "missing-cover-image";
+        }
+
+        File file = new File(this.foto);
+        if (file.exists() && file.isFile()) {
+            return file.toURI().toString();
+        }
+
+        return this.foto;
     }
 }
