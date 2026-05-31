@@ -4,7 +4,7 @@ import components.DocumentoCard;
 import components.Titulo;
 import fabiorodrigues.bricks.components.Card;
 import fabiorodrigues.bricks.components.Column;
-import fabiorodrigues.bricks.components.LazyColumn;
+import fabiorodrigues.bricks.components.ItemsColumn;
 import fabiorodrigues.bricks.components.Text;
 import fabiorodrigues.bricks.core.BricksApplication;
 import fabiorodrigues.bricks.core.BricksScene;
@@ -32,12 +32,12 @@ public class DocumentosView extends BricksScene {
                 new Titulo(
                     "Documentos", "Garantias, contratos, faturas e outros", "fas-plus", "Novo Documento"
                 ).render(),
-                new LazyColumn<DocumentosPessoal>()
+                new ItemsColumn<DocumentosPessoal>()
                     .gap(10)
                     .columns(3)
                     .modifier(new Modifier().fillMaxWidth().fillMaxHeight())
                     .emptyState(new Card().elevation(2).children(new Text("Sem Documentos")))
-                    .items(this.vm.listDocumentos.get())
+                    .items(this.vm.listDocumentos)
                     .item(documento -> new DocumentoCard(documento).render())
             );
     }
