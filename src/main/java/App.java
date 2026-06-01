@@ -94,7 +94,7 @@ public class App extends BricksApplication {
                             .background(BricksTheme.current().colorScheme().surface())
                             .border(Color.rgb(225, 231, 239), 1)
                     )
-                    .logo("/logo_faculdade.png")
+                    .logo("/logo_lifebinder.png")
                     .item(
                         new SidebarItem(
                             "fas-chart-line", "Dashboard", () -> navigateTo(new DashboardView(this))
