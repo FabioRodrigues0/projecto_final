@@ -17,6 +17,7 @@ import javafx.geometry.Pos;
 import javafx.scene.paint.Color;
 import models.Pessoal.DocumentosPessoal;
 import models.Veiculo.DocumentosVeiculo;
+import models.calendario.ItemCalendario;
 
 public class DocumentoCard {
     private final String titulo;
@@ -39,6 +40,10 @@ public class DocumentoCard {
         this.titulo = titulo;
         this.tipoDocumento = tipoDocumento;
         this.dataValidade = dataValidade;
+    }
+
+    public DocumentoCard(ItemCalendario item) {
+        this(item.getTitulo(), item.getCategoria(), item.getData());
     }
 
     private static String formatTipo(Enum<?> tipo) {

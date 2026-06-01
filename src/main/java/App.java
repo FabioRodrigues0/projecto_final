@@ -1,8 +1,16 @@
-import fabiorodrigues.bricks.components.*;
-import fabiorodrigues.bricks.core.*;
+import fabiorodrigues.bricks.components.AppLayout;
+import fabiorodrigues.bricks.components.Navbar;
+import fabiorodrigues.bricks.components.Sidebar;
+import fabiorodrigues.bricks.components.SidebarItem;
+import fabiorodrigues.bricks.components.Text;
+import fabiorodrigues.bricks.core.BricksApplication;
+import fabiorodrigues.bricks.core.Component;
+import fabiorodrigues.bricks.core.Effect;
+import fabiorodrigues.bricks.core.State;
 import fabiorodrigues.bricks.style.BricksTheme;
 import fabiorodrigues.bricks.style.Modifier;
 import javafx.scene.paint.Color;
+import views.CalendarioView;
 import views.DashboardView;
 import views.DocumentosView;
 import views.SubscricaoView;
@@ -113,6 +121,11 @@ public class App extends BricksApplication {
                     .item(
                         new SidebarItem(
                             "fas-star", "Subscricoes", () -> navigateTo(new SubscricaoView(this))
+                        )
+                    )
+                    .item(
+                        new SidebarItem(
+                            "fas-calendar", "Calendário", () -> navigateTo(new CalendarioView(this))
                         )
                     )
             )
