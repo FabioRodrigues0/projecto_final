@@ -129,10 +129,10 @@ Estado: só renderiza título. **Tudo o resto em falta.**
 ## Calendário (NÃO EXISTE)
 
 Sidebar do alvo tem entrada "Calendário" mas:
-- [ ] `views/CalendarioView.java` não existe.
-- [ ] `viewModels/CalendarioViewModel.java` não existe.
-- [ ] Definir scope: vista mensal agregando expirações de docs + veículos + subscrições?
-- [ ] Adicionar rota na sidebar (`App.java`).
+- [x] `views/CalendarioView.java` não existe.
+- [x] `viewModels/CalendarioViewModel.java` não existe.
+- [x] Definir scope: vista mensal agregando expirações de docs + veículos + subscrições?
+- [x] Adicionar rota na sidebar (`App.java`).
 
 ---
 
