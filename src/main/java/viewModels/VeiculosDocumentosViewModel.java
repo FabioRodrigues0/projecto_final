@@ -38,19 +38,7 @@ public class VeiculosDocumentosViewModel extends BricksViewModel implements IVie
     }
 
     @Override
-    public void novoDocumento(DocumentosVeiculo doc) {
-        DB
-            .query()
-            .insertInto("documentos_veiculo")
-            .value("veiculo_id", doc.getVeiculoId())
-            .value("titulo", doc.getTitulo())
-            .value("tipo", doc.getTipo())
-            .value("data_validade", DateValues.atStartOfDay(doc.getDataValidade()))
-            .value("valor", doc.getValor())
-            .when(doc.getSeguradora() != null, q -> q.value("seguradora", doc.getSeguradora()))
-            .when(doc.getCobertura() != null, q -> q.value("cobertura", doc.getCobertura()))
-            .when(doc.getNotas() != null, q -> q.value("notas", doc.getNotas()))
-            .execute();
+    public void novoDocumento(int veiculoId) {
     }
 
     @Override

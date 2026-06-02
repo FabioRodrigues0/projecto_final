@@ -1,12 +1,27 @@
 package viewModels;
 
 import fabiorodrigues.bricks.core.BricksViewModel;
+import fabiorodrigues.bricks.core.State;
 import fabiorodrigues.bricks.data.DB;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import models.Subscricao.DocumentosSubscricao;
 import models.Subscricao.Subscricoes;
+import models.TipoDocumentoSubscricao;
 
 public class SubscricaoViewModel extends BricksViewModel implements IViewModel<Subscricoes>, IViewModelDocumentos<DocumentosSubscricao> {
+    // SUBSCRICOES
+    public final State<String> nomeSubscricao = state("");
+    // DOCUMENTOS
+    public final State<String> servicoSubscricao = state("");
+    public final State<TipoDocumentoSubscricao> categoriaSubscricao = state(
+        TipoDocumentoSubscricao.NONE
+    );
+    public final State<Double> custoSubscricao = state(null);
+    public final State<String> planoSubscricao = state("");
+    public final State<LocalDate> dataRenovacaoSubscricao = state(null);
+    public final State<Boolean> estadoSubscricao = state(true);
 
     @Override
     public List<Subscricoes> ver() {
@@ -18,13 +33,12 @@ public class SubscricaoViewModel extends BricksViewModel implements IViewModel<S
     }
 
     @Override
-    public void novo(Subscricoes identidade) {
+    public void novo() {
         DB
             .query()
             .insertInto("subscricoes")
-            .value("nome", identidade.getNome())
-            .value("data", identidade.getData())
-            .when(identidade.getLogo() != null, q -> q.value("logo", identidade.getLogo()))
+            .value("nome", nomeSubscricao.get())
+            .value("data", DateValues.timestamp(LocalDateTime.now()))
             .execute();
     }
 
@@ -59,19 +73,17 @@ public class SubscricaoViewModel extends BricksViewModel implements IViewModel<S
     }
 
     @Override
-    public void novoDocumento(DocumentosSubscricao doc) {
+    public void novoDocumento(int subscricaoId) {
         DB
             .query()
             .insertInto("documentos_subscricao")
-            .value("subscricao_id", doc.getSubscricaoId())
-            .value("titulo", doc.getTitulo())
-            .value("tipo", doc.getTipo())
-            .value("modelo_pagamento", doc.getModeloPagamento())
-            .value("custo", doc.getCusto())
-            .value("data_renovacao", DateValues.atStartOfDay(doc.getDataRenovacao()))
-            .value("ativa", doc.isAtiva())
-            .when(doc.getPlano() != null, q -> q.value("plano", doc.getPlano()))
-            .when(doc.getNotas() != null, q -> q.value("notas", doc.getNotas()))
+            .value("subscricao_id", subscricaoId)
+            .value("titulo", servicoSubscricao.get())
+            .value("tipo", categoriaSubscricao.get())
+            .value("custo", custoSubscricao.get())
+            .value("data_renovacao", DateValues.atStartOfDay(dataRenovacaoSubscricao.get()))
+            .value("ativa", estadoSubscricao.get())
+            .when(planoSubscricao.get() != "", q -> q.value("plano", planoSubscricao.get()))
             .execute();
     }
 

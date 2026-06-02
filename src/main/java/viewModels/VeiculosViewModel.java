@@ -4,6 +4,7 @@ import fabiorodrigues.bricks.core.BricksViewModel;
 import fabiorodrigues.bricks.core.State;
 import fabiorodrigues.bricks.core.StateList;
 import fabiorodrigues.bricks.data.DB;
+import java.time.LocalDateTime;
 import java.util.List;
 import models.Veiculo.DocumentosVeiculo;
 import models.Veiculo.Veiculos;
@@ -14,7 +15,7 @@ public class VeiculosViewModel extends BricksViewModel implements IViewModel<Vei
     public final StateList<DocumentosVeiculo> listDocumentos = stateList(List.of());
     public final State<String> marcaVeiculo = state("");
     public final State<String> modeloVeiculo = state("");
-    public final State<String> anoVeiculo = state("");
+    public final State<Integer> anoVeiculo = state(null);
     public final State<String> matriculaVeiculo = state("");
     public final State<String> notasVeiculo = state("");
 
@@ -24,7 +25,6 @@ public class VeiculosViewModel extends BricksViewModel implements IViewModel<Vei
     }
 
     public void carregarDocumentos(int id) {
-
 
         listDocumentos.clear();
         listDocumentos.addAll(verDocumentos());
@@ -40,15 +40,14 @@ public class VeiculosViewModel extends BricksViewModel implements IViewModel<Vei
     }
 
     @Override
-    public void novo(Veiculos identidade) {
+    public void novo() {
         DB
             .query()
             .insertInto("veiculos")
-            .value("nome", identidade.getNome())
-            .value("data", identidade.getData())
-            .value("ano", identidade.getAno())
-            .value("matricula", identidade.getMatricula())
-            .when(identidade.getFoto() != null, q -> q.value("foto", identidade.getFoto()))
+            .value("nome", marcaVeiculo.get() + " " + modeloVeiculo.get())
+            .value("data", DateValues.timestamp(LocalDateTime.now()))
+            .value("ano", anoVeiculo.get())
+            .value("matricula", matriculaVeiculo.get())
             .execute();
     }
 
@@ -82,19 +81,7 @@ public class VeiculosViewModel extends BricksViewModel implements IViewModel<Vei
     }
 
     @Override
-    public void novoDocumento(DocumentosVeiculo doc) {
-        DB
-            .query()
-            .insertInto("documentos_veiculo")
-            .value("veiculo_id", doc.getVeiculoId())
-            .value("titulo", doc.getTitulo())
-            .value("tipo", doc.getTipo())
-            .value("data_validade", DateValues.atStartOfDay(doc.getDataValidade()))
-            .value("valor", doc.getValor())
-            .when(doc.getSeguradora() != null, q -> q.value("seguradora", doc.getSeguradora()))
-            .when(doc.getCobertura() != null, q -> q.value("cobertura", doc.getCobertura()))
-            .when(doc.getNotas() != null, q -> q.value("notas", doc.getNotas()))
-            .execute();
+    public void novoDocumento(int veiculoId) {
     }
 
     @Override

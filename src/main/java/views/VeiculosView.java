@@ -55,18 +55,26 @@ public class VeiculosView extends BricksScene {
                                 .modifier(new Modifier().fillMaxWidth())
                                 .children(
                                     new TextField()
+                                        .number()
                                         .modifier(new Modifier().fillMaxWidth())
-                                        .inputFilter("^\\d{4}$")
                                         .label("Ano")
                                         .bindTo(vm.anoVeiculo),
                                     new TextField()
                                         .modifier(new Modifier().fillMaxWidth())
-                                        .inputFilter("^[A-Z0-9]{2}-[A-Z0-9]{2}-[A-Z0-9]{2}$")
                                         .label("Matricula")
                                         .bindTo(vm.matriculaVeiculo)
                                 ),
                             new TextField().multiline().label("Notas").bindTo(vm.notasVeiculo)
-                        ), () -> {}, () -> {}
+                        ), () -> {
+                            vm.novo();
+                            vm.carregarVeiculos();
+                        }, () -> {
+                            vm.marcaVeiculo.set("");
+                            vm.modeloVeiculo.set("");
+                            vm.anoVeiculo.set(null);
+                            vm.matriculaVeiculo.set("");
+                            vm.notasVeiculo.set("");
+                        }
                 ).render(),
                 new ItemsColumn<Veiculos>()
                     .gap(10)

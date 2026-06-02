@@ -1,14 +1,21 @@
 package viewModels;
 
-import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 final class DateValues {
+    private static final DateTimeFormatter SQLITE_TIMESTAMP = DateTimeFormatter
+        .ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
 
     private DateValues() {
     }
 
-    static Timestamp atStartOfDay(LocalDate date) {
-        return Timestamp.valueOf(date.atStartOfDay());
+    static String atStartOfDay(LocalDate date) {
+        return timestamp(date.atStartOfDay());
+    }
+
+    static String timestamp(LocalDateTime dateTime) {
+        return SQLITE_TIMESTAMP.format(dateTime);
     }
 }
