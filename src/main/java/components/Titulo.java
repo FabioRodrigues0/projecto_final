@@ -12,6 +12,8 @@ import fabiorodrigues.bricks.core.BricksApplication;
 import fabiorodrigues.bricks.core.Component;
 import fabiorodrigues.bricks.style.BricksTheme;
 import fabiorodrigues.bricks.style.Modifier;
+import java.util.function.Supplier;
+import javafx.geometry.Pos;
 import javafx.scene.paint.Color;
 
 public class Titulo {
@@ -21,15 +23,53 @@ public class Titulo {
     private final String iconButton;
     private final String textButton;
     private final String tituloModal;
+    private final Supplier<Component> modalContent;
+    private final Runnable onSubmit;
+    private final Runnable onClear;
+
+    public Titulo(BricksApplication app, String titulo, String subTitulo, String iconButton, String textButton) {
+        this(app, titulo, subTitulo, iconButton, textButton, textButton);
+    }
 
     public Titulo(
                   BricksApplication app, String titulo, String subTitulo, String iconButton, String textButton, String tituloModal) {
+        this(
+            app, titulo, subTitulo, iconButton, textButton, tituloModal, (Supplier<Component>) null, null, null
+        );
+    }
+
+    public Titulo(
+                  BricksApplication app, String titulo, String subTitulo, String iconButton, String textButton, Supplier<Component> modalContent, Runnable onSubmit, Runnable onClear) {
+        this(
+            app, titulo, subTitulo, iconButton, textButton, textButton, modalContent, onSubmit, onClear
+        );
+    }
+
+    public Titulo(
+                  BricksApplication app, String titulo, String subTitulo, String iconButton, String textButton, Component modalContent, Runnable onSubmit, Runnable onClear) {
+        this(
+            app, titulo, subTitulo, iconButton, textButton, textButton, modalContent, onSubmit, onClear
+        );
+    }
+
+    public Titulo(
+                  BricksApplication app, String titulo, String subTitulo, String iconButton, String textButton, String tituloModal, Component modalContent, Runnable onSubmit, Runnable onClear) {
+        this(
+            app, titulo, subTitulo, iconButton, textButton, tituloModal, () -> modalContent, onSubmit, onClear
+        );
+    }
+
+    public Titulo(
+                  BricksApplication app, String titulo, String subTitulo, String iconButton, String textButton, String tituloModal, Supplier<Component> modalContent, Runnable onSubmit, Runnable onClear) {
         this.app = app;
         this.titulo = titulo;
         this.subTitulo = subTitulo;
         this.iconButton = iconButton;
         this.textButton = textButton;
         this.tituloModal = tituloModal;
+        this.modalContent = modalContent;
+        this.onSubmit = onSubmit != null ? onSubmit : () -> {};
+        this.onClear = onClear != null ? onClear : () -> {};
     }
 
     public Component render() {
@@ -49,25 +89,27 @@ public class Titulo {
                     .color(BricksTheme.current().colorScheme().onPrimary())
                     .modifier(new Modifier().height(35).padding(0))
                     .onClick(() -> {
-                        Modal
-                            .show(
-                                app,
-                                modal -> new Column()
-                                    .gap(8)
-                                    .children(
-                                        new Text(this.tituloModal).fontSize(18),
-                                        // TODO receber Componente no Contruturor
-                                        // assim e mais facil defenir o que esta dentro do modal
-                                        new Row()
-                                            .gap(8)
-                                            .children(new Button("Cancelar").onClick(() -> {
-                                                // TODO receber no contrutor as actions a
-                                                // fazer aqui
-                                                modal.close();
-                                            }), new Button("Adicionar").onClick(() -> {
+                        Modal.showUndecorated(app, this.titulo, 500.0, 400.0, modal -> {
+                            modal.setOnHidden(event -> this.onClear.run());
+
+                            Column content = new Column()
+                                .gap(8)
+                                .children(new Text(this.tituloModal).fontSize(18));
+
+                            if (this.modalContent != null) {
+                                content.children(this.modalContent.get());
+                            }
+
+                            content
+                                .children(
+                                    new Row()
+                                        .gap(8)
+                                        .modifier(new Modifier().alignment(Pos.BOTTOM_RIGHT))
+                                        .children(
+                                            new Button("Cancelar").onClick(modal::close),
+                                            new Button("Adicionar").onClick(() -> {
                                                 try {
-                                                    // TODO receber no contrutor as actions a
-                                                    // fazer aqui
+                                                    this.onSubmit.run();
                                                     modal.close();
                                                 } catch (RuntimeException e) {
                                                     if (e.getMessage() != null && e
@@ -86,9 +128,12 @@ public class Titulo {
                                                             );
                                                     }
                                                 }
-                                            }))
-                                    )
-                            );
+                                            })
+                                        )
+                                );
+
+                            return content;
+                        });
                     })
             );
     }

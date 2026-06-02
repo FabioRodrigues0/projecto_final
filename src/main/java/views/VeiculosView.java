@@ -5,7 +5,9 @@ import components.VeiculosCard;
 import fabiorodrigues.bricks.components.Card;
 import fabiorodrigues.bricks.components.Column;
 import fabiorodrigues.bricks.components.ItemsColumn;
+import fabiorodrigues.bricks.components.Row;
 import fabiorodrigues.bricks.components.Text;
+import fabiorodrigues.bricks.components.TextField;
 import fabiorodrigues.bricks.core.BricksApplication;
 import fabiorodrigues.bricks.core.BricksScene;
 import fabiorodrigues.bricks.core.Component;
@@ -32,7 +34,39 @@ public class VeiculosView extends BricksScene {
             .modifier(new Modifier().padding(30, 20).fillMaxHeight())
             .children(
                 new Titulo(
-                    this.app, "Veiculos", "Seguro, IUC e inspeção de cada veículo", "fas-plus", "Novo Veiculo"
+                    this.app, "Veiculos", "Seguro, IUC e inspeção de cada veículo", "fas-plus", "Novo Veiculo", () -> new Column()
+                        .gap(8)
+                        .children(
+                            new Row()
+                                .gap(5)
+                                .modifier(new Modifier().fillMaxWidth())
+                                .children(
+                                    new TextField()
+                                        .modifier(new Modifier().fillMaxWidth())
+                                        .label("Marca")
+                                        .bindTo(vm.marcaVeiculo),
+                                    new TextField()
+                                        .modifier(new Modifier().fillMaxWidth())
+                                        .label("Modelo")
+                                        .bindTo(vm.modeloVeiculo)
+                                ),
+                            new Row()
+                                .gap(5)
+                                .modifier(new Modifier().fillMaxWidth())
+                                .children(
+                                    new TextField()
+                                        .modifier(new Modifier().fillMaxWidth())
+                                        .inputFilter("^\\d{4}$")
+                                        .label("Ano")
+                                        .bindTo(vm.anoVeiculo),
+                                    new TextField()
+                                        .modifier(new Modifier().fillMaxWidth())
+                                        .inputFilter("^[A-Z0-9]{2}-[A-Z0-9]{2}-[A-Z0-9]{2}$")
+                                        .label("Matricula")
+                                        .bindTo(vm.matriculaVeiculo)
+                                ),
+                            new TextField().multiline().label("Notas").bindTo(vm.notasVeiculo)
+                        ), () -> {}, () -> {}
                 ).render(),
                 new ItemsColumn<Veiculos>()
                     .gap(10)

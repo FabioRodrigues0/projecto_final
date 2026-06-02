@@ -1,14 +1,22 @@
 package viewModels;
 
 import fabiorodrigues.bricks.core.BricksViewModel;
+import fabiorodrigues.bricks.core.State;
 import fabiorodrigues.bricks.core.StateList;
 import fabiorodrigues.bricks.data.DB;
+import java.time.LocalDate;
 import java.util.List;
 import models.Pessoal.DocumentosPessoal;
 import models.Pessoal.Pessoas;
+import models.TipoDocumentoPessoal;
 
 public class DocumentosViewModel extends BricksViewModel implements IViewModel<Pessoas>, IViewModelDocumentos<DocumentosPessoal> {
     public final StateList<DocumentosPessoal> listDocumentos = stateList(List.of());
+    public final State<String> tituloDocumento = state("");
+    public final State<TipoDocumentoPessoal> categoriaDocumento = state(TipoDocumentoPessoal.NONE);
+    public final State<LocalDate> dataEmissaoDocumento = state(null);
+    public final State<LocalDate> dataValidadeDocumento = state(null);
+    public final State<String> notasDocumento = state("");
 
     public void carregarDocumentos() {
         listDocumentos.clear();
