@@ -16,10 +16,12 @@ import viewModels.VeiculosViewModel;
 public class VeiculosView extends BricksScene {
 
     private final VeiculosViewModel vm = new VeiculosViewModel();
+    private final BricksApplication app;
 
     public VeiculosView(BricksApplication app) {
         super(app);
         use(this.vm);
+        this.app = app;
         this.vm.carregarVeiculos();
     }
 
@@ -30,9 +32,8 @@ public class VeiculosView extends BricksScene {
             .modifier(new Modifier().padding(30, 20).fillMaxHeight())
             .children(
                 new Titulo(
-                    "Veiculos", "Seguro, IUC e inspeção de cada veículo", "fas-plus", "Novo Veiculo"
+                    this.app, "Veiculos", "Seguro, IUC e inspeção de cada veículo", "fas-plus", "Novo Veiculo"
                 ).render(),
-
                 new ItemsColumn<Veiculos>()
                     .gap(10)
                     .columns(3)
