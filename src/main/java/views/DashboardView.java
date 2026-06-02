@@ -17,10 +17,12 @@ import viewModels.DashboardViewModel;
 public class DashboardView extends BricksScene {
 
     private final DashboardViewModel vm = new DashboardViewModel();
+    private final BricksApplication app;
 
     public DashboardView(BricksApplication app) {
         super(app);
         use(this.vm);
+        this.app = app;
         this.vm.carregarExpiracoes();
         this.vm.carregarDocumentos();
         this.vm.carregarVeiculos();
@@ -34,7 +36,7 @@ public class DashboardView extends BricksScene {
             .modifier(new Modifier().padding(30, 20).fillMaxHeight())
             .children(
                 new Titulo(
-                    "Dashboard", "Visão geral dos seus documentos e subscrições", "fas-bell-slash", "Ativar Notificacoes"
+                    this.app, "Dashboard", "Visão geral dos seus documentos e subscrições", "fas-bell-slash", "Ativar Notificacoes"
                 ).render(),
                 new Row()
                     .gap(10)

@@ -16,10 +16,12 @@ import viewModels.DocumentosViewModel;
 public class DocumentosView extends BricksScene {
 
     private final DocumentosViewModel vm = new DocumentosViewModel();
+    private final BricksApplication app;
 
     public DocumentosView(BricksApplication app) {
         super(app);
         use(this.vm);
+        this.app = app;
         this.vm.carregarDocumentos();
     }
 
@@ -30,11 +32,10 @@ public class DocumentosView extends BricksScene {
             .modifier(new Modifier().padding(30, 20).fillMaxHeight())
             .children(
                 new Titulo(
-                    "Documentos", "Garantias, contratos, faturas e outros", "fas-plus", "Novo Documento"
+                    this.app, "Documentos", "Garantias, contratos, faturas e outros", "fas-plus", "Novo Documento"
                 ).render(),
                 new ItemsColumn<DocumentosPessoal>()
                     .gap(10)
-                    .columns(3)
                     .modifier(new Modifier().fillMaxWidth().fillMaxHeight())
                     .emptyState(new Card().elevation(2).children(new Text("Sem Documentos")))
                     .items(this.vm.listDocumentos)

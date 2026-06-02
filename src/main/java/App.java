@@ -16,15 +16,13 @@ import views.DocumentosView;
 import views.SubscricaoView;
 import views.VeiculosView;
 
-
 /**
- * Ponto de entrada da aplicação Bricks. UI declarativa com estado reativo e
- * base de dados SQLite integrada.
+ * Ponto de entrada da aplicação Bricks. UI declarativa com estado reativo e base de dados SQLite
+ * integrada.
  */
 public class App extends BricksApplication {
 
     // ── Estado ────────────────────────────────────────────────────────────────
-    private final State<Boolean> isSidebarOpen = state(true);
 
     {
         setTitle("App");
@@ -143,8 +141,7 @@ public class App extends BricksApplication {
     /**
      * Ponto de entrada da aplicação.
      *
-     * @param args
-     *             argumentos da linha de comandos
+     * @param args argumentos da linha de comandos
      */
     public static void main(String[] args) {
         launch(args);
