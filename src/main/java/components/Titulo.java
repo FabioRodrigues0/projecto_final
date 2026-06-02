@@ -31,36 +31,14 @@ public class Titulo {
         this(app, titulo, subTitulo, iconButton, textButton, textButton);
     }
 
-    public Titulo(
-                  BricksApplication app, String titulo, String subTitulo, String iconButton, String textButton, String tituloModal) {
-        this(
-            app, titulo, subTitulo, iconButton, textButton, tituloModal, (Supplier<Component>) null, null, null
-        );
+    // COMPATIBILIDADE: Construtor alternativo para aceitar 5 argumentos
+    public Titulo(BricksApplication app, String t1, String t2, String t3, String t4) {
+        // Chama o construtor de 6 argumentos do Fábio, enviando uma String vazia no fim
+        this(app, t1, t2, t3, t4, "");
     }
 
-    public Titulo(
-                  BricksApplication app, String titulo, String subTitulo, String iconButton, String textButton, Supplier<Component> modalContent, Runnable onSubmit, Runnable onClear) {
-        this(
-            app, titulo, subTitulo, iconButton, textButton, textButton, modalContent, onSubmit, onClear
-        );
-    }
-
-    public Titulo(
-                  BricksApplication app, String titulo, String subTitulo, String iconButton, String textButton, Component modalContent, Runnable onSubmit, Runnable onClear) {
-        this(
-            app, titulo, subTitulo, iconButton, textButton, textButton, modalContent, onSubmit, onClear
-        );
-    }
-
-    public Titulo(
-                  BricksApplication app, String titulo, String subTitulo, String iconButton, String textButton, String tituloModal, Component modalContent, Runnable onSubmit, Runnable onClear) {
-        this(
-            app, titulo, subTitulo, iconButton, textButton, tituloModal, () -> modalContent, onSubmit, onClear
-        );
-    }
-
-    public Titulo(
-                  BricksApplication app, String titulo, String subTitulo, String iconButton, String textButton, String tituloModal, Supplier<Component> modalContent, Runnable onSubmit, Runnable onClear) {
+    // Construtor principal com 6 argumentos
+    public Titulo(BricksApplication app, String titulo, String subTitulo, String iconButton, String textButton, String tituloModal) {
         this.app = app;
         this.titulo = titulo;
         this.subTitulo = subTitulo;

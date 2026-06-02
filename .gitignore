@@ -266,4 +266,7 @@ Temporary Items
 
 AGENTS.md
 
+# Ignore Eclipse project files
+.settings/
+
 # End of https://www.toptal.com/developers/gitignore/api/java,emacs,jetbrains+all,visualstudiocode,gradle,maven,macos

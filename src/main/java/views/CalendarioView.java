@@ -26,10 +26,12 @@ import viewModels.CalendarioViewModel;
 
 public class CalendarioView extends BricksScene {
 
+    private final BricksApplication app;
     private final CalendarioViewModel vm = new CalendarioViewModel();
 
     public CalendarioView(BricksApplication app) {
         super(app);
+        this.app = app;
         use(this.vm);
         this.vm.carregarExpirações();
     }
@@ -41,7 +43,7 @@ public class CalendarioView extends BricksScene {
             .modifier(new Modifier().padding(25, 20).fillMaxHeight())
             .children(
                 new Titulo(
-                    "Calendário", "Todas as datas de validade e renovação", "fas-calendar-alt", ""
+                    this.app, "Calendário", "Todas as datas de validade e renovação", "fas-calendar-alt", "", ""
                 ).render(),
                 criarLegendaCores(),
                 criarCartaoCalendarioMensal(),

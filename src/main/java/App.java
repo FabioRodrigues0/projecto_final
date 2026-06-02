@@ -6,7 +6,6 @@ import fabiorodrigues.bricks.components.Text;
 import fabiorodrigues.bricks.core.BricksApplication;
 import fabiorodrigues.bricks.core.Component;
 import fabiorodrigues.bricks.core.Effect;
-import fabiorodrigues.bricks.core.State;
 import fabiorodrigues.bricks.style.BricksTheme;
 import fabiorodrigues.bricks.style.Modifier;
 import javafx.scene.paint.Color;

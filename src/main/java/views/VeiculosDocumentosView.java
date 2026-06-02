@@ -43,7 +43,7 @@ public class VeiculosDocumentosView extends BricksScene {
             .children(
                 new Titulo(
                     this.app, this.nome, String
-                        .valueOf(this.ano) + "." + this.matricula, "fas-plus", "Adicionar"
+                        .valueOf(this.ano) + "." + this.matricula, "fas-plus", "Adicionar", ""
                 ).render(),
                 new ItemsColumn<DocumentosVeiculo>()
                     .gap(10)
