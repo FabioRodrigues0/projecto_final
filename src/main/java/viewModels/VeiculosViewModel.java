@@ -1,6 +1,7 @@
 package viewModels;
 
 import fabiorodrigues.bricks.core.BricksViewModel;
+import fabiorodrigues.bricks.core.State;
 import fabiorodrigues.bricks.core.StateList;
 import fabiorodrigues.bricks.data.DB;
 import java.util.List;
@@ -11,6 +12,11 @@ public class VeiculosViewModel extends BricksViewModel implements IViewModel<Vei
 
     public final StateList<Veiculos> listVeiculos = stateList(List.of());
     public final StateList<DocumentosVeiculo> listDocumentos = stateList(List.of());
+    public final State<String> marcaVeiculo = state("");
+    public final State<String> modeloVeiculo = state("");
+    public final State<String> anoVeiculo = state("");
+    public final State<String> matriculaVeiculo = state("");
+    public final State<String> notasVeiculo = state("");
 
     public void carregarVeiculos() {
         listVeiculos.clear();

@@ -1,5 +1,5 @@
 package models;
 
 public enum TipoDocumentoPessoal {
-    GARANTIA, CONTRATO, FATURA, OUTRO
+    NONE, GARANTIA, CONTRATO, FATURA, OUTRO
 }

@@ -19,6 +19,7 @@ public class App extends BricksApplication {
     {
         setTitle("App");
         setInitialScene(new DashboardView(this));
+        setSize(1280, 720);
         // setTheme(BricksTheme.dark()); // descomenta para dark mode
         setTheme(
             BricksTheme
