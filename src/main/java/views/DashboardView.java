@@ -4,13 +4,16 @@ import components.ExpiracaoCard;
 import components.Titulo;
 import fabiorodrigues.bricks.components.Card;
 import fabiorodrigues.bricks.components.Column;
+import fabiorodrigues.bricks.components.Icon;
 import fabiorodrigues.bricks.components.ItemsColumn;
 import fabiorodrigues.bricks.components.Row;
+import fabiorodrigues.bricks.components.Spacer;
 import fabiorodrigues.bricks.components.Text;
 import fabiorodrigues.bricks.core.BricksApplication;
 import fabiorodrigues.bricks.core.BricksScene;
 import fabiorodrigues.bricks.core.Component;
 import fabiorodrigues.bricks.style.Modifier;
+import javafx.scene.paint.Color;
 import models.Expiracoes;
 import viewModels.DashboardViewModel;
 
@@ -42,19 +45,34 @@ public class DashboardView extends BricksScene {
                     .gap(10)
                     .modifier(new Modifier().fillMaxWidth())
                     .children(
+                        //doc
                         new Card()
                             .elevation(2)
                             .modifier(new Modifier().fillMaxWidth())
                             .children(
                                 new Row()
                                     .gap(2)
+                                    .modifier(new Modifier().padding(20).fillMaxWidth())
                                     .children(
                                         new Column()
                                             .gap(5)
-                                            .padding(20)
                                             .children(
-                                                new Text("Documentos"),
+                                                new Text("Documentos")
+                                                    .modifier(new Modifier().textColor(Color.GRAY))
+                                                    .modifier(new Modifier().bold()),
                                                 new Text(String.valueOf(vm.qntDocumentos.get()))
+                                                    .fontSize(20)
+                                                    .modifier(new Modifier().bold())
+                                            ),
+                                        new Spacer(),
+                                        new Icon("fas-file-alt")
+                                            .color(Color.web("#1a73e8"))
+                                            .size(20)
+                                            .modifier(
+                                                new Modifier()
+                                                    .padding(12)
+                                                    .background(Color.web("#e8f0fe"))
+                                                    .borderRadius(8)
                                             )
                                     )
                             ),
