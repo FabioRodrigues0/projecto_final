@@ -129,16 +129,16 @@ Estado: só renderiza título. **Tudo o resto em falta.**
 ## Calendário (NÃO EXISTE)
 
 Sidebar do alvo tem entrada "Calendário" mas:
-- [ ] `views/CalendarioView.java` não existe.
-- [ ] `viewModels/CalendarioViewModel.java` não existe.
-- [ ] Definir scope: vista mensal agregando expirações de docs + veículos + subscrições?
-- [ ] Adicionar rota na sidebar (`App.java`).
+- [x] `views/CalendarioView.java` não existe.
+- [x] `viewModels/CalendarioViewModel.java` não existe.
+- [x] Definir scope: vista mensal agregando expirações de docs + veículos + subscrições?
+- [x] Adicionar rota na sidebar (`App.java`).
 
 ---
 
 ## Geral / Cross-Cutting
 
-- [ ] Branding: trocar "ISPGAYA" da sidebar atual por **"LifeBinder+ / Gestor Inteligente"** com logo escudo azul.
+- [x] Branding: trocar "ISPGAYA" da sidebar atual por **"LifeBinder+ / Gestor Inteligente"** com logo escudo azul.
 - [ ] Componente reutilizável `EstatisticaCard` (ícone + label + valor + subtexto) — atualmente repetido 4× inline no Dashboard.
 - [ ] Componente reutilizável `Modal` para os formulários CRUD.
 - [ ] Sistema de notificações (botão "Ativar Notificações" implica permissão OS + scheduling).
