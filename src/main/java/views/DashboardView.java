@@ -41,11 +41,12 @@ public class DashboardView extends BricksScene {
                 new Titulo(
                     this.app, "Dashboard", "Visão geral dos seus documentos e subscrições", "fas-bell-slash", "Ativar Notificacoes"
                 ).render(),
+
                 new Row()
                     .gap(10)
                     .modifier(new Modifier().fillMaxWidth())
                     .children(
-                        //doc
+                        // Documentos
                         new Card()
                             .elevation(2)
                             .modifier(new Modifier().fillMaxWidth())
@@ -58,8 +59,9 @@ public class DashboardView extends BricksScene {
                                             .gap(5)
                                             .children(
                                                 new Text("Documentos")
-                                                    .modifier(new Modifier().textColor(Color.GRAY))
-                                                    .modifier(new Modifier().bold()),
+                                                    .modifier(
+                                                        new Modifier().textColor(Color.GRAY).bold()
+                                                    ),
                                                 new Text(String.valueOf(vm.qntDocumentos.get()))
                                                     .fontSize(20)
                                                     .modifier(new Modifier().bold())
@@ -67,7 +69,7 @@ public class DashboardView extends BricksScene {
                                         new Spacer(),
                                         new Icon("fas-file-alt")
                                             .color(Color.web("#1a73e8"))
-                                            .size(20)
+                                            .size(30)
                                             .modifier(
                                                 new Modifier()
                                                     .padding(12)
@@ -76,55 +78,108 @@ public class DashboardView extends BricksScene {
                                             )
                                     )
                             ),
+
+                        // Veículos
                         new Card()
                             .elevation(2)
                             .modifier(new Modifier().fillMaxWidth())
                             .children(
                                 new Row()
                                     .gap(2)
+                                    .modifier(new Modifier().padding(20).fillMaxWidth())
                                     .children(
                                         new Column()
                                             .gap(5)
-                                            .padding(20)
                                             .children(
-                                                new Text("Veiculos"),
+                                                new Text("Veiculos")
+                                                    .modifier(
+                                                        new Modifier().textColor(Color.GRAY).bold()
+                                                    ),
                                                 new Text(String.valueOf(vm.qntVeiculos.get()))
+                                                    .fontSize(20)
+                                                    .modifier(new Modifier().bold())
+                                            ),
+                                        new Spacer(),
+                                        new Icon("fas-car-alt")
+                                            .color(Color.web("#1a73e8"))
+                                            .size(30)
+                                            .modifier(
+                                                new Modifier()
+                                                    .padding(12)
+                                                    .background(Color.web("#e8f0fe"))
+                                                    .borderRadius(8)
                                             )
                                     )
                             ),
+
+                        // Subscrições (Corrigido o posicionamento do .padding)
                         new Card()
                             .elevation(2)
                             .modifier(new Modifier().fillMaxWidth())
                             .children(
                                 new Row()
                                     .gap(2)
+                                    .modifier(new Modifier().padding(20).fillMaxWidth())
                                     .children(
                                         new Column()
                                             .gap(5)
-                                            .padding(20)
                                             .children(
-                                                new Text("Subscricoes"),
+                                                new Text("Subscricoes")
+                                                    .modifier(
+                                                        new Modifier().textColor(Color.GRAY).bold()
+                                                    ),
                                                 new Text(String.valueOf(vm.qntSubscricoes.get()))
+                                                    .fontSize(20)
+                                                    .modifier(new Modifier().bold())
+                                            ),
+                                        new Spacer(),
+                                        new Icon("fas-tv")
+                                            .color(Color.web("#1a73e8"))
+                                            .size(30)
+                                            .modifier(
+                                                new Modifier()
+                                                    .padding(12)
+                                                    .background(Color.web("#e8f0fe"))
+                                                    .borderRadius(8)
                                             )
                                     )
                             ),
+
+                        // Alertas (Corrigido o posicionamento do .padding)
                         new Card()
                             .elevation(2)
                             .modifier(new Modifier().fillMaxWidth())
                             .children(
                                 new Row()
                                     .gap(2)
+                                    .modifier(new Modifier().padding(20).fillMaxWidth())
                                     .children(
                                         new Column()
                                             .gap(5)
-                                            .padding(20)
                                             .children(
-                                                new Text("Alertas"),
+                                                new Text("Alertas")
+                                                    .modifier(
+                                                        new Modifier().textColor(Color.GRAY).bold()
+                                                    ),
                                                 new Text(String.valueOf(vm.qntAlertas.get()))
+                                                    .fontSize(20)
+                                                    .modifier(new Modifier().bold())
+                                            ),
+                                        new Spacer(),
+                                        new Icon("fas-exclamation-triangle")
+                                            .color(Color.web("#1a73e8"))
+                                            .size(30)
+                                            .modifier(
+                                                new Modifier()
+                                                    .padding(12)
+                                                    .background(Color.web("#e8f0fe"))
+                                                    .borderRadius(8)
                                             )
                                     )
                             )
                     ),
+
+                // Próximas Expirações
                 new Card()
                     .elevation(2)
                     .modifier(new Modifier().fillMaxHeight())
@@ -149,6 +204,8 @@ public class DashboardView extends BricksScene {
                                     })
                             )
                     ),
+
+                // Atalhos de Gestão Fundos
                 new Row()
                     .gap(8)
                     .children(
@@ -161,7 +218,7 @@ public class DashboardView extends BricksScene {
                                     .children(
                                         new Column()
                                             .gap(5)
-                                            .padding(20)
+                                            .modifier(new Modifier().padding(20))
                                             .children(
                                                 new Text("Gerir Documentos"),
                                                 new Text("Garantias, contratos e faturas")
@@ -177,7 +234,7 @@ public class DashboardView extends BricksScene {
                                     .children(
                                         new Column()
                                             .gap(5)
-                                            .padding(20)
+                                            .modifier(new Modifier().padding(20))
                                             .children(
                                                 new Text("Gerir Veiculos"),
                                                 new Text("Seguro, IUC e inspecao")
@@ -193,7 +250,7 @@ public class DashboardView extends BricksScene {
                                     .children(
                                         new Column()
                                             .gap(5)
-                                            .padding(20)
+                                            .modifier(new Modifier().padding(20))
                                             .children(
                                                 new Text("Gerir Subscricoes"),
                                                 new Text("Netflix, Spotify e mais")
@@ -201,6 +258,6 @@ public class DashboardView extends BricksScene {
                                     )
                             )
                     )
-            );
+            ); // <--- Aqui fechava corretamente a árvore de componentes da Column principal
     }
 }
