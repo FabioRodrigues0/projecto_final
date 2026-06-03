@@ -18,6 +18,7 @@ import fabiorodrigues.bricks.components.TextField;
 import fabiorodrigues.bricks.core.BricksApplication;
 import fabiorodrigues.bricks.core.BricksScene;
 import fabiorodrigues.bricks.core.Component;
+import fabiorodrigues.bricks.style.BricksTheme;
 import fabiorodrigues.bricks.style.Modifier;
 import java.util.List;
 import javafx.geometry.Pos;
@@ -71,96 +72,106 @@ public class DocumentosView extends BricksScene {
                                             .fontSize(24)
                                             .modifier(new Modifier().bold()),
                                         new Spacer(),
-                                        new IconButton("fas-plus", "Novo Documento").onClick(() -> {
-                                            Modal
-                                                .showUndecorated(
-                                                    app,
-                                                    "Documentos",
-                                                    500.0,
-                                                    400.0,
-                                                    modal -> {
-                                                        modal.setOnHidden(event -> {
-                                                            vm.tituloDocumento.set("");
-                                                            vm.categoriaDocumento
-                                                                .set(TipoDocumentoPessoal.NONE);
-                                                            vm.dataEmissaoDocumento.set(null);
-                                                            vm.dataValidadeDocumento.set(null);
-                                                            vm.notasDocumento.set("");
-                                                        });
+                                        new IconButton("fas-plus", "Novo Documento")
+                                            .color(BricksTheme.current().colorScheme().onPrimary())
+                                            .modifier(new Modifier().height(35).padding(0))
+                                            .onClick(() -> {
+                                                Modal
+                                                    .showUndecorated(
+                                                        app,
+                                                        "Documentos",
+                                                        500.0,
+                                                        400.0,
+                                                        modal -> {
+                                                            modal.setOnHidden(event -> {
+                                                                vm.tituloDocumento.set("");
+                                                                vm.categoriaDocumento
+                                                                    .set(TipoDocumentoPessoal.NONE);
+                                                                vm.dataEmissaoDocumento.set(null);
+                                                                vm.dataValidadeDocumento.set(null);
+                                                                vm.notasDocumento.set("");
+                                                            });
 
-                                                        return new Column()
-                                                            .gap(8)
-                                                            .children(
-                                                                new Text("Novo Documento")
-                                                                    .fontSize(18),
-                                                                new TextField()
-                                                                    .label("Titulo")
-                                                                    .bindTo(vm.tituloDocumento),
-                                                                new Dropdown<>(
-                                                                    List
-                                                                        .of(
-                                                                            TipoDocumentoPessoal
-                                                                                .values()
+                                                            return new Column()
+                                                                .gap(8)
+                                                                .children(
+                                                                    new Text("Novo Documento")
+                                                                        .fontSize(18),
+                                                                    new TextField()
+                                                                        .label("Titulo")
+                                                                        .bindTo(vm.tituloDocumento),
+                                                                    new Dropdown<>(
+                                                                        List
+                                                                            .of(
+                                                                                TipoDocumentoPessoal
+                                                                                    .values()
+                                                                            )
+                                                                    )
+                                                                        .label("Categoria:")
+                                                                        .bindTo(
+                                                                            vm.categoriaDocumento
+                                                                        ),
+                                                                    new Row()
+                                                                        .gap(5)
+                                                                        .children(
+                                                                            new DatePicker()
+                                                                                .label(
+                                                                                    "Data de Emissao:"
+                                                                                )
+                                                                                .bindTo(
+                                                                                    vm.dataEmissaoDocumento
+                                                                                ),
+                                                                            new DatePicker()
+                                                                                .label(
+                                                                                    "Data de Validacao"
+                                                                                )
+                                                                                .bindTo(
+                                                                                    vm.dataValidadeDocumento
+                                                                                )
+                                                                        ),
+                                                                    new TextField()
+                                                                        .multiline()
+                                                                        .label("Notas")
+                                                                        .bindTo(vm.notasDocumento),
+                                                                    new Row()
+                                                                        .gap(8)
+                                                                        .modifier(
+                                                                            new Modifier()
+                                                                                .alignment(
+                                                                                    Pos.BOTTOM_RIGHT
+                                                                                )
                                                                         )
-                                                                )
-                                                                    .label("Categoria:")
-                                                                    .bindTo(vm.categoriaDocumento),
-                                                                new Row()
-                                                                    .gap(5)
-                                                                    .children(
-                                                                        new DatePicker()
-                                                                            .label(
-                                                                                "Data de Emissao:"
-                                                                            )
-                                                                            .bindTo(
-                                                                                vm.dataEmissaoDocumento
-                                                                            ),
-                                                                        new DatePicker()
-                                                                            .label(
-                                                                                "Data de Validacao"
-                                                                            )
-                                                                            .bindTo(
-                                                                                vm.dataValidadeDocumento
-                                                                            )
-                                                                    ),
-                                                                new TextField()
-                                                                    .multiline()
-                                                                    .label("Notas")
-                                                                    .bindTo(vm.notasDocumento),
-                                                                new Row()
-                                                                    .gap(8)
-                                                                    .modifier(
-                                                                        new Modifier()
-                                                                            .alignment(
-                                                                                Pos.BOTTOM_RIGHT
-                                                                            )
-                                                                    )
-                                                                    .children(
-                                                                        new Button("Cancelar")
-                                                                            .onClick(modal::close),
-                                                                        new Button("Adicionar")
-                                                                            .onClick(() -> {
-                                                                                vm
-                                                                                    .novoDocumento(
-                                                                                        pessoa
-                                                                                            .getId()
-                                                                                    );
-                                                                                vm
-                                                                                    .carregarDocumentos();
-                                                                                modal.close();
-                                                                            })
-                                                                    )
-                                                            );
-                                                    }
-                                                );
-                                        })
+                                                                        .children(
+                                                                            new Button("Cancelar")
+                                                                                .onClick(
+                                                                                    modal::close
+                                                                                ),
+                                                                            new Button("Adicionar")
+                                                                                .onClick(() -> {
+                                                                                    vm
+                                                                                        .novoDocumento(
+                                                                                            pessoa
+                                                                                                .getId()
+                                                                                        );
+                                                                                    vm
+                                                                                        .carregarDocumentos();
+                                                                                    modal.close();
+                                                                                })
+                                                                        )
+                                                                );
+                                                        }
+                                                    );
+                                            })
                                     ),
                                 new Divider(),
                                 new ItemsColumn<DocumentosPessoal>()
                                     .gap(10)
                                     .modifier(new Modifier().fillMaxWidth().fillMaxHeight())
                                     .emptyState(
-                                        new Card().elevation(2).children(new Text("Sem Documentos"))
+                                        new Card()
+                                            .elevation(2)
+                                            .padding(15)
+                                            .children(new Text("Sem Documentos"))
                                     )
                                     .items(
                                         this.vm.listDocumentos

@@ -1,5 +1,5 @@
 package models;
 
 public enum TipoDocumentoVeiculo {
-    SEGURO, IUC, INSPECAO, OUTRO
+    NONE, SEGURO, IUC, INSPECAO, OUTRO,
 }

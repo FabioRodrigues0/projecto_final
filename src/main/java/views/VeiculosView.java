@@ -74,7 +74,7 @@ public class VeiculosView extends BricksScene {
                             vm.anoVeiculo.set(null);
                             vm.matriculaVeiculo.set("");
                             vm.notasVeiculo.set("");
-                        }
+                        }, 520.0, 480.0
                 ).render(),
                 new ItemsColumn<Veiculos>()
                     .gap(10)

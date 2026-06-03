@@ -63,7 +63,7 @@ public class SubscricaoView extends BricksScene {
                                     new Text("Ativa"),
                                     new Checkbox("").bindTo(vm.estadoSubscricao)
                                 )
-                        ), () -> {}, () -> {}
+                        ), () -> {}, () -> {}, 520.0, 450.0
                 ).render()
             );
     }

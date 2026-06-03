@@ -54,7 +54,7 @@ public class VeiculosCard {
                     )
                     .children(new Icon("fas-car-side").size(48))
             )
-            .width(380)
+            .width(280)
             .padding(15)
             .children(
                 new Column()
