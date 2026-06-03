@@ -27,18 +27,23 @@ public class Titulo {
     private final Runnable onSubmit;
     private final Runnable onClear;
 
+    // Construtor simples - sem modal
     public Titulo(BricksApplication app, String titulo, String subTitulo, String iconButton, String textButton) {
-        this(app, titulo, subTitulo, iconButton, textButton, textButton);
+        this(app, titulo, subTitulo, iconButton, textButton, "", null, () -> {}, () -> {});
     }
 
-    // COMPATIBILIDADE: Construtor alternativo para aceitar 5 argumentos
-    public Titulo(BricksApplication app, String t1, String t2, String t3, String t4) {
-        // Chama o construtor de 6 argumentos do Fábio, enviando uma String vazia no fim
-        this(app, t1, t2, t3, t4, "");
-    }
-
-    // Construtor principal com 6 argumentos
+    // Construtor com tituloModal mas sem conteúdo
     public Titulo(BricksApplication app, String titulo, String subTitulo, String iconButton, String textButton, String tituloModal) {
+        this(app, titulo, subTitulo, iconButton, textButton, tituloModal, null, () -> {}, () -> {});
+    }
+
+    // Construtor de compatibilidade - sem tituloModal (para DocumentosView e VeiculosView)
+    public Titulo(BricksApplication app, String titulo, String subTitulo, String iconButton, String textButton, Supplier<Component> modalContent, Runnable onSubmit, Runnable onClear) {
+        this(app, titulo, subTitulo, iconButton, textButton, "", modalContent, onSubmit, onClear);
+    }
+
+    // Construtor completo
+    public Titulo(BricksApplication app, String titulo, String subTitulo, String iconButton, String textButton, String tituloModal, Supplier<Component> modalContent, Runnable onSubmit, Runnable onClear) {
         this.app = app;
         this.titulo = titulo;
         this.subTitulo = subTitulo;
@@ -51,7 +56,7 @@ public class Titulo {
     }
 
     public Component render() {
-        return new Row()
+        Row row = new Row()
             .gap(0)
             .children(
                 new Column()
@@ -62,57 +67,65 @@ public class Titulo {
                             .fontSize(13)
                             .modifier(new Modifier().textColor(Color.GRAY))
                     ),
-                new Spacer(),
-                new IconButton(this.iconButton, this.textButton)
-                    .color(BricksTheme.current().colorScheme().onPrimary())
-                    .modifier(new Modifier().height(35).padding(0))
-                    .onClick(() -> {
-                        Modal.showUndecorated(app, this.titulo, 500.0, 400.0, modal -> {
-                            modal.setOnHidden(event -> this.onClear.run());
-
-                            Column content = new Column()
-                                .gap(8)
-                                .children(new Text(this.tituloModal).fontSize(18));
-
-                            if (this.modalContent != null) {
-                                content.children(this.modalContent.get());
-                            }
-
-                            content
-                                .children(
-                                    new Row()
-                                        .gap(8)
-                                        .modifier(new Modifier().alignment(Pos.BOTTOM_RIGHT))
-                                        .children(
-                                            new Button("Cancelar").onClick(modal::close),
-                                            new Button("Adicionar").onClick(() -> {
-                                                try {
-                                                    this.onSubmit.run();
-                                                    modal.close();
-                                                } catch (RuntimeException e) {
-                                                    if (e.getMessage() != null && e
-                                                        .getMessage()
-                                                        .contains("UNIQUE")) {
-                                                        Alert
-                                                            .error(
-                                                                "Erro",
-                                                                "Já existe um cartão com esse" + " número."
-                                                            );
-                                                    } else {
-                                                        Alert
-                                                            .error(
-                                                                "Erro",
-                                                                "Não foi possível criar o cartão."
-                                                            );
-                                                    }
-                                                }
-                                            })
-                                        )
-                                );
-
-                            return content;
-                        });
-                    })
+                new Spacer()
             );
+
+        if (this.iconButton != null && this.textButton != null) {
+            row
+                .children(
+                    new IconButton(this.iconButton, this.textButton)
+                        .color(BricksTheme.current().colorScheme().onPrimary())
+                        .modifier(new Modifier().height(35).padding(0))
+                        .onClick(() -> {
+                            Modal.showUndecorated(app, this.titulo, 500.0, 400.0, modal -> {
+                                modal.setOnHidden(event -> this.onClear.run());
+
+                                Column content = new Column()
+                                    .gap(8)
+                                    .children(new Text(this.tituloModal).fontSize(18));
+
+                                if (this.modalContent != null) {
+                                    content.children(this.modalContent.get());
+                                }
+
+                                content
+                                    .children(
+                                        new Row()
+                                            .gap(8)
+                                            .modifier(new Modifier().alignment(Pos.BOTTOM_RIGHT))
+                                            .children(
+                                                new Button("Cancelar").onClick(modal::close),
+                                                new Button("Adicionar").onClick(() -> {
+                                                    try {
+                                                        this.onSubmit.run();
+                                                        modal.close();
+                                                    } catch (RuntimeException e) {
+                                                        if (e.getMessage() != null && e
+                                                            .getMessage()
+                                                            .contains("UNIQUE")) {
+                                                            Alert
+                                                                .error(
+                                                                    "Erro",
+                                                                    "Já existe um registo com esse valor."
+                                                                );
+                                                        } else {
+                                                            Alert
+                                                                .error(
+                                                                    "Erro",
+                                                                    "Não foi possível criar o registo."
+                                                                );
+                                                        }
+                                                    }
+                                                })
+                                            )
+                                    );
+
+                                return content;
+                            });
+                        })
+                );
+        }
+
+        return row;
     }
 }
