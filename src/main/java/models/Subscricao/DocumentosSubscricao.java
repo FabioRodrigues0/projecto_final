@@ -31,17 +31,6 @@ public class DocumentosSubscricao extends Documentos {
     }
 
     public DocumentosSubscricao(
-                                int id, int subscricaoId, String titulo, TipoDocumentoSubscricao tipo, TipoPagamento modeloPagamento, double custo, LocalDate dataRenovacao, boolean ativa, String notas) {
-        super(id, titulo, notas);
-        this.subscricaoId = subscricaoId;
-        this.tipo = tipo;
-        this.modeloPagamento = modeloPagamento;
-        this.custo = custo;
-        this.dataRenovacao = dataRenovacao;
-        this.ativa = ativa;
-    }
-
-    public DocumentosSubscricao(
                                 int id, int subscricaoId, String titulo, TipoDocumentoSubscricao tipo, TipoPagamento modeloPagamento, double custo, String plano, LocalDate dataRenovacao, boolean ativa) {
         super(id, titulo);
         this.subscricaoId = subscricaoId;

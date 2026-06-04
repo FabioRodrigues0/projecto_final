@@ -16,9 +16,9 @@
   - [x] fundo `#f7f8fa
 
 ### Backend / Queries
-- [ ] `carregarDocumentos()` faz `COUNT` em `pessoas` em vez de documentos — corrigir para somar `documentos_pessoal + documentos_veiculo + documentos_subscricao` ou só `documentos_pessoal` (decidir semântica).
+- [x] `carregarDocumentos()` faz `COUNT` em `pessoas` em vez de documentos — corrigir para somar `documentos_pessoal + documentos_veiculo + documentos_subscricao` ou só `documentos_pessoal` (decidir semântica).
 - [ ] `qntAlertas` nunca é carregado — falta método `carregarAlertas()` (contar expirações com `diasReais <= X`).
-- [ ] Falta cálculo do **custo total mensal** das subscrições ativas para o subtexto do card.
+- [x] Falta cálculo do **custo total mensal** das subscrições ativas para o subtexto do card.
 - [ ] Falta breakdown de alertas (expirados vs urgentes) para subtexto do card.
 - [ ] Falta flag/coluna "ativa" nas subscrições para filtrar inativas nos contadores.
 
@@ -26,7 +26,7 @@
 
 ## Documentos (`views/DocumentosView.java` + `viewModels/DocumentosViewModel.java`)
 
-Estado: só renderiza título. **Tudo o resto em falta.**
+Estado: base implementada; faltam filtros e operações de edição/remoção.
 
 ### Model
 - [x] `models/Pessoal/DocumentosPessoal.java`
@@ -37,19 +37,19 @@ Estado: só renderiza título. **Tudo o resto em falta.**
 - [ ] **Lista** de cards de documento com:
   - [ ] barra colorida lateral por categoria (vermelho expirado, amarelo breve, verde válido)
   - [ ] ícone por categoria (fatura, garantia, contrato)
-  - [ ] título + linha "Categoria · Validade: YYYY-MM-DD"
-  - [ ] badge de estado à direita (`Expirado` / `Expira Em Breve` / `Válido`)
-  - [ ] texto de dias (em atraso / restantes)
-  - [ ] botões editar (lápis) + apagar (lixo)
-- [ ] **Modal "Novo Documento"** com campos: Título, Categoria (dropdown), Data Emissão, Data Validade, Notas.
-- [ ] Estado vazio.
+  - [x] título + linha "Categoria · Validade: YYYY-MM-DD"
+  - [x] badge de estado à direita (`Expirado` / `Expira Em Breve` / `Válido`)
+  - [x] texto de dias (em atraso / restantes)
+  - [x] botões editar (lápis) + apagar (lixo)
+- [x] **Modal "Novo Documento"** com campos: Título, Categoria (dropdown), Data Emissão, Data Validade, Notas.
+- [x] Estado vazio.
 
 ### Backend / Queries
-- [ ] `DocumentosViewModel` está vazio — adicionar:
-  - [ ] `StateList<DocumentosPessoal> listDocumentos`
+- [ ] Completar `DocumentosViewModel`:
+  - [x] `StateList<DocumentosPessoal> listDocumentos`
   - [ ] `State<String> filtroCategoria`
-  - [ ] `carregarDocumentos()` — SELECT em `documentos_pessoal`.
-  - [ ] `criar(DocumentosPessoal)` — INSERT.
+  - [x] `carregarDocumentos()` — SELECT em `documentos_pessoal`.
+  - [x] `criar(DocumentosPessoal)` — INSERT.
   - [ ] `atualizar(DocumentosPessoal)` — UPDATE por id.
   - [ ] `apagar(int id)` — DELETE.
   - [ ] `filtrar(TipoDocumentoPessoal)` — re-query ou filtro em memória.
@@ -58,7 +58,7 @@ Estado: só renderiza título. **Tudo o resto em falta.**
 
 ## Veículos (`views/VeiculosView.java` + `viewModels/VeiculosViewModel.java`)
 
-Estado: só renderiza título. **Tudo o resto em falta.**
+Estado: base implementada; faltam upload de foto e operações de edição/remoção.
 
 ### Model
 - [x] `models/Veiculo/Veiculos.java` + `DocumentosVeiculo.java`
@@ -71,62 +71,97 @@ Estado: só renderiza título. **Tudo o resto em falta.**
   - [x] nome (marca + modelo)
   - [x] linha "Ano · Matrícula"
   - [x] botão **"Ver Documentos →"** (abre detalhe / lista docs do veículo)
-  - [ ] botões editar + apagar
-        - [ ] logica apagar
-        - [ ] logica editar
-- [ ] **Modal "Novo Veículo"** com: Marca, Modelo, Ano, Matrícula, Notas.
+  - [x] botões editar + apagar
+- [x] **Modal "Novo Veículo"** com: Marca, Modelo, Ano, Matrícula, Notas.
 - [x] Vista de detalhe / sub-página com documentos do veículo (seguro, IUC, inspeção).
-- [ ] Estado vazio.
+- [x] Estado vazio.
 
 ### Backend / Queries
-- [ ] `VeiculosViewModel` está vazio — adicionar:
+- [ ] Completar `VeiculosViewModel`:
   - [x] `StateList<Veiculos> listVeiculos`
   - [x] `carregarVeiculos()` — SELECT em `veiculos`.
-  - [ ] `criar / atualizar / apagar`.
-  - [x] `carregarDocumentosVeiculo(int veiculoId)` para sub-vista.
+  - [x] criar veiculo.
+  - [ ] atualizar veiculo
+  - [ ] apagar veiculo
+  - [x] `carregarDocumentosVeiculo(int veiculoId)` para sub-vista via `VeiculosDocumentosViewModel`.
   - [ ] upload de foto (guardar path/blob, decidir estratégia).
 - [ ] Veiculos só tem campo `nome` — separar em `marca` + `modelo` (model + schema) ou parse string.
 
 ---
 
+## Documentos do Veículo (`views/VeiculosDocumentosView.java` + `viewModels/VeiculosDocumentosViewModel.java`)
+
+Estado: base implementada; faltam operações de edição/remoção.
+
+### Model
+- [x] `models/Veiculo/DocumentosVeiculo.java`
+- [x] `models/TipoDocumentoVeiculo.java`
+
+### Visual
+- [x] Vista de detalhe aberta a partir do botão **"Ver Documentos"** no card do veículo.
+- [x] Título com nome do veículo, ano e matrícula.
+- [x] Botão **"Adicionar"** no topo direito.
+- [x] Modal com campos: Tipo, Título, Data de Validade, Valor, Notas.
+- [x] Campos condicionais para seguro: Seguradora e Cobertura.
+- [x] Lista de documentos usando `DocumentoCard`.
+- [x] Estado vazio "Sem Documentos".
+- [x] Limpar campos ao adicionar/cancelar/fechar modal.
+- [ ] Filtros por tipo: Todos / Seguro / IUC / Inspeção / Outro.
+
+### Backend / Queries
+- [x] `StateList<DocumentosVeiculo> listDocumentos`
+- [x] States do formulário de documento do veículo.
+- [x] `carregarDocumentos(int veiculoId)` filtra documentos pelo veículo.
+- [x] `verDocumentos()` — SELECT em `documentos_veiculo`.
+- [x] `novoDocumento(int veiculoId)` — INSERT em `documentos_veiculo`.
+- [ ] `updateDocumento(int id)` — UPDATE por id.
+- [ ] `apagarDocumento(int id)` — DELETE por id.
+
+---
+
 ## Subscrições (`views/SubscricaoView.java` + `viewModels/SubscricaoViewModel.java`)
 
-Estado: só renderiza título. **Tudo o resto em falta.**
+Estado: base implementada; faltam operações de edição/remoção e alguns acabamentos visuais.
 
 ### Model
 - [x] `models/Subscricao/Subscricoes.java` + `DocumentosSubscricao.java`
-- [ ] Falta campo `custoMensal` (double/BigDecimal) no model `Subscricoes` ou em `DocumentosSubscricao`.
-- [ ] Falta campo `categoria` (Streaming / Software / Serviço Online) — `TipoDocumentoSubscricao` existe, validar.
-- [ ] Falta campo `ativa` (boolean).
-- [ ] Falta campo `plano` (string, ex.: "Premium 4K").
+- [x] Falta campo `custoMensal` (double/BigDecimal) no model `Subscricoes` ou em `DocumentosSubscricao`.
+- [x] Falta campo `categoria` (Streaming / Software / Serviço Online) — `TipoDocumentoSubscricao` existe, validar.
+- [x] Falta campo `ativa` (boolean).
+- [x] Falta campo `plano` (string, ex.: "Premium 4K").
 
 ### Visual
 - [x] Botão **"+ Nova Subscrição"** topo direito.
-- [ ] **Banner azul** no topo com:
-  - [ ] "Custo Total Mensal" + `€XX.XX` grande
-  - [ ] direita: "N subscrições ativas" + `€XX.XX/ano`
+- [x] **Banner azul** no topo com:
+  - [x] "Custo Total Mensal" + `€XX.XX` grande
+  - [x] direita: "N subscrições ativas" + `€XX.XX/ano`
 - [ ] **Lista** de cards de subscrição com:
-  - [ ] logo/avatar (círculo com iniciais ou logo do serviço)
-  - [ ] nome + linha "Categoria · Plano"
-  - [ ] custo `€X.XX/mês` à direita
-  - [ ] dias restantes / em atraso por baixo (cor por estado)
+  - [x] ícone por plataforma/serviço quando reconhecido
+  - [x] nome + linha "Categoria · Plano"
+  - [x] custo `€X.XX/mês` à direita
+  - [x] dias restantes / em atraso por baixo (cor por estado)
   - [ ] botões editar + apagar
-- [ ] **Modal "Nova Subscrição"**: Serviço, Categoria, Custo Mensal, Plano, Data Renovação, toggle Ativa, Notas.
-- [ ] Estado vazio.
+- [x] **Modal "Nova Subscrição"**: Serviço, Categoria, Custo Mensal, Plano, Data Renovação, toggle Ativa.
+- [ ] Notas no modal de subscrição.
+- [x] Estado vazio.
 
 ### Backend / Queries
-- [ ] `SubscricaoViewModel` está vazio — adicionar:
-  - [ ] `StateList<Subscricoes> listSubscricoes`
-  - [ ] `State<Double> custoTotalMensal`
-  - [ ] `State<Integer> qntAtivas`
-  - [ ] `carregarSubscricoes()` — SELECT join com `documentos_subscricao` para custo + plano + renovação.
-  - [ ] `calcularCustoTotal()` — SUM custo_mensal WHERE ativa = 1.
-  - [ ] `criar / atualizar / apagar`.
+- [ ] Completar `SubscricaoViewModel`:
+  - [x] `StateList<Subscricoes> listSubscricoes`
+  - [x] `StateList<DocumentosSubscricao> listDocumentosSubscricao`
+  - [x] `State<Double> custoTotalMensal`
+  - [x] `State<Integer> qntAtivas`
+  - [x] `carregarSubscricoes()` — SELECT em `subscricoes`.
+  - [x] `carregarDocumentos()` — SELECT em `documentos_subscricao`.
+  - [x] `calcularCustoTotal()` — SUM custo_mensal WHERE ativa = 1.
+  - [x] criar subscricao.
+  - [ ] atualizar subscricao
+  - [ ] apagar subscricao
   - [ ] `alternarAtiva(int id)`.
 
 ---
 
-## Calendário (NÃO EXISTE)
+## Calendário
 
 Sidebar do alvo tem entrada "Calendário" mas:
 - [x] `views/CalendarioView.java` não existe.
@@ -140,7 +175,7 @@ Sidebar do alvo tem entrada "Calendário" mas:
 
 - [x] Branding: trocar "ISPGAYA" da sidebar atual por **"LifeBinder+ / Gestor Inteligente"** com logo escudo azul.
 - [ ] Componente reutilizável `EstatisticaCard` (ícone + label + valor + subtexto) — atualmente repetido 4× inline no Dashboard.
-- [ ] Componente reutilizável `Modal` para os formulários CRUD.
+- [x] Componente reutilizável `Modal` para os formulários CRUD.
 - [ ] Sistema de notificações (botão "Ativar Notificações" implica permissão OS + scheduling).
 - [ ] Toast/feedback após criar/editar/apagar.
 - [ ] Validação de inputs nos modais.

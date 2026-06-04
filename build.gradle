@@ -20,7 +20,7 @@ repositories {
 
 dependencies {
     // Bricks — UI library (inclui JavaFX internamente)
-    implementation 'com.github.FabioRodrigues0:bricks:v0.6.5.2'
+    implementation 'com.github.FabioRodrigues0:bricks:v0.6.6.2'
 
     // SQLite — base de dados local
     implementation 'org.xerial:sqlite-jdbc:3.45.1.0'
