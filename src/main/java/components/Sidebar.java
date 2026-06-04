@@ -22,15 +22,22 @@ public class Sidebar {
     }
 
     public Component render() {
-        return new Column().gap(5)
-                .modifier(new Modifier().visible(isOpen).border(Color.DARKGRAY, 2)).children(
-                        new Button("Dashboard").modifier(new Modifier().size(150, 50))
-                                .onClick(() -> app.navigateTo(new DashboardView(app))),
-                        new Button("Documentos").modifier(new Modifier().size(150, 50))
-                                .onClick(() -> app.navigateTo(new DocumentosView(app))),
-                        new Button("Veiculos").modifier(new Modifier().size(150, 50))
-                                .onClick(() -> app.navigateTo(new VeiculosView(app))),
-                        new Button("Subscricoes").modifier(new Modifier().size(150, 50))
-                                .onClick(() -> app.navigateTo(new SubscricaoView(app))));
+        return new Column()
+            .gap(5)
+            .modifier(new Modifier().visible(isOpen).border(Color.DARKGRAY, 2))
+            .children(
+                new Button("Dashboard")
+                    .modifier(new Modifier().size(150, 50))
+                    .onClick(() -> app.navigateTo(new DashboardView(app))),
+                new Button("Documentos")
+                    .modifier(new Modifier().size(150, 50))
+                    .onClick(() -> app.navigateTo(new DocumentosView(app))),
+                new Button("Veiculos")
+                    .modifier(new Modifier().size(150, 50))
+                    .onClick(() -> app.navigateTo(new VeiculosView(app))),
+                new Button("Subscricoes")
+                    .modifier(new Modifier().size(150, 50))
+                    .onClick(() -> app.navigateTo(new SubscricaoView(app)))
+            );
     }
 }
