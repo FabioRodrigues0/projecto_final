@@ -22,10 +22,13 @@ public class DashboardView extends BricksScene {
     private final DashboardViewModel vm = new DashboardViewModel();
     private final BricksApplication app;
 
+    // Recebe as dependências necessárias no construtor da View
     public DashboardView(BricksApplication app) {
         super(app);
-        use(this.vm);
         this.app = app;
+        use(this.vm);
+
+        // Carrega todos os dados necessários
         this.vm.carregarExpiracoes();
         this.vm.carregarDocumentos();
         this.vm.carregarVeiculos();
@@ -112,7 +115,7 @@ public class DashboardView extends BricksScene {
                                     )
                             ),
 
-                        // Subscrições (Corrigido o posicionamento do .padding)
+                        // Subscrições
                         new Card()
                             .elevation(2)
                             .modifier(new Modifier().fillMaxWidth())
@@ -130,7 +133,18 @@ public class DashboardView extends BricksScene {
                                                     ),
                                                 new Text(String.valueOf(vm.qntSubscricoes.get()))
                                                     .fontSize(20)
-                                                    .modifier(new Modifier().bold())
+                                                    .modifier(new Modifier().bold()),
+                                                new Text(
+                                                    String
+                                                        .format(
+                                                            "%.2f",
+                                                            vm.gastoMensal.get()
+                                                        ) + "€/mês"
+                                                )
+                                                    .fontSize(14)
+                                                    .modifier(
+                                                        new Modifier().textColor(Color.GRAY).bold()
+                                                    )
                                             ),
                                         new Spacer(),
                                         new Icon("fas-tv")
@@ -145,7 +159,7 @@ public class DashboardView extends BricksScene {
                                     )
                             ),
 
-                        // Alertas (Corrigido o posicionamento do .padding)
+                        // Alertas
                         new Card()
                             .elevation(2)
                             .modifier(new Modifier().fillMaxWidth())
@@ -196,12 +210,12 @@ public class DashboardView extends BricksScene {
                                     .modifier(new Modifier().fillMaxHeight())
                                     .items(vm.listExpiracoes)
                                     .emptyState(new Text("Sem Expirações"))
-                                    .item(expiracao -> {
-                                        return new ExpiracaoCard(
+                                    .item(
+                                        expiracao -> new ExpiracaoCard(
                                             expiracao.titulo(), expiracao.subTitulo(), expiracao
                                                 .dias(), expiracao.tipo()
-                                        ).render();
-                                    })
+                                        ).render()
+                                    )
                             )
                     ),
 
@@ -258,6 +272,6 @@ public class DashboardView extends BricksScene {
                                     )
                             )
                     )
-            ); // <--- Aqui fechava corretamente a árvore de componentes da Column principal
+            );
     }
 }

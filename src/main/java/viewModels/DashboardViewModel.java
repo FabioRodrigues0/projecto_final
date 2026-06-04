@@ -16,8 +16,10 @@ public class DashboardViewModel extends BricksViewModel {
     public final State<Integer> qntDocumentos = state(0);
     public final State<Integer> qntVeiculos = state(0);
     public final State<Integer> qntSubscricoes = state(0);
+    public final State<Double> gastoMensal = state(0.0);//referente subscriçoes
     public final State<Integer> qntAlertas = state(0);
     public final StateList<Expiracoes> listExpiracoes = stateList(List.of());
+
 
     public void carregarDocumentos() {
         Map<String, Object> qnt = DB
@@ -44,12 +46,26 @@ public class DashboardViewModel extends BricksViewModel {
     public void carregarSubscricoes() {
         Map<String, Object> qnt = DB
             .query()
-            .select("COUNT(DISTINCT subscricoes.id) as total")
-            .from("subscricoes")
+            .select("COUNT(DISTINCT documentos_subscricao.id) as total")
+            .from("documentos_subscricao")
             .executeRaw()
             .first();
 
         qntSubscricoes.set((Integer) qnt.get("total"));
+
+        Map<String, Object> soma = DB
+            .query()
+            .select("SUM(documentos_subscricao.custo) as total")
+            .from("documentos_subscricao")
+            .executeRaw()
+            .first();
+
+        Object totalGasto = soma.get("total");
+        if (totalGasto != null) {
+            gastoMensal.set((Double) totalGasto);
+        } else {
+            gastoMensal.set(0.0);
+        }
     }
 
     public void carregarExpiracoes() {

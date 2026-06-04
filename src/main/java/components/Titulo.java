@@ -35,14 +35,16 @@ public class Titulo {
 
     // Construtor simples - sem modal
     public Titulo(BricksApplication app, String titulo, String subTitulo, String iconButton, String textButton) {
-        this(app, titulo, subTitulo, iconButton, textButton, "", null, () -> {}, () -> {});
+        this(
+            app, titulo, subTitulo, iconButton, textButton, "", (Supplier<Component>) null, () -> {}, () -> {}, DEFAULT_MODAL_WIDTH, DEFAULT_MODAL_HEIGHT
+        );
     }
 
     public Titulo(
                   BricksApplication app, String titulo, String subTitulo, String iconButton, String textButton, String tituloModal
     ) {
         this(
-            app, titulo, subTitulo, iconButton, textButton, tituloModal, (Supplier<Component>) null, null, null
+            app, titulo, subTitulo, iconButton, textButton, tituloModal, (Supplier<Component>) null, () -> {}, () -> {}, DEFAULT_MODAL_WIDTH, DEFAULT_MODAL_HEIGHT
         );
     }
 
