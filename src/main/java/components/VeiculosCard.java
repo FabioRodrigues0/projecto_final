@@ -25,14 +25,18 @@ public class VeiculosCard {
     private final String matricula;
     private final String foto;
     private final BricksApplication app;
+    private final Runnable onEditar;
+    private final Runnable onApagar;
 
-    public VeiculosCard(BricksApplication app, Veiculos veiculo) {
+    public VeiculosCard(BricksApplication app, Veiculos veiculo, Runnable onEditar, Runnable onApagar) {
         this.app = app;
         this.id = veiculo.getId();
         this.nome = veiculo.getNome();
         this.ano = veiculo.getAno();
         this.matricula = veiculo.getMatricula();
         this.foto = veiculo.getFoto();
+        this.onEditar = onEditar;
+        this.onApagar = onApagar;
     }
 
 
@@ -77,8 +81,14 @@ public class VeiculosCard {
                                             )
                                     ),
                                 new Spacer(),
-                                new IconButton("fas-pen").ghost().modifier(new Modifier()),
-                                new IconButton("fas-trash-alt").ghost().color(Color.RED)
+                                new IconButton("fas-pen")
+                                    .ghost()
+                                    .modifier(new Modifier())
+                                    .onClick(this.onEditar),
+                                new IconButton("fas-trash-alt")
+                                    .ghost()
+                                    .color(Color.RED)
+                                    .onClick(this.onApagar)
                             ),
                         new Button("Ver Documentos")
                             .modifier(

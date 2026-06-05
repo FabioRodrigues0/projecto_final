@@ -23,27 +23,40 @@ public class DocumentoCard {
     private final String titulo;
     private final String tipoDocumento;
     private final LocalDate dataValidade;
+    private final Runnable onEditar;
+    private final Runnable onApagar;
 
     public DocumentoCard() {
-        this("Titulo", "Tipo", null);
+        this("Titulo", "Tipo", null, () -> {
+        }, () -> {
+        });
     }
 
-    public DocumentoCard(DocumentosVeiculo documento) {
-        this(documento.getTitulo(), formatTipo(documento.getTipo()), documento.getDataValidade());
+    public DocumentoCard(DocumentosVeiculo documento, Runnable onEditar, Runnable onApagar) {
+        this(
+            documento.getTitulo(), formatTipo(documento.getTipo()), documento
+                .getDataValidade(), onEditar, onApagar
+        );
     }
 
-    public DocumentoCard(DocumentosPessoal documento) {
-        this(documento.getTitulo(), formatTipo(documento.getTipo()), documento.getDataValidade());
+    public DocumentoCard(DocumentosPessoal documento, Runnable onEditar, Runnable onApagar) {
+        this(
+            documento.getTitulo(), formatTipo(documento.getTipo()), documento
+                .getDataValidade(), onEditar, onApagar
+        );
     }
 
-    public DocumentoCard(String titulo, String tipoDocumento, LocalDate dataValidade) {
+    public DocumentoCard(
+                         String titulo, String tipoDocumento, LocalDate dataValidade, Runnable onEditar, Runnable onApagar) {
         this.titulo = titulo;
         this.tipoDocumento = tipoDocumento;
         this.dataValidade = dataValidade;
+        this.onEditar = onEditar;
+        this.onApagar = onApagar;
     }
 
-    public DocumentoCard(ItemCalendario item) {
-        this(item.getTitulo(), item.getCategoria(), item.getData());
+    public DocumentoCard(ItemCalendario item, Runnable onEditar, Runnable onApagar) {
+        this(item.getTitulo(), formatTipo(item.getCategoria()), item.getData(), onEditar, onApagar);
     }
 
     private static String formatTipo(Enum<?> tipo) {
@@ -111,8 +124,11 @@ public class DocumentoCard {
                         new Text(estado.tempo())
                             .modifier(new Modifier().bold().textColor(estado.corTexto())),
                         new Badge(estado.badge()).soft().variant(estado.variant()),
-                        new IconButton("fas-pen").ghost(),
-                        new IconButton("fas-trash-alt").ghost().color(Color.RED)
+                        new IconButton("fas-pen").ghost().onClick(this.onEditar),
+                        new IconButton("fas-trash-alt")
+                            .ghost()
+                            .color(Color.RED)
+                            .onClick(this.onApagar)
                     )
             );
     }
