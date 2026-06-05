@@ -1,7 +1,7 @@
 package views;
 
 import components.DocumentoCard;
-import components.Titulo;
+import fabiorodrigues.bricks.components.Alert;
 import fabiorodrigues.bricks.components.Button;
 import fabiorodrigues.bricks.components.Card;
 import fabiorodrigues.bricks.components.Column;
@@ -22,6 +22,7 @@ import fabiorodrigues.bricks.style.BricksTheme;
 import fabiorodrigues.bricks.style.Modifier;
 import java.util.List;
 import javafx.geometry.Pos;
+import javafx.scene.paint.Color;
 import models.Pessoal.DocumentosPessoal;
 import models.Pessoal.Pessoas;
 import models.TipoDocumentoPessoal;
@@ -46,16 +47,23 @@ public class DocumentosView extends BricksScene {
             .gap(20)
             .modifier(new Modifier().padding(30, 20).fillMaxHeight())
             .children(
-                new Titulo(
-                    this.app, "Documentos", "Garantias, contratos, faturas e outros", "fas-plus", "Nova Pessoa", () -> new Column()
-                        .gap(8)
-                        .children(new TextField().label("Nome").bindTo(vm.nomePessoa)), () -> {
-                            vm.novo();
-                            vm.carregarPessoas();
-                        }, () -> {
-                            vm.nomePessoa.set("");
-                        }
-                ).render(),
+                new Row()
+                    .gap(0)
+                    .children(
+                        new Column()
+                            .gap(8)
+                            .children(
+                                new Text("Documentos").fontSize(24).modifier(new Modifier().bold()),
+                                new Text("Garantias, contratos, faturas e outros")
+                                    .fontSize(13)
+                                    .modifier(new Modifier().textColor(Color.GRAY))
+                            ),
+                        new Spacer(),
+                        new IconButton("fas-plus", "Nova Pessoa")
+                            .color(BricksTheme.current().colorScheme().onPrimary())
+                            .modifier(new Modifier().height(35).padding(0))
+                            .onClick(() -> abrirPessoaModal(null))
+                    ),
                 new ItemsColumn<Pessoas>()
                     .gap(10)
                     .modifier(new Modifier().fillMaxWidth().fillMaxHeight())
@@ -72,96 +80,32 @@ public class DocumentosView extends BricksScene {
                                             .fontSize(24)
                                             .modifier(new Modifier().bold()),
                                         new Spacer(),
-                                        new IconButton("fas-plus", "Novo Documento")
-                                            .color(BricksTheme.current().colorScheme().onPrimary())
+                                        new IconButton("fas-pen")
                                             .modifier(new Modifier().height(35).padding(0))
+                                            .ghost()
+                                            .onClick(() -> abrirPessoaModal(pessoa)),
+                                        new IconButton("fas-trash-alt")
+                                            .modifier(new Modifier().height(35).padding(0))
+                                            .ghost()
+                                            .color(Color.RED)
                                             .onClick(() -> {
-                                                Modal
-                                                    .showUndecorated(
-                                                        app,
-                                                        "Documentos",
-                                                        500.0,
-                                                        400.0,
-                                                        modal -> {
-                                                            modal.setOnHidden(event -> {
-                                                                vm.tituloDocumento.set("");
-                                                                vm.categoriaDocumento
-                                                                    .set(TipoDocumentoPessoal.NONE);
-                                                                vm.dataEmissaoDocumento.set(null);
-                                                                vm.dataValidadeDocumento.set(null);
-                                                                vm.notasDocumento.set("");
-                                                            });
+                                                if (!Alert
+                                                    .confirm(
+                                                        "Confirmar",
+                                                        "Tem a certeza que pretende apagar esta pessoa?"
+                                                    )) {
+                                                    return;
+                                                }
 
-                                                            return new Column()
-                                                                .gap(8)
-                                                                .children(
-                                                                    new Text("Novo Documento")
-                                                                        .fontSize(18),
-                                                                    new TextField()
-                                                                        .label("Titulo")
-                                                                        .bindTo(vm.tituloDocumento),
-                                                                    new Dropdown<>(
-                                                                        List
-                                                                            .of(
-                                                                                TipoDocumentoPessoal
-                                                                                    .values()
-                                                                            )
-                                                                    )
-                                                                        .label("Categoria:")
-                                                                        .bindTo(
-                                                                            vm.categoriaDocumento
-                                                                        ),
-                                                                    new Row()
-                                                                        .gap(5)
-                                                                        .children(
-                                                                            new DatePicker()
-                                                                                .label(
-                                                                                    "Data de Emissao:"
-                                                                                )
-                                                                                .bindTo(
-                                                                                    vm.dataEmissaoDocumento
-                                                                                ),
-                                                                            new DatePicker()
-                                                                                .label(
-                                                                                    "Data de Validacao"
-                                                                                )
-                                                                                .bindTo(
-                                                                                    vm.dataValidadeDocumento
-                                                                                )
-                                                                        ),
-                                                                    new TextField()
-                                                                        .multiline()
-                                                                        .label("Notas")
-                                                                        .bindTo(vm.notasDocumento),
-                                                                    new Row()
-                                                                        .gap(8)
-                                                                        .modifier(
-                                                                            new Modifier()
-                                                                                .alignment(
-                                                                                    Pos.BOTTOM_RIGHT
-                                                                                )
-                                                                        )
-                                                                        .children(
-                                                                            new Button("Cancelar")
-                                                                                .onClick(
-                                                                                    modal::close
-                                                                                ),
-                                                                            new Button("Adicionar")
-                                                                                .onClick(() -> {
-                                                                                    vm
-                                                                                        .novoDocumento(
-                                                                                            pessoa
-                                                                                                .getId()
-                                                                                        );
-                                                                                    vm
-                                                                                        .carregarDocumentos();
-                                                                                    modal.close();
-                                                                                })
-                                                                        )
-                                                                );
-                                                        }
-                                                    );
-                                            })
+                                                vm.apagar(pessoa.getId());
+                                                vm.carregarPessoas();
+                                                vm.carregarDocumentos();
+                                            }),
+                                        new IconButton("fas-plus")
+                                            .ghost()
+                                            .color(BricksTheme.current().colorScheme().primary())
+                                            .modifier(new Modifier().height(35).padding(0))
+                                            .onClick(() -> abrirDocumentoModal(pessoa, null))
                                     ),
                                 new Divider(),
                                 new ItemsColumn<DocumentosPessoal>()
@@ -183,9 +127,139 @@ public class DocumentosView extends BricksScene {
                                             )
                                             .toList()
                                     )
-                                    .item(documento -> new DocumentoCard(documento).render())
+                                    .item(
+                                        documento -> new DocumentoCard(
+                                            documento, () -> abrirDocumentoModal(
+                                                pessoa,
+                                                documento
+                                            ), () -> {
+                                                if (!Alert
+                                                    .confirm(
+                                                        "Confirmar",
+                                                        "Tem a certeza que pretende apagar este documento?"
+                                                    )) {
+                                                    return;
+                                                }
+
+                                                vm.apagarDocumento(documento.getId());
+                                                vm.carregarDocumentos();
+                                            }
+                                        ).render()
+                                    )
                             )
                     )
             );
+    }
+
+    private void abrirPessoaModal(Pessoas pessoa) {
+        boolean update = pessoa != null;
+
+        if (update) {
+            preencherPessoa(pessoa);
+        } else {
+            limparPessoa();
+        }
+
+        Modal.showUndecorated(app, "Documentos", 500.0, 250.0, modal -> {
+            modal.setOnHidden(event -> limparPessoa());
+
+            return new Column()
+                .gap(8)
+                .children(
+                    new Text(update ? "Editar Pessoa" : "Nova Pessoa").fontSize(18),
+                    new TextField().label("Nome").bindTo(vm.nomePessoa),
+                    new Row()
+                        .gap(8)
+                        .modifier(new Modifier().alignment(Pos.BOTTOM_RIGHT))
+                        .children(
+                            new Button("Cancelar").onClick(modal::close),
+                            new Button(update ? "Atualizar" : "Adicionar").onClick(() -> {
+                                if (update) {
+                                    vm.update(pessoa.getId());
+                                } else {
+                                    vm.novo();
+                                }
+
+                                vm.carregarPessoas();
+                                modal.close();
+                            })
+                        )
+                );
+        });
+    }
+
+    private void abrirDocumentoModal(Pessoas pessoa, DocumentosPessoal documento) {
+        boolean update = documento != null;
+
+        if (update) {
+            preencherDocumento(documento);
+        } else {
+            limparDocumento();
+        }
+
+        Modal.showUndecorated(app, "Documentos", 500.0, 400.0, modal -> {
+            modal.setOnHidden(event -> limparDocumento());
+
+            return new Column()
+                .gap(8)
+                .children(
+                    new Text(update ? "Editar Documento" : "Novo Documento").fontSize(18),
+                    new TextField().label("Titulo").bindTo(vm.tituloDocumento),
+                    new Dropdown<>(List.of(TipoDocumentoPessoal.values()))
+                        .label("Categoria:")
+                        .bindTo(vm.categoriaDocumento),
+                    new Row()
+                        .gap(5)
+                        .children(
+                            new DatePicker()
+                                .label("Data de Emissao:")
+                                .bindTo(vm.dataEmissaoDocumento),
+                            new DatePicker()
+                                .label("Data de Validacao")
+                                .bindTo(vm.dataValidadeDocumento)
+                        ),
+                    new TextField().multiline().label("Notas").bindTo(vm.notasDocumento),
+                    new Row()
+                        .gap(8)
+                        .modifier(new Modifier().alignment(Pos.BOTTOM_RIGHT))
+                        .children(
+                            new Button("Cancelar").onClick(modal::close),
+                            new Button(update ? "Atualizar" : "Adicionar").onClick(() -> {
+                                if (update) {
+                                    vm.updateDocumento(documento.getId());
+                                } else {
+                                    vm.novoDocumento(pessoa.getId());
+                                }
+
+                                vm.carregarDocumentos();
+                                modal.close();
+                            })
+                        )
+                );
+        });
+    }
+
+    private void preencherDocumento(DocumentosPessoal documento) {
+        vm.tituloDocumento.set(documento.getTitulo());
+        vm.categoriaDocumento.set(documento.getTipo());
+        vm.dataEmissaoDocumento.set(documento.getDataEmissao());
+        vm.dataValidadeDocumento.set(documento.getDataValidade());
+        vm.notasDocumento.set(documento.getNotas() == null ? "" : documento.getNotas());
+    }
+
+    private void limparDocumento() {
+        vm.tituloDocumento.set("");
+        vm.categoriaDocumento.set(TipoDocumentoPessoal.NONE);
+        vm.dataEmissaoDocumento.set(null);
+        vm.dataValidadeDocumento.set(null);
+        vm.notasDocumento.set("");
+    }
+
+    private void preencherPessoa(Pessoas pessoa) {
+        vm.nomePessoa.set(pessoa.getNome());
+    }
+
+    private void limparPessoa() {
+        vm.nomePessoa.set("");
     }
 }
