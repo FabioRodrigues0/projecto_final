@@ -4,6 +4,7 @@ import fabiorodrigues.bricks.core.BricksViewModel;
 import fabiorodrigues.bricks.core.State;
 import fabiorodrigues.bricks.core.StateList;
 import fabiorodrigues.bricks.data.DB;
+import fabiorodrigues.bricks.data.WhereOperator;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -14,7 +15,9 @@ import models.TipoDocumentoPessoal;
 public class DocumentosViewModel extends BricksViewModel implements IViewModel<Pessoas>, IViewModelDocumentos<DocumentosPessoal> {
     public final StateList<DocumentosPessoal> listDocumentos = stateList(List.of());
     public final StateList<Pessoas> listPessoas = stateList(List.of());
+    // pessoa
     public final State<String> nomePessoa = state("");
+    // documento
     public final State<String> tituloDocumento = state("");
     public final State<TipoDocumentoPessoal> categoriaDocumento = state(TipoDocumentoPessoal.NONE);
     public final State<LocalDate> dataEmissaoDocumento = state(null);
@@ -48,12 +51,26 @@ public class DocumentosViewModel extends BricksViewModel implements IViewModel<P
 
     @Override
     public void update(int id) {
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+        DB
+            .query()
+            .update("pessoas")
+            .value("nome", nomePessoa.get())
+            .where("id", WhereOperator.EQ, id)
+            .execute();
     }
 
     @Override
     public void apagar(int id) {
-        throw new UnsupportedOperationException("Unimplemented method 'apagar'");
+        DB.query().deleteFrom("pessoas").where("id", WhereOperator.EQ, id).execute();
+        List<DocumentosPessoal> list = DB
+            .query()
+            .select("*")
+            .from("documentos_pessoal")
+            .where("pessoa_id", WhereOperator.EQ, id)
+            .execute(DocumentosPessoal.class);
+        if (list.size() != 0) {
+            list.forEach(l -> apagarDocumento(l.getId()));
+        }
     }
 
     @Override
@@ -81,9 +98,21 @@ public class DocumentosViewModel extends BricksViewModel implements IViewModel<P
 
     @Override
     public void updateDocumento(int id) {
+        DB
+            .query()
+            .update("documentos_pessoal")
+            .value("titulo", tituloDocumento.get())
+            .value("tipo", categoriaDocumento.get())
+            .value("data_emissao", DateValues.atStartOfDay(dataEmissaoDocumento.get()))
+            .value("data_validade", DateValues.atStartOfDay(dataValidadeDocumento.get()))
+            .value("notas", notasDocumento.get())
+            .where("id", WhereOperator.EQ, id)
+            .execute();
+
     }
 
     @Override
     public void apagarDocumento(int id) {
+        DB.query().deleteFrom("documentos_pessoal").where("id", WhereOperator.EQ, id).execute();
     }
 }
