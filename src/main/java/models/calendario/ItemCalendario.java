@@ -1,13 +1,14 @@
 package models.calendario;
 
 import java.time.LocalDate;
+import models.TipoItemCalendario;
 
 public class ItemCalendario {
     private String titulo;
-    private String categoria; // "Pessoal", "Veículo", "Subscrição"
+    private TipoItemCalendario categoria; // "Pessoal", "Veículo", "Subscrição"
     private LocalDate data;
 
-    public ItemCalendario(String titulo, String categoria, LocalDate data) {
+    public ItemCalendario(String titulo, TipoItemCalendario categoria, LocalDate data) {
         this.titulo = titulo;
         this.categoria = categoria;
         this.data = data;
@@ -17,7 +18,7 @@ public class ItemCalendario {
         return titulo;
     }
 
-    public String getCategoria() {
+    public TipoItemCalendario getCategoria() {
         return categoria;
     }
 
