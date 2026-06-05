@@ -11,6 +11,7 @@ import java.util.Comparator;
 import java.util.List;
 import models.Pessoal.DocumentosPessoal;
 import models.Subscricao.DocumentosSubscricao;
+import models.TipoItemCalendario;
 import models.Veiculo.DocumentosVeiculo;
 import models.calendario.ItemCalendario;
 
@@ -41,7 +42,11 @@ public class CalendarioViewModel extends BricksViewModel {
                 for (DocumentosPessoal d : pessoal) {
                     if (d.getDataValidade() != null) {
                         todososPrazos
-                            .add(new ItemCalendario(d.getTitulo(), "Pessoal", d.getDataValidade()));
+                            .add(
+                                new ItemCalendario(
+                                    d.getTitulo(), TipoItemCalendario.PESSOAL, d.getDataValidade()
+                                )
+                            );
                     }
                 }
             }
@@ -66,7 +71,11 @@ public class CalendarioViewModel extends BricksViewModel {
                 for (DocumentosVeiculo d : veiculos) {
                     if (d.getDataValidade() != null) {
                         todososPrazos
-                            .add(new ItemCalendario(d.getTitulo(), "Veículo", d.getDataValidade()));
+                            .add(
+                                new ItemCalendario(
+                                    d.getTitulo(), TipoItemCalendario.VEICULO, d.getDataValidade()
+                                )
+                            );
                     }
                 }
             }
@@ -94,7 +103,8 @@ public class CalendarioViewModel extends BricksViewModel {
                         todososPrazos
                             .add(
                                 new ItemCalendario(
-                                    d.getTitulo(), "Subscrição", d.getDataRenovacao()
+                                    d.getTitulo(), TipoItemCalendario.SUBSCRICAO, d
+                                        .getDataRenovacao()
                                 )
                             );
                     }
