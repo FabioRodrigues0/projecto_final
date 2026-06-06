@@ -18,6 +18,7 @@ public class VeiculosViewModel extends BricksViewModel implements IViewModel<Vei
     public final State<String> modeloVeiculo = state("");
     public final State<Integer> anoVeiculo = state(null);
     public final State<String> matriculaVeiculo = state("");
+    public final State<String> fotoVeiculo = state("");
     public final State<String> notasVeiculo = state("");
 
     public void carregarVeiculos() {
@@ -49,6 +50,7 @@ public class VeiculosViewModel extends BricksViewModel implements IViewModel<Vei
             .value("data", DateValues.timestamp(LocalDateTime.now()))
             .value("ano", anoVeiculo.get())
             .value("matricula", matriculaVeiculo.get())
+            .value("foto", fotoVeiculo.get())
             .execute();
     }
 
@@ -60,6 +62,16 @@ public class VeiculosViewModel extends BricksViewModel implements IViewModel<Vei
             .value("nome", (marcaVeiculo.get() + " " + modeloVeiculo.get()).trim())
             .value("ano", anoVeiculo.get())
             .value("matricula", matriculaVeiculo.get())
+            .value("foto", fotoVeiculo.get())
+            .where("id", WhereOperator.EQ, id)
+            .execute();
+    }
+
+    public void atualizarFoto(int id, String foto) {
+        DB
+            .query()
+            .update("veiculos")
+            .value("foto", foto)
             .where("id", WhereOperator.EQ, id)
             .execute();
     }

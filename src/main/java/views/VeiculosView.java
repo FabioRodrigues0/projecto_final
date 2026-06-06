@@ -5,6 +5,7 @@ import fabiorodrigues.bricks.components.Alert;
 import fabiorodrigues.bricks.components.Button;
 import fabiorodrigues.bricks.components.Card;
 import fabiorodrigues.bricks.components.Column;
+import fabiorodrigues.bricks.components.FilePicker;
 import fabiorodrigues.bricks.components.IconButton;
 import fabiorodrigues.bricks.components.ItemsColumn;
 import fabiorodrigues.bricks.components.Modal;
@@ -70,10 +71,23 @@ public class VeiculosView extends BricksScene {
                                     )) {
                                     return;
                                 }
-
                                 vm.apagar(veiculo.getId());
                                 vm.carregarVeiculos();
-                            }
+                            }, new FilePicker()
+                                .label("Foto")
+                                .title("Foto do veículo")
+                                .filter("Imagens", "*.png", "*.jpg")
+                                .saveTo(
+                                    file -> "veiculos/" + veiculo.getId() + "/" + file.getName()
+                                )
+                                .onSelect(file -> {
+                                    vm
+                                        .atualizarFoto(
+                                            veiculo.getId(),
+                                            "veiculos/" + veiculo.getId() + "/" + file.getName()
+                                        );
+                                    vm.carregarVeiculos();
+                                })
                         ).render()
                     )
             );

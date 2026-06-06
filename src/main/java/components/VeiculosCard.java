@@ -27,8 +27,9 @@ public class VeiculosCard {
     private final BricksApplication app;
     private final Runnable onEditar;
     private final Runnable onApagar;
+    private final Component fotoPicker;
 
-    public VeiculosCard(BricksApplication app, Veiculos veiculo, Runnable onEditar, Runnable onApagar) {
+    public VeiculosCard(BricksApplication app, Veiculos veiculo, Runnable onEditar, Runnable onApagar, Component fotoPicker) {
         this.app = app;
         this.id = veiculo.getId();
         this.nome = veiculo.getNome();
@@ -37,6 +38,7 @@ public class VeiculosCard {
         this.foto = veiculo.getFoto();
         this.onEditar = onEditar;
         this.onApagar = onApagar;
+        this.fotoPicker = fotoPicker;
     }
 
 
@@ -81,6 +83,7 @@ public class VeiculosCard {
                                             )
                                     ),
                                 new Spacer(),
+                                this.fotoPicker,
                                 new IconButton("fas-pen")
                                     .ghost()
                                     .modifier(new Modifier())
