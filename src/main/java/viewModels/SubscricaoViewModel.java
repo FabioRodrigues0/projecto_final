@@ -5,6 +5,7 @@ import fabiorodrigues.bricks.core.State;
 import fabiorodrigues.bricks.core.StateList;
 import fabiorodrigues.bricks.data.DB;
 import fabiorodrigues.bricks.data.QueryResult;
+import fabiorodrigues.bricks.data.WhereOperator;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -22,7 +23,6 @@ public class SubscricaoViewModel extends BricksViewModel implements IViewModel<S
     public final State<Double> gastoMensal = state(0.0);
     public final State<Double> gastoAnual = state(0.0);
     public final State<Integer> subscricoesAtivas = state(0);
-    private int subscricaoCriadaId;
 
     // SUBSCRICOES
     public final State<String> nomeSubscricao = state("");
@@ -87,10 +87,6 @@ public class SubscricaoViewModel extends BricksViewModel implements IViewModel<S
         subscricoesAtivas.set(ativas.size());
     }
 
-    public int getSubscricaoCriadaId() {
-        return subscricaoCriadaId;
-    }
-
     @Override
     public List<Subscricoes> ver() {
         return DB
@@ -109,19 +105,22 @@ public class SubscricaoViewModel extends BricksViewModel implements IViewModel<S
             .value("data", DateValues.timestamp(LocalDateTime.now()))
             .executeResult();
 
-        subscricaoCriadaId = result.getGeneratedIdAsInt();
-
-        novoDocumento(subscricaoCriadaId);
+        novoDocumento(result.getGeneratedIdAsInt());
     }
 
     @Override
     public void update(int id) {
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+        DB
+            .query()
+            .update("subscricoes")
+            .value("nome", servicoSubscricao.get())
+            .where("id", WhereOperator.EQ, id)
+            .execute();
     }
 
     @Override
     public void apagar(int id) {
-        throw new UnsupportedOperationException("Unimplemented method 'apagar'");
+        DB.query().deleteFrom("subscricoes").where("id", WhereOperator.EQ, id).execute();
     }
 
     @Override
@@ -161,9 +160,21 @@ public class SubscricaoViewModel extends BricksViewModel implements IViewModel<S
 
     @Override
     public void updateDocumento(int id) {
+        DB
+            .query()
+            .update("documentos_subscricao")
+            .value("titulo", servicoSubscricao.get())
+            .value("tipo", categoriaSubscricao.get())
+            .value("custo", custoSubscricao.get())
+            .value("plano", planoSubscricao.get())
+            .value("data_renovacao", DateValues.atStartOfDay(dataRenovacaoSubscricao.get()))
+            .value("ativa", estadoSubscricao.get())
+            .where("id", WhereOperator.EQ, id)
+            .execute();
     }
 
     @Override
     public void apagarDocumento(int id) {
+        DB.query().deleteFrom("documentos_subscricao").where("id", WhereOperator.EQ, id).execute();
     }
 }

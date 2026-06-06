@@ -28,14 +28,19 @@ public class SubscricaoCard {
     private final double custo;
     private final LocalDate dataRenovacao;
     private final String icon;
+    private final Runnable onEditar;
+    private final Runnable onApagar;
 
-    public SubscricaoCard(Subscricoes subscricao, DocumentosSubscricao documento) {
+    public SubscricaoCard(
+                          Subscricoes subscricao, DocumentosSubscricao documento, Runnable onEditar, Runnable onApagar) {
         this.nome = subscricao.getNome();
         this.tipo = formatTipo(documento.getTipo());
         this.plano = documento.getPlano();
         this.custo = documento.getCusto();
         this.dataRenovacao = documento.getDataRenovacao();
         this.icon = resolverIcon(subscricao.getNome(), documento);
+        this.onEditar = onEditar;
+        this.onApagar = onApagar;
     }
 
     private static String formatTipo(Enum<?> tipo) {
@@ -180,8 +185,11 @@ public class SubscricaoCard {
                                     .modifier(new Modifier().bold().textColor(estado.corTexto()))
                             ),
                         new Badge(estado.badge()).soft().variant(estado.variant()),
-                        new IconButton("fas-pen").ghost(),
-                        new IconButton("fas-trash-alt").ghost().color(Color.RED)
+                        new IconButton("fas-pen").ghost().onClick(this.onEditar),
+                        new IconButton("fas-trash-alt")
+                            .ghost()
+                            .color(Color.RED)
+                            .onClick(this.onApagar)
                     )
             );
     }

@@ -1,18 +1,27 @@
 package views;
 
 import components.Titulo;
+import fabiorodrigues.bricks.components.Badge;
+import fabiorodrigues.bricks.components.BadgeVariant;
+import fabiorodrigues.bricks.components.Calendar;
+import fabiorodrigues.bricks.components.CalendarHighlight;
 import fabiorodrigues.bricks.components.Card;
 import fabiorodrigues.bricks.components.Column;
+import fabiorodrigues.bricks.components.EventSource;
+import fabiorodrigues.bricks.components.IconButton;
 import fabiorodrigues.bricks.components.ItemsColumn;
 import fabiorodrigues.bricks.components.Row;
 import fabiorodrigues.bricks.components.Text;
+import fabiorodrigues.bricks.components.When;
 import fabiorodrigues.bricks.core.BricksApplication;
 import fabiorodrigues.bricks.core.BricksScene;
 import fabiorodrigues.bricks.core.Component;
+import fabiorodrigues.bricks.core.State;
 import fabiorodrigues.bricks.style.Modifier;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.TextStyle;
+import java.util.List;
 import java.util.Locale;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -20,7 +29,9 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import models.TipoItemCalendario;
 import models.calendario.ItemCalendario;
 import viewModels.CalendarioViewModel;
 
@@ -28,6 +39,7 @@ public class CalendarioView extends BricksScene {
 
     private final BricksApplication app;
     private final CalendarioViewModel vm = new CalendarioViewModel();
+    private final State<LocalDate> diaAtualBricks = new State<>(LocalDate.now());
 
     public CalendarioView(BricksApplication app) {
         super(app);
@@ -45,10 +57,126 @@ public class CalendarioView extends BricksScene {
                 new Titulo(
                     this.app, "Calendário", "Todas as datas de validade e renovação", "fas-calendar-alt", "", ""
                 ).render(),
+                criarCalendarioBricks(),
                 criarLegendaCores(),
                 criarCartaoCalendarioMensal(),
                 criarPainelDiaSelecionado(),
                 criarPainelProximosEventos()
+            );
+    }
+
+    private Component criarCalendarioBricks() {
+        return new Column()
+            .modifier(new Modifier().fillMaxWidth())
+            .children(
+                new Calendar()
+                    .bindTo(this.diaAtualBricks)
+                    .addSource(
+                        new EventSource<>(this.vm.getTodosOsPrazos())
+                            .dateBy(ItemCalendario::getData)
+                            .highlightRules(
+                                List
+                                    .of(
+                                        new CalendarHighlight(Color.web("#ef4444"), 0),
+                                        new CalendarHighlight(Color.web("#f59e0b"), 30),
+                                        new CalendarHighlight(Color.web("#22c55e"), 31)
+                                    )
+                            )
+                            .labels(
+                                ItemCalendario::getTitulo,
+                                item -> formatarCategoria(item.getCategoria()) + ": " + item
+                                    .getData()
+                            )
+                            .component(item -> {
+                                long dias = vm.diasRestantes(item.getData());
+                                String diasRestantesText = dias < 0 ? Math
+                                    .abs(dias) + " dias em atraso" : dias + " dias restantes";
+                                Color corDias = corDiasRestantes(dias);
+                                BadgeEstado badgeEstado = badgeEstado(dias);
+
+                                return new Column()
+                                    .gap(0)
+                                    .modifier(new Modifier().fillMaxWidth())
+                                    .children(
+                                        new Row()
+                                            .gap(8)
+                                            .children(
+                                                new Column()
+                                                    .gap(0)
+                                                    .children(
+                                                        new When(
+                                                            item
+                                                                .getCategoria() == TipoItemCalendario.PESSOAL
+                                                        )
+                                                            .children(
+                                                                new IconButton("far-file-alt")
+                                                                    .modifier(
+                                                                        new Modifier()
+                                                                            .background(
+                                                                                Color.web("#f1f5f9")
+                                                                            )
+                                                                            .width(35)
+                                                                            .height(36)
+                                                                    )
+                                                            ),
+                                                        new When(
+                                                            item
+                                                                .getCategoria() == TipoItemCalendario.SUBSCRICAO
+                                                        )
+                                                            .children(
+                                                                new IconButton("far-credit-card")
+                                                                    .modifier(
+                                                                        new Modifier()
+                                                                            .background(
+                                                                                Color.web("#f1f5f9")
+                                                                            )
+                                                                            .width(35)
+                                                                            .height(36)
+                                                                    )
+                                                            ),
+                                                        new When(
+                                                            item
+                                                                .getCategoria() == TipoItemCalendario.VEICULO
+                                                        )
+                                                            .children(
+                                                                new IconButton("fas-car-side")
+                                                                    .modifier(
+                                                                        new Modifier()
+                                                                            .background(
+                                                                                Color.web("#f1f5f9")
+                                                                            )
+                                                                            .width(35)
+                                                                            .height(36)
+                                                                    )
+                                                            )
+                                                    ),
+                                                new Column()
+                                                    .gap(2)
+                                                    .modifier(new Modifier().fillMaxWidth())
+                                                    .children(
+                                                        new Text(item.getTitulo())
+                                                            .modifier(new Modifier().bold()),
+                                                        new Text(
+                                                            item
+                                                                .getData()
+                                                                .toString() + " · " + formatarCategoria(
+                                                                    item.getCategoria()
+                                                                )
+                                                        )
+                                                    ),
+                                                new Text(diasRestantesText)
+                                                    .modifier(
+                                                        new Modifier().bold().textColor(corDias)
+                                                    ),
+                                                new Badge(badgeEstado.texto())
+                                                    .soft()
+                                                    .variant(badgeEstado.variant())
+                                            )
+                                    );
+                            })
+                    )
+                    .informacaoDia()
+                    .modifier(new Modifier().fillMaxWidth())
             );
     }
 
@@ -256,9 +384,9 @@ public class CalendarioView extends BricksScene {
             .abs(dias) + " dias em atraso" : dias + " dias restantes";
 
         String icone = "📄";
-        if ("Veículo".equalsIgnoreCase(item.getCategoria())) {
+        if (item.getCategoria() == TipoItemCalendario.VEICULO) {
             icone = "🚗";
-        } else if ("Subscrição".equalsIgnoreCase(item.getCategoria())) {
+        } else if (item.getCategoria() == TipoItemCalendario.SUBSCRICAO) {
             icone = "💳";
         }
 
@@ -275,11 +403,54 @@ public class CalendarioView extends BricksScene {
                             .modifier(new Modifier().fillMaxWidth())
                             .children(
                                 new Text(item.getTitulo()),
-                                new Text(item.getData().toString() + " · " + item.getCategoria())
+                                new Text(
+                                    item.getData().toString() + " · " + formatarCategoria(
+                                        item.getCategoria()
+                                    )
+                                )
                             ),
                         new Text(diasRestantesText)
                     )
             );
+    }
+
+    private String formatarCategoria(TipoItemCalendario categoria) {
+        if (categoria == null) {
+            return "Sem categoria";
+        }
+
+        return switch (categoria) {
+            case PESSOAL -> "Pessoal";
+            case VEICULO -> "Veículo";
+            case SUBSCRICAO -> "Subscrição";
+        };
+    }
+
+    private Color corDiasRestantes(long dias) {
+        if (dias < 0) {
+            return Color.rgb(193, 0, 7);
+        }
+
+        if (dias <= 30) {
+            return Color.rgb(187, 77, 0);
+        }
+
+        return Color.rgb(20, 120, 55);
+    }
+
+    private BadgeEstado badgeEstado(long dias) {
+        if (dias < 0) {
+            return new BadgeEstado("Expirado", BadgeVariant.DANGER);
+        }
+
+        if (dias <= 30) {
+            return new BadgeEstado("Expira em breve", BadgeVariant.WARNING);
+        }
+
+        return new BadgeEstado("Valido", BadgeVariant.SUCCESS);
+    }
+
+    private record BadgeEstado(String texto, BadgeVariant variant) {
     }
 
     private Button criarBotaoNavegacao(String simbolo) {

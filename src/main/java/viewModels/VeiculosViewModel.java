@@ -4,6 +4,7 @@ import fabiorodrigues.bricks.core.BricksViewModel;
 import fabiorodrigues.bricks.core.State;
 import fabiorodrigues.bricks.core.StateList;
 import fabiorodrigues.bricks.data.DB;
+import fabiorodrigues.bricks.data.WhereOperator;
 import java.time.LocalDateTime;
 import java.util.List;
 import models.Veiculo.DocumentosVeiculo;
@@ -17,6 +18,7 @@ public class VeiculosViewModel extends BricksViewModel implements IViewModel<Vei
     public final State<String> modeloVeiculo = state("");
     public final State<Integer> anoVeiculo = state(null);
     public final State<String> matriculaVeiculo = state("");
+    public final State<String> fotoVeiculo = state("");
     public final State<String> notasVeiculo = state("");
 
     public void carregarVeiculos() {
@@ -48,17 +50,35 @@ public class VeiculosViewModel extends BricksViewModel implements IViewModel<Vei
             .value("data", DateValues.timestamp(LocalDateTime.now()))
             .value("ano", anoVeiculo.get())
             .value("matricula", matriculaVeiculo.get())
+            .value("foto", fotoVeiculo.get())
             .execute();
     }
 
     @Override
     public void update(int id) {
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+        DB
+            .query()
+            .update("veiculos")
+            .value("nome", (marcaVeiculo.get() + " " + modeloVeiculo.get()).trim())
+            .value("ano", anoVeiculo.get())
+            .value("matricula", matriculaVeiculo.get())
+            .value("foto", fotoVeiculo.get())
+            .where("id", WhereOperator.EQ, id)
+            .execute();
+    }
+
+    public void atualizarFoto(int id, String foto) {
+        DB
+            .query()
+            .update("veiculos")
+            .value("foto", foto)
+            .where("id", WhereOperator.EQ, id)
+            .execute();
     }
 
     @Override
     public void apagar(int id) {
-        throw new UnsupportedOperationException("Unimplemented method 'apagar'");
+        DB.query().deleteFrom("veiculos").where("id", WhereOperator.EQ, id).execute();
     }
 
     @Override
@@ -90,5 +110,6 @@ public class VeiculosViewModel extends BricksViewModel implements IViewModel<Vei
 
     @Override
     public void apagarDocumento(int id) {
+        DB.query().deleteFrom("documentos_veiculo").where("id", WhereOperator.EQ, id).execute();
     }
 }

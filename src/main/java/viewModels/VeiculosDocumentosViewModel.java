@@ -4,6 +4,7 @@ import fabiorodrigues.bricks.core.BricksViewModel;
 import fabiorodrigues.bricks.core.State;
 import fabiorodrigues.bricks.core.StateList;
 import fabiorodrigues.bricks.data.DB;
+import fabiorodrigues.bricks.data.WhereOperator;
 import java.time.LocalDate;
 import java.util.List;
 import models.TipoDocumentoVeiculo;
@@ -69,9 +70,22 @@ public class VeiculosDocumentosViewModel extends BricksViewModel implements IVie
 
     @Override
     public void updateDocumento(int id) {
+        DB
+            .query()
+            .update("documentos_veiculo")
+            .value("tipo", tipoDocumentoVeiculo.get())
+            .value("titulo", tituloDocumentoVeiculo.get())
+            .value("data_validade", DateValues.atStartOfDay(dataValidadeDocumentoVeiculo.get()))
+            .value("seguradora", seguradoraDocumentoVeiculo.get())
+            .value("cobertura", coberturaDocumentoVeiculo.get())
+            .value("valor", valorDocumentoVeiculo.get())
+            .value("notas", notasDocumentoVeiculo.get())
+            .where("id", WhereOperator.EQ, id)
+            .execute();
     }
 
     @Override
     public void apagarDocumento(int id) {
+        DB.query().deleteFrom("documentos_veiculo").where("id", WhereOperator.EQ, id).execute();
     }
 }

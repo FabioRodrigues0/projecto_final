@@ -12,7 +12,6 @@ import fabiorodrigues.bricks.core.BricksApplication;
 import fabiorodrigues.bricks.core.Component;
 import fabiorodrigues.bricks.style.BricksTheme;
 import fabiorodrigues.bricks.style.Modifier;
-import java.util.function.Supplier;
 import javafx.geometry.Pos;
 import javafx.scene.paint.Color;
 
@@ -27,7 +26,7 @@ public class Titulo {
     private final String iconButton;
     private final String textButton;
     private final String tituloModal;
-    private final Supplier<Component> modalContent;
+    private final Component modalContent;
     private final Runnable onSubmit;
     private final Runnable onClear;
     private final double modalWidth;
@@ -36,7 +35,11 @@ public class Titulo {
     // Construtor simples - sem modal
     public Titulo(BricksApplication app, String titulo, String subTitulo, String iconButton, String textButton) {
         this(
+<<<<<<< HEAD
             app, titulo, subTitulo, iconButton, textButton, "", (Supplier<Component>) null, () -> {}, () -> {}, DEFAULT_MODAL_WIDTH, DEFAULT_MODAL_HEIGHT
+=======
+            app, titulo, subTitulo, iconButton, textButton, "", (Component) null, () -> {}, () -> {}
+>>>>>>> 4ae45f26c125c0f624a39df2102cafcf48837a25
         );
     }
 
@@ -44,6 +47,7 @@ public class Titulo {
                   BricksApplication app, String titulo, String subTitulo, String iconButton, String textButton, String tituloModal
     ) {
         this(
+<<<<<<< HEAD
             app, titulo, subTitulo, iconButton, textButton, tituloModal, (Supplier<Component>) null, () -> {}, () -> {}, DEFAULT_MODAL_WIDTH, DEFAULT_MODAL_HEIGHT
         );
     }
@@ -61,6 +65,9 @@ public class Titulo {
     ) {
         this(
             app, titulo, subTitulo, iconButton, textButton, textButton, modalContent, onSubmit, onClear, modalWidth, modalHeight
+=======
+            app, titulo, subTitulo, iconButton, textButton, tituloModal, (Component) null, null, null
+>>>>>>> 4ae45f26c125c0f624a39df2102cafcf48837a25
         );
     }
 
@@ -84,28 +91,12 @@ public class Titulo {
                   BricksApplication app, String titulo, String subTitulo, String iconButton, String textButton, String tituloModal, Component modalContent, Runnable onSubmit, Runnable onClear
     ) {
         this(
-            app, titulo, subTitulo, iconButton, textButton, tituloModal, () -> modalContent, onSubmit, onClear
-        );
-    }
-
-    public Titulo(
-                  BricksApplication app, String titulo, String subTitulo, String iconButton, String textButton, String tituloModal, Component modalContent, Runnable onSubmit, Runnable onClear, double modalWidth, double modalHeight
-    ) {
-        this(
-            app, titulo, subTitulo, iconButton, textButton, tituloModal, () -> modalContent, onSubmit, onClear, modalWidth, modalHeight
-        );
-    }
-
-    public Titulo(
-                  BricksApplication app, String titulo, String subTitulo, String iconButton, String textButton, String tituloModal, Supplier<Component> modalContent, Runnable onSubmit, Runnable onClear
-    ) {
-        this(
             app, titulo, subTitulo, iconButton, textButton, tituloModal, modalContent, onSubmit, onClear, DEFAULT_MODAL_WIDTH, DEFAULT_MODAL_HEIGHT
         );
     }
 
     public Titulo(
-                  BricksApplication app, String titulo, String subTitulo, String iconButton, String textButton, String tituloModal, Supplier<Component> modalContent, Runnable onSubmit, Runnable onClear, double modalWidth, double modalHeight
+                  BricksApplication app, String titulo, String subTitulo, String iconButton, String textButton, String tituloModal, Component modalContent, Runnable onSubmit, Runnable onClear, double modalWidth, double modalHeight
     ) {
         this.app = app;
         this.titulo = titulo;
@@ -132,124 +123,79 @@ public class Titulo {
                             .fontSize(13)
                             .modifier(new Modifier().textColor(Color.GRAY))
                     ),
-                new Spacer(),
-                new IconButton(this.iconButton, this.textButton)
-                    .color(BricksTheme.current().colorScheme().onPrimary())
-                    .modifier(new Modifier().height(35).padding(0))
-                    .onClick(() -> {
-                        Modal
-                            .showUndecorated(
-                                app,
-                                this.titulo,
-                                this.modalWidth,
-                                this.modalHeight,
-                                modal -> {
-                                    modal.setOnHidden(event -> this.onClear.run());
-
-                                    Column content = new Column()
-                                        .gap(8)
-                                        .children(new Text(this.tituloModal).fontSize(18));
-
-                                    if (this.modalContent != null) {
-                                        content.children(this.modalContent.get());
-                                    }
-
-                                    content
-                                        .children(
-                                            new Row()
-                                                .gap(8)
-                                                .modifier(
-                                                    new Modifier().alignment(Pos.BOTTOM_RIGHT)
-                                                )
-                                                .children(
-                                                    new Button("Cancelar").onClick(modal::close),
-                                                    new Button("Adicionar").onClick(() -> {
-                                                        try {
-                                                            this.onSubmit.run();
-                                                            modal.close();
-                                                        } catch (RuntimeException e) {
-                                                            if (e.getMessage() != null && e
-                                                                .getMessage()
-                                                                .contains("UNIQUE")) {
-                                                                Alert
-                                                                    .error(
-                                                                        "Erro",
-                                                                        "Já existe um cartão com esse" + " número."
-                                                                    );
-                                                            } else {
-                                                                Alert
-                                                                    .error(
-                                                                        "Erro",
-                                                                        "Não foi possível criar o cartão."
-                                                                    );
-                                                            }
-                                                        }
-                                                    })
-                                                )
-                                        );
-
-                                    return content;
-                                }
-                            );
-                    })
+                new Spacer()
             );
 
-        if (this.iconButton != null && this.textButton != null) {
+        if (hasText(this.iconButton) && hasText(this.textButton)) {
             row
                 .children(
                     new IconButton(this.iconButton, this.textButton)
                         .color(BricksTheme.current().colorScheme().onPrimary())
                         .modifier(new Modifier().height(35).padding(0))
                         .onClick(() -> {
-                            Modal.showUndecorated(app, this.titulo, 500.0, 400.0, modal -> {
-                                modal.setOnHidden(event -> this.onClear.run());
+                            Modal
+                                .showUndecorated(
+                                    app,
+                                    this.titulo,
+                                    this.modalWidth,
+                                    this.modalHeight,
+                                    modal -> {
+                                        modal.setOnHidden(event -> this.onClear.run());
 
-                                Column content = new Column()
-                                    .gap(8)
-                                    .children(new Text(this.tituloModal).fontSize(18));
-
-                                if (this.modalContent != null) {
-                                    content.children(this.modalContent.get());
-                                }
-
-                                content
-                                    .children(
-                                        new Row()
+                                        Column content = new Column()
                                             .gap(8)
-                                            .modifier(new Modifier().alignment(Pos.BOTTOM_RIGHT))
-                                            .children(
-                                                new Button("Cancelar").onClick(modal::close),
-                                                new Button("Adicionar").onClick(() -> {
-                                                    try {
-                                                        this.onSubmit.run();
-                                                        modal.close();
-                                                    } catch (RuntimeException e) {
-                                                        if (e.getMessage() != null && e
-                                                            .getMessage()
-                                                            .contains("UNIQUE")) {
-                                                            Alert
-                                                                .error(
-                                                                    "Erro",
-                                                                    "Já existe um registo com esse valor."
-                                                                );
-                                                        } else {
-                                                            Alert
-                                                                .error(
-                                                                    "Erro",
-                                                                    "Não foi possível criar o registo."
-                                                                );
-                                                        }
-                                                    }
-                                                })
-                                            )
-                                    );
+                                            .children(new Text(this.tituloModal).fontSize(18));
 
-                                return content;
-                            });
+                                        if (this.modalContent != null) {
+                                            content.children(this.modalContent);
+                                        }
+
+                                        content
+                                            .children(
+                                                new Row()
+                                                    .gap(8)
+                                                    .modifier(
+                                                        new Modifier().alignment(Pos.BOTTOM_RIGHT)
+                                                    )
+                                                    .children(
+                                                        new Button("Cancelar")
+                                                            .onClick(modal::close),
+                                                        new Button("Adicionar").onClick(() -> {
+                                                            try {
+                                                                this.onSubmit.run();
+                                                                modal.close();
+                                                            } catch (RuntimeException e) {
+                                                                if (e.getMessage() != null && e
+                                                                    .getMessage()
+                                                                    .contains("UNIQUE")) {
+                                                                    Alert
+                                                                        .error(
+                                                                            "Erro",
+                                                                            "Já existe um registo com esse valor."
+                                                                        );
+                                                                } else {
+                                                                    Alert
+                                                                        .error(
+                                                                            "Erro",
+                                                                            "Não foi possível criar o registo."
+                                                                        );
+                                                                }
+                                                            }
+                                                        })
+                                                    )
+                                            );
+
+                                        return content;
+                                    }
+                                );
                         })
                 );
         }
 
         return row;
+    }
+
+    private boolean hasText(String value) {
+        return value != null && !value.isBlank();
     }
 }
