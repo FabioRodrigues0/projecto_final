@@ -19,6 +19,7 @@ import models.Veiculo.Veiculos;
 import views.VeiculosDocumentosView;
 
 public class VeiculosCard {
+
     private final int id;
     private final String nome;
     private final int ano;
@@ -41,7 +42,6 @@ public class VeiculosCard {
         this.fotoPicker = fotoPicker;
     }
 
-
     public Component render() {
         String imagePath = resolveImagePath();
 
@@ -60,7 +60,7 @@ public class VeiculosCard {
                     )
                     .children(new Icon("fas-car-side").size(48))
             )
-            .width(280)
+            .width(250)
             .padding(15)
             .children(
                 new Column()

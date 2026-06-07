@@ -3,6 +3,10 @@ package viewModels;
 import java.util.List;
 
 public abstract interface IViewModel<T> {
+    public default String nomeRecurso() {
+        return "registo";
+    }
+
     public abstract List<T> ver();
 
     public abstract void novo();

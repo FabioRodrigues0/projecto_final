@@ -4,15 +4,15 @@
 
 ### Visual
 - [x] Botão **"Ativar Notificações"** no canto superior direito do título.
-- [ ] **Ícones** dentro dos 4 cards de contadores (documento / carro / cartão / alerta).
+- [x] **Ícones** dentro dos 4 cards de contadores (documento / carro / cartão / alerta).
 - [ ] Card **Subscrições**: subtexto com custo mensal total (ex.: `€83.44/mês`).
 - [ ] Card **Alertas**: subtexto com breakdown (ex.: `4 expirados · 1 urgentes`).
 - [ ] Ícone de aviso (⚠) ao lado de "Próximas Expirações (30 dias)".
 - [ ] Cards de atalho do fundo (Gerir Documentos / Veículos / Subscrições) precisam de ícone + estilo hover/clicável.
-- [ ] Sidebar: falta entrada **Calendário** (5º item).
-- [ ] Acertar paleta para a do alvo 
+- [x] Sidebar: falta entrada **Calendário** (5º item).
+- [x] Acertar paleta para a do alvo 
   - [x] sidebar branca, 
-  - [ ] cards com sombra subtil, 
+  - [x] cards com sombra subtil, 
   - [x] fundo `#f7f8fa
 
 ### Backend / Queries
@@ -20,7 +20,7 @@
 - [ ] `qntAlertas` nunca é carregado — falta método `carregarAlertas()` (contar expirações com `diasReais <= X`).
 - [x] Falta cálculo do **custo total mensal** das subscrições ativas para o subtexto do card.
 - [ ] Falta breakdown de alertas (expirados vs urgentes) para subtexto do card.
-- [ ] Falta flag/coluna "ativa" nas subscrições para filtrar inativas nos contadores.
+- [x] Falta flag/coluna "ativa" nas subscrições para filtrar inativas nos contadores.
 
 ---
 
@@ -50,8 +50,8 @@ Estado: base implementada; faltam filtros e operações de edição/remoção.
   - [ ] `State<String> filtroCategoria`
   - [x] `carregarDocumentos()` — SELECT em `documentos_pessoal`.
   - [x] `criar(DocumentosPessoal)` — INSERT.
-  - [ ] `atualizar(DocumentosPessoal)` — UPDATE por id.
-  - [ ] `apagar(int id)` — DELETE.
+  - [x] `atualizar(DocumentosPessoal)` — UPDATE por id.
+  - [x] `apagar(int id)` — DELETE.
   - [ ] `filtrar(TipoDocumentoPessoal)` — re-query ou filtro em memória.
 
 ---
@@ -67,7 +67,7 @@ Estado: base implementada; faltam upload de foto e operações de edição/remo�
 - [x] Botão **"+ Novo Veículo"** no topo direito.
 - [x] **Grid de cards** (3 colunas) por veículo:
   - [x] área de foto no topo (placeholder com ícone de carro se sem foto)
-  - [ ] botão câmara para upload de foto
+  - [x] botão câmara para upload de foto
   - [x] nome (marca + modelo)
   - [x] linha "Ano · Matrícula"
   - [x] botão **"Ver Documentos →"** (abre detalhe / lista docs do veículo)
@@ -81,11 +81,11 @@ Estado: base implementada; faltam upload de foto e operações de edição/remo�
   - [x] `StateList<Veiculos> listVeiculos`
   - [x] `carregarVeiculos()` — SELECT em `veiculos`.
   - [x] criar veiculo.
-  - [ ] atualizar veiculo
-  - [ ] apagar veiculo
+  - [x] atualizar veiculo
+  - [x] apagar veiculo
   - [x] `carregarDocumentosVeiculo(int veiculoId)` para sub-vista via `VeiculosDocumentosViewModel`.
-  - [ ] upload de foto (guardar path/blob, decidir estratégia).
-- [ ] Veiculos só tem campo `nome` — separar em `marca` + `modelo` (model + schema) ou parse string.
+  - [x] upload de foto (guardar path/blob, decidir estratégia).
+- [x] Veiculos só tem campo `nome` — separar em `marca` + `modelo` (model + schema) ou parse string.
 
 ---
 
@@ -114,8 +114,8 @@ Estado: base implementada; faltam operações de edição/remoção.
 - [x] `carregarDocumentos(int veiculoId)` filtra documentos pelo veículo.
 - [x] `verDocumentos()` — SELECT em `documentos_veiculo`.
 - [x] `novoDocumento(int veiculoId)` — INSERT em `documentos_veiculo`.
-- [ ] `updateDocumento(int id)` — UPDATE por id.
-- [ ] `apagarDocumento(int id)` — DELETE por id.
+- [x] `updateDocumento(int id)` — UPDATE por id.
+- [x] `apagarDocumento(int id)` — DELETE por id.
 
 ---
 
@@ -135,14 +135,14 @@ Estado: base implementada; faltam operações de edição/remoção e alguns aca
 - [x] **Banner azul** no topo com:
   - [x] "Custo Total Mensal" + `€XX.XX` grande
   - [x] direita: "N subscrições ativas" + `€XX.XX/ano`
-- [ ] **Lista** de cards de subscrição com:
+- [x] **Lista** de cards de subscrição com:
   - [x] ícone por plataforma/serviço quando reconhecido
   - [x] nome + linha "Categoria · Plano"
   - [x] custo `€X.XX/mês` à direita
   - [x] dias restantes / em atraso por baixo (cor por estado)
-  - [ ] botões editar + apagar
+  - [x] botões editar + apagar
 - [x] **Modal "Nova Subscrição"**: Serviço, Categoria, Custo Mensal, Plano, Data Renovação, toggle Ativa.
-- [ ] Notas no modal de subscrição.
+- [x] Notas no modal de subscrição.
 - [x] Estado vazio.
 
 ### Backend / Queries
@@ -155,8 +155,8 @@ Estado: base implementada; faltam operações de edição/remoção e alguns aca
   - [x] `carregarDocumentos()` — SELECT em `documentos_subscricao`.
   - [x] `calcularCustoTotal()` — SUM custo_mensal WHERE ativa = 1.
   - [x] criar subscricao.
-  - [ ] atualizar subscricao
-  - [ ] apagar subscricao
+  - [x] atualizar subscricao
+  - [x] apagar subscricao
   - [ ] `alternarAtiva(int id)`.
 
 ---
@@ -178,5 +178,5 @@ Sidebar do alvo tem entrada "Calendário" mas:
 - [x] Componente reutilizável `Modal` para os formulários CRUD.
 - [ ] Sistema de notificações (botão "Ativar Notificações" implica permissão OS + scheduling).
 - [ ] Toast/feedback após criar/editar/apagar.
-- [ ] Validação de inputs nos modais.
-- [ ] Confirmação antes de apagar (dialog).
+- [x] Validação de inputs nos modais.
+- [x] Confirmação antes de apagar (dialog).

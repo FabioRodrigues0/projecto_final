@@ -1,16 +1,17 @@
 package views;
 
+import components.DocumentoImportacao;
+import components.FormularioModal;
+import components.NotificacoesApp;
 import components.SubscricaoCard;
+import components.Titulo;
 import fabiorodrigues.bricks.components.Alert;
-import fabiorodrigues.bricks.components.Button;
 import fabiorodrigues.bricks.components.Card;
 import fabiorodrigues.bricks.components.Checkbox;
 import fabiorodrigues.bricks.components.Column;
 import fabiorodrigues.bricks.components.DatePicker;
 import fabiorodrigues.bricks.components.Dropdown;
-import fabiorodrigues.bricks.components.IconButton;
 import fabiorodrigues.bricks.components.ItemsColumn;
-import fabiorodrigues.bricks.components.Modal;
 import fabiorodrigues.bricks.components.Row;
 import fabiorodrigues.bricks.components.Spacer;
 import fabiorodrigues.bricks.components.Text;
@@ -18,10 +19,8 @@ import fabiorodrigues.bricks.components.TextField;
 import fabiorodrigues.bricks.core.BricksApplication;
 import fabiorodrigues.bricks.core.BricksScene;
 import fabiorodrigues.bricks.core.Component;
-import fabiorodrigues.bricks.style.BricksTheme;
 import fabiorodrigues.bricks.style.Modifier;
 import java.util.List;
-import javafx.geometry.Pos;
 import models.Subscricao.DocumentosSubscricao;
 import models.Subscricao.Subscricoes;
 import models.TipoDocumentoSubscricao;
@@ -46,24 +45,11 @@ public class SubscricaoView extends BricksScene {
             .gap(20)
             .modifier(new Modifier().padding(30, 20).fillMaxHeight())
             .children(
-                new Row()
-                    .gap(0)
-                    .children(
-                        new Column()
-                            .gap(8)
-                            .children(
-                                new Text("Subscrições Digitais")
-                                    .fontSize(24)
-                                    .modifier(new Modifier().bold()),
-                                new Text("Netflix, Spotify, software e serviços online")
-                                    .fontSize(13)
-                            ),
-                        new Spacer(),
-                        new IconButton("fas-plus", "Nova Subscricao")
-                            .color(BricksTheme.current().colorScheme().onPrimary())
-                            .modifier(new Modifier().height(35).padding(0))
-                            .onClick(() -> abrirSubscricaoModal(null, null))
-                    ),
+                new Titulo(this.app, "Subscrições Digitais")
+                    .subtitulo("Netflix, Spotify, software e serviços online")
+                    .botao("fas-plus", "Nova Subscricao")
+                    .onClick(() -> abrirSubscricaoModal(null, null))
+                    .render(),
                 new Column()
                     .gap(8)
                     .children(
@@ -112,6 +98,7 @@ public class SubscricaoView extends BricksScene {
 
                                 vm.apagarDocumento(documento.getId());
                                 vm.carregarDocumentos();
+                                NotificacoesApp.documentoRemovido(app, vm);
                             }
                         ).render();
                     })
@@ -127,56 +114,120 @@ public class SubscricaoView extends BricksScene {
             vm.limparCampos();
         }
 
-        Modal.showUndecorated(app, "Subscrições Digitais", 520.0, 450.0, modal -> {
-            modal.setOnHidden(event -> vm.limparCampos());
+        new FormularioModal(app, "Subscrições Digitais")
+            .size(520.0, 450.0)
+            .update(update)
+            .titles("Nova Subscricao", "Editar Subscricao")
+            .content(subscricaoForm())
+            .onFileImport((file, content) -> preencherSubscricaoImportada(file, content))
+            .onClear(vm::limparCampos)
+            .onSubmit(() -> {
+                if (update) {
+                    vm.update(subscricao.getId());
+                    vm.updateDocumento(documento.getId());
+                    NotificacoesApp.atualizado(app, vm);
+                } else {
+                    vm.novo();
+                    NotificacoesApp.criado(app, vm);
+                }
+                vm.carregarSubscricoes();
+                vm.carregarDocumentos();
+            })
+            .show();
+    }
 
-            return new Column()
-                .gap(8)
-                .children(
-                    new Text(update ? "Editar Subscricao" : "Nova Subscricao").fontSize(18),
-                    new TextField().label("Serviço").bindTo(this.vm.servicoSubscricao),
-                    new Row()
-                        .gap(5)
-                        .children(
-                            new Dropdown<>(List.of(TipoDocumentoSubscricao.values()))
-                                .label("Categoria:")
-                                .bindTo(vm.categoriaSubscricao),
-                            new TextField()
-                                .decimal()
-                                .label("Custo Mensal")
-                                .bindTo(vm.custoSubscricao)
-                        ),
-                    new Row()
-                        .gap(5)
-                        .children(
-                            new TextField().label("Plano").bindTo(vm.planoSubscricao),
-                            new DatePicker()
-                                .label("Data de Renovação")
-                                .bindTo(vm.dataRenovacaoSubscricao)
-                        ),
-                    new Row()
-                        .gap(3)
-                        .children(new Text("Ativa"), new Checkbox("").bindTo(vm.estadoSubscricao)),
-                    new Row()
-                        .gap(8)
-                        .modifier(new Modifier().alignment(Pos.BOTTOM_RIGHT))
-                        .children(
-                            new Button("Cancelar").onClick(modal::close),
-                            new Button(update ? "Atualizar" : "Adicionar").onClick(() -> {
-                                if (update) {
-                                    vm.update(subscricao.getId());
-                                    vm.updateDocumento(documento.getId());
-                                } else {
-                                    vm.novo();
-                                }
+    private void preencherSubscricaoImportada(java.io.File file, String content) {
+        vm.servicoSubscricao
+            .set(
+                DocumentoImportacao
+                    .descricaoFatura(content)
+                    .orElseGet(() -> DocumentoImportacao.titulo(file, content))
+            );
+        vm.nomeSubscricao.set(vm.servicoSubscricao.get());
+        vm.categoriaSubscricao.set(categoriaSubscricaoImportada(content));
+        DocumentoImportacao
+            .valorPorEtiqueta(content, "plano", "subscricao", "assinatura")
+            .ifPresent(vm.planoSubscricao::set);
+        custoSubscricaoImportado(content).ifPresent(vm.custoSubscricao::set);
+        DocumentoImportacao.ultimaData(content).ifPresent(vm.dataRenovacaoSubscricao::set);
+        vm.estadoSubscricao.set(true);
+    }
 
-                                vm.carregarSubscricoes();
-                                vm.carregarDocumentos();
-                                modal.close();
-                            })
-                        )
-                );
-        });
+    private java.util.Optional<Double> custoSubscricaoImportado(String content) {
+        java.util.Optional<Double> valorFatura = DocumentoImportacao
+            .valorTotalFatura(content)
+            .or(
+                () -> DocumentoImportacao
+                    .valorPorEtiquetaNumerico(
+                        content,
+                        "amount due",
+                        "total due",
+                        "balance due",
+                        "total a pagar",
+                        "valor a pagar",
+                        "total"
+                    )
+            );
+
+        java.util.Optional<Double> valor = valorFatura.isPresent() || DocumentoImportacao
+            .pareceFatura(content) ? valorFatura : DocumentoImportacao.primeiroValor(content);
+
+        return valor
+            .map(value -> DocumentoImportacao.temPeriodoAnual(content) ? value / 12 : value);
+    }
+
+    private TipoDocumentoSubscricao categoriaSubscricaoImportada(String content) {
+        TipoDocumentoSubscricao categoria = DocumentoImportacao
+            .categoria(TipoDocumentoSubscricao.class, content, TipoDocumentoSubscricao.OUTRO);
+
+        if (categoria != TipoDocumentoSubscricao.OUTRO) {
+            return categoria;
+        }
+
+        String texto = (vm.servicoSubscricao.get() + " " + content).toLowerCase();
+        if (
+            texto.contains("netflix") || texto.contains("spotify") || texto
+                .contains("disney") || texto.contains("hbo") || texto.contains("prime")
+        ) {
+            return TipoDocumentoSubscricao.STREAMING;
+        }
+
+        if (texto.contains("google one") || texto.contains("icloud") || texto.contains("dropbox")) {
+            return TipoDocumentoSubscricao.SERVICO_ONLINE;
+        }
+
+        if (texto.contains("adobe") || texto.contains("office") || texto.contains("microsoft")) {
+            return TipoDocumentoSubscricao.SOFTWARE;
+        }
+
+        return TipoDocumentoSubscricao.OUTRO;
+    }
+
+    private Component subscricaoForm() {
+        return new Column()
+            .gap(8)
+            .children(
+                new TextField().label("Serviço").bindTo(this.vm.servicoSubscricao),
+                new Row()
+                    .gap(5)
+                    .children(
+                        new Dropdown<>(List.of(TipoDocumentoSubscricao.values()))
+                            .label("Categoria:")
+                            .bindTo(vm.categoriaSubscricao),
+                        new TextField().decimal().label("Custo Mensal").bindTo(vm.custoSubscricao)
+                    ),
+                new Row()
+                    .gap(5)
+                    .children(
+                        new TextField().label("Plano").bindTo(vm.planoSubscricao),
+                        new DatePicker()
+                            .label("Data de Renovação")
+                            .bindTo(vm.dataRenovacaoSubscricao)
+                    ),
+                new Row()
+                    .gap(3)
+                    .children(new Text("Ativa"), new Checkbox("").bindTo(vm.estadoSubscricao))
+            );
     }
 
     private void preencherSubscricao(Subscricoes subscricao, DocumentosSubscricao documento) {

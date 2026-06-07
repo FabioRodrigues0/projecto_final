@@ -1,6 +1,7 @@
 package views;
 
 import components.ExpiracaoCard;
+import components.NotificacoesApp;
 import components.Titulo;
 import fabiorodrigues.bricks.components.Card;
 import fabiorodrigues.bricks.components.Column;
@@ -38,10 +39,14 @@ public class DashboardView extends BricksScene {
             .gap(20)
             .modifier(new Modifier().padding(30, 20).fillMaxHeight())
             .children(
-                new Titulo(
-                    this.app, "Dashboard", "Visão geral dos seus documentos e subscrições", "fas-bell-slash", "Ativar Notificacoes"
-                ).render(),
-
+                new Titulo(this.app, "Dashboard")
+                    .subtitulo("Visão geral dos seus documentos e subscrições")
+                    .botao("fas-bell-slash", "Ativar Notificacoes")
+                    .onClick(
+                        () -> NotificacoesApp
+                            .notificacoesSistemaAtivadas(app, vm.listExpiracoes.get())
+                    )
+                    .render(),
                 new Row()
                     .gap(10)
                     .modifier(new Modifier().fillMaxWidth())

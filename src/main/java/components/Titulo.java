@@ -1,10 +1,7 @@
 package components;
 
-import fabiorodrigues.bricks.components.Alert;
-import fabiorodrigues.bricks.components.Button;
 import fabiorodrigues.bricks.components.Column;
 import fabiorodrigues.bricks.components.IconButton;
-import fabiorodrigues.bricks.components.Modal;
 import fabiorodrigues.bricks.components.Row;
 import fabiorodrigues.bricks.components.Spacer;
 import fabiorodrigues.bricks.components.Text;
@@ -12,7 +9,6 @@ import fabiorodrigues.bricks.core.BricksApplication;
 import fabiorodrigues.bricks.core.Component;
 import fabiorodrigues.bricks.style.BricksTheme;
 import fabiorodrigues.bricks.style.Modifier;
-import javafx.geometry.Pos;
 import javafx.scene.paint.Color;
 
 public class Titulo {
@@ -22,69 +18,63 @@ public class Titulo {
 
     private final BricksApplication app;
     private final String titulo;
-    private final String subTitulo;
-    private final String iconButton;
-    private final String textButton;
-    private final String tituloModal;
-    private final Component modalContent;
-    private final Runnable onSubmit;
-    private final Runnable onClear;
-    private final double modalWidth;
-    private final double modalHeight;
 
-    // Construtor simples - sem modal
-    public Titulo(BricksApplication app, String titulo, String subTitulo, String iconButton, String textButton) {
-        this(
-            app, titulo, subTitulo, iconButton, textButton, "", (Component) null, () -> {}, () -> {}
-        );
-    }
+    private String subTitulo = "";
+    private String iconButton = "";
+    private String textButton = "";
+    private String tituloModal = "";
+    private Component modalContent;
+    private Runnable onSubmit = () -> {};
+    private Runnable onClear = () -> {};
+    private Runnable onClick;
+    private double modalWidth = DEFAULT_MODAL_WIDTH;
+    private double modalHeight = DEFAULT_MODAL_HEIGHT;
 
-    public Titulo(
-                  BricksApplication app, String titulo, String subTitulo, String iconButton, String textButton, String tituloModal
-    ) {
-        this(
-            app, titulo, subTitulo, iconButton, textButton, tituloModal, (Component) null, null, null
-        );
-    }
-
-    public Titulo(
-                  BricksApplication app, String titulo, String subTitulo, String iconButton, String textButton, Component modalContent, Runnable onSubmit, Runnable onClear
-    ) {
-        this(
-            app, titulo, subTitulo, iconButton, textButton, textButton, modalContent, onSubmit, onClear
-        );
-    }
-
-    public Titulo(
-                  BricksApplication app, String titulo, String subTitulo, String iconButton, String textButton, Component modalContent, Runnable onSubmit, Runnable onClear, double modalWidth, double modalHeight
-    ) {
-        this(
-            app, titulo, subTitulo, iconButton, textButton, textButton, modalContent, onSubmit, onClear, modalWidth, modalHeight
-        );
-    }
-
-    public Titulo(
-                  BricksApplication app, String titulo, String subTitulo, String iconButton, String textButton, String tituloModal, Component modalContent, Runnable onSubmit, Runnable onClear
-    ) {
-        this(
-            app, titulo, subTitulo, iconButton, textButton, tituloModal, modalContent, onSubmit, onClear, DEFAULT_MODAL_WIDTH, DEFAULT_MODAL_HEIGHT
-        );
-    }
-
-    public Titulo(
-                  BricksApplication app, String titulo, String subTitulo, String iconButton, String textButton, String tituloModal, Component modalContent, Runnable onSubmit, Runnable onClear, double modalWidth, double modalHeight
-    ) {
+    public Titulo(BricksApplication app, String titulo) {
         this.app = app;
         this.titulo = titulo;
+    }
+
+    public Titulo subtitulo(String subTitulo) {
         this.subTitulo = subTitulo;
+        return this;
+    }
+
+    public Titulo botao(String iconButton, String textButton) {
         this.iconButton = iconButton;
         this.textButton = textButton;
+        return this;
+    }
+
+    public Titulo tituloModal(String tituloModal) {
         this.tituloModal = tituloModal;
+        return this;
+    }
+
+    public Titulo modalContent(Component modalContent) {
         this.modalContent = modalContent;
+        return this;
+    }
+
+    public Titulo modalSize(double width, double height) {
+        this.modalWidth = width;
+        this.modalHeight = height;
+        return this;
+    }
+
+    public Titulo onSubmit(Runnable onSubmit) {
         this.onSubmit = onSubmit != null ? onSubmit : () -> {};
+        return this;
+    }
+
+    public Titulo onClear(Runnable onClear) {
         this.onClear = onClear != null ? onClear : () -> {};
-        this.modalWidth = modalWidth;
-        this.modalHeight = modalHeight;
+        return this;
+    }
+
+    public Titulo onClick(Runnable onClick) {
+        this.onClick = onClick;
+        return this;
     }
 
     public Component render() {
@@ -94,81 +84,35 @@ public class Titulo {
                 new Column()
                     .gap(8)
                     .children(
-                        new Text(this.titulo).fontSize(24).modifier(new Modifier().bold()),
-                        new Text(this.subTitulo)
+                        new Text(titulo).fontSize(24).modifier(new Modifier().bold()),
+                        new Text(subTitulo)
                             .fontSize(13)
                             .modifier(new Modifier().textColor(Color.GRAY))
                     ),
                 new Spacer()
             );
 
-        if (hasText(this.iconButton) && hasText(this.textButton)) {
+        if (hasText(iconButton) && hasText(textButton)) {
             row
                 .children(
-                    new IconButton(this.iconButton, this.textButton)
+                    new IconButton(iconButton, textButton)
                         .color(BricksTheme.current().colorScheme().onPrimary())
                         .modifier(new Modifier().height(35).padding(0))
-                        .onClick(() -> {
-                            Modal
-                                .showUndecorated(
-                                    app,
-                                    this.titulo,
-                                    this.modalWidth,
-                                    this.modalHeight,
-                                    modal -> {
-                                        modal.setOnHidden(event -> this.onClear.run());
-
-                                        Column content = new Column()
-                                            .gap(8)
-                                            .children(new Text(this.tituloModal).fontSize(18));
-
-                                        if (this.modalContent != null) {
-                                            content.children(this.modalContent);
-                                        }
-
-                                        content
-                                            .children(
-                                                new Row()
-                                                    .gap(8)
-                                                    .modifier(
-                                                        new Modifier().alignment(Pos.BOTTOM_RIGHT)
-                                                    )
-                                                    .children(
-                                                        new Button("Cancelar")
-                                                            .onClick(modal::close),
-                                                        new Button("Adicionar").onClick(() -> {
-                                                            try {
-                                                                this.onSubmit.run();
-                                                                modal.close();
-                                                            } catch (RuntimeException e) {
-                                                                if (e.getMessage() != null && e
-                                                                    .getMessage()
-                                                                    .contains("UNIQUE")) {
-                                                                    Alert
-                                                                        .error(
-                                                                            "Erro",
-                                                                            "Já existe um registo com esse valor."
-                                                                        );
-                                                                } else {
-                                                                    Alert
-                                                                        .error(
-                                                                            "Erro",
-                                                                            "Não foi possível criar o registo."
-                                                                        );
-                                                                }
-                                                            }
-                                                        })
-                                                    )
-                                            );
-
-                                        return content;
-                                    }
-                                );
-                        })
+                        .onClick(onClick != null ? onClick : this::abrirModal)
                 );
         }
 
         return row;
+    }
+
+    private void abrirModal() {
+        new FormularioModal(app, titulo)
+            .size(modalWidth, modalHeight)
+            .createTitle(hasText(tituloModal) ? tituloModal : textButton)
+            .content(modalContent)
+            .onSubmit(onSubmit)
+            .onClear(onClear)
+            .show();
     }
 
     private boolean hasText(String value) {
