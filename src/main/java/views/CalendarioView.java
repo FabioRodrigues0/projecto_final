@@ -54,9 +54,9 @@ public class CalendarioView extends BricksScene {
             .gap(15)
             .modifier(new Modifier().padding(25, 20).fillMaxHeight())
             .children(
-                new Titulo(
-                    this.app, "Calendário", "Todas as datas de validade e renovação", "fas-calendar-alt", "", ""
-                ).render(),
+                new Titulo(this.app, "Calendário")
+                    .subtitulo("Todas as datas de validade e renovação")
+                    .render(),
                 criarCalendarioBricks(),
                 criarLegendaCores(),
                 criarCartaoCalendarioMensal(),

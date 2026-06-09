@@ -1,8 +1,11 @@
 package views;
 
 import components.DocumentoCard;
+import components.DocumentoImportacao;
+import components.FormularioModal;
+import components.NotificacoesApp;
+import components.Titulo;
 import fabiorodrigues.bricks.components.Alert;
-import fabiorodrigues.bricks.components.Button;
 import fabiorodrigues.bricks.components.Card;
 import fabiorodrigues.bricks.components.Column;
 import fabiorodrigues.bricks.components.DatePicker;
@@ -10,7 +13,6 @@ import fabiorodrigues.bricks.components.Divider;
 import fabiorodrigues.bricks.components.Dropdown;
 import fabiorodrigues.bricks.components.IconButton;
 import fabiorodrigues.bricks.components.ItemsColumn;
-import fabiorodrigues.bricks.components.Modal;
 import fabiorodrigues.bricks.components.Row;
 import fabiorodrigues.bricks.components.Spacer;
 import fabiorodrigues.bricks.components.Text;
@@ -21,7 +23,6 @@ import fabiorodrigues.bricks.core.Component;
 import fabiorodrigues.bricks.style.BricksTheme;
 import fabiorodrigues.bricks.style.Modifier;
 import java.util.List;
-import javafx.geometry.Pos;
 import javafx.scene.paint.Color;
 import models.Pessoal.DocumentosPessoal;
 import models.Pessoal.Pessoas;
@@ -47,23 +48,11 @@ public class DocumentosView extends BricksScene {
             .gap(20)
             .modifier(new Modifier().padding(30, 20).fillMaxHeight())
             .children(
-                new Row()
-                    .gap(0)
-                    .children(
-                        new Column()
-                            .gap(8)
-                            .children(
-                                new Text("Documentos").fontSize(24).modifier(new Modifier().bold()),
-                                new Text("Garantias, contratos, faturas e outros")
-                                    .fontSize(13)
-                                    .modifier(new Modifier().textColor(Color.GRAY))
-                            ),
-                        new Spacer(),
-                        new IconButton("fas-plus", "Nova Pessoa")
-                            .color(BricksTheme.current().colorScheme().onPrimary())
-                            .modifier(new Modifier().height(35).padding(0))
-                            .onClick(() -> abrirPessoaModal(null))
-                    ),
+                new Titulo(this.app, "Documentos")
+                    .subtitulo("Garantias, contratos, faturas e outros")
+                    .botao("fas-plus", "Nova Pessoa")
+                    .onClick(() -> abrirPessoaModal(null))
+                    .render(),
                 new ItemsColumn<Pessoas>()
                     .gap(10)
                     .modifier(new Modifier().fillMaxWidth().fillMaxHeight())
@@ -100,6 +89,7 @@ public class DocumentosView extends BricksScene {
                                                 vm.apagar(pessoa.getId());
                                                 vm.carregarPessoas();
                                                 vm.carregarDocumentos();
+                                                NotificacoesApp.removido(app, vm);
                                             }),
                                         new IconButton("fas-plus")
                                             .ghost()
@@ -143,6 +133,7 @@ public class DocumentosView extends BricksScene {
 
                                                 vm.apagarDocumento(documento.getId());
                                                 vm.carregarDocumentos();
+                                                NotificacoesApp.documentoRemovido(app, vm);
                                             }
                                         ).render()
                                     )
@@ -160,32 +151,23 @@ public class DocumentosView extends BricksScene {
             limparPessoa();
         }
 
-        Modal.showUndecorated(app, "Documentos", 500.0, 250.0, modal -> {
-            modal.setOnHidden(event -> limparPessoa());
-
-            return new Column()
-                .gap(8)
-                .children(
-                    new Text(update ? "Editar Pessoa" : "Nova Pessoa").fontSize(18),
-                    new TextField().label("Nome").bindTo(vm.nomePessoa),
-                    new Row()
-                        .gap(8)
-                        .modifier(new Modifier().alignment(Pos.BOTTOM_RIGHT))
-                        .children(
-                            new Button("Cancelar").onClick(modal::close),
-                            new Button(update ? "Atualizar" : "Adicionar").onClick(() -> {
-                                if (update) {
-                                    vm.update(pessoa.getId());
-                                } else {
-                                    vm.novo();
-                                }
-
-                                vm.carregarPessoas();
-                                modal.close();
-                            })
-                        )
-                );
-        });
+        new FormularioModal(app, "Documentos")
+            .size(500.0, 250.0)
+            .update(update)
+            .titles("Nova Pessoa", "Editar Pessoa")
+            .content(new TextField().label("Nome").bindTo(vm.nomePessoa))
+            .onClear(this::limparPessoa)
+            .onSubmit(() -> {
+                if (update) {
+                    vm.update(pessoa.getId());
+                    NotificacoesApp.atualizado(app, vm);
+                } else {
+                    vm.novo();
+                    NotificacoesApp.criado(app, vm);
+                }
+                vm.carregarPessoas();
+            })
+            .show();
     }
 
     private void abrirDocumentoModal(Pessoas pessoa, DocumentosPessoal documento) {
@@ -197,46 +179,54 @@ public class DocumentosView extends BricksScene {
             limparDocumento();
         }
 
-        Modal.showUndecorated(app, "Documentos", 500.0, 400.0, modal -> {
-            modal.setOnHidden(event -> limparDocumento());
+        new FormularioModal(app, "Documentos")
+            .size(500.0, 400.0)
+            .update(update)
+            .titles("Novo Documento", "Editar Documento")
+            .content(documentoForm())
+            .onFileImport((file, content) -> preencherDocumentoImportado(file, content))
+            .onClear(this::limparDocumento)
+            .onSubmit(() -> {
+                if (update) {
+                    vm.updateDocumento(documento.getId());
+                    NotificacoesApp.documentoAtualizado(app, vm);
+                } else {
+                    vm.novoDocumento(pessoa.getId());
+                    NotificacoesApp.documentoCriado(app, vm);
+                }
+                vm.carregarDocumentos();
+            })
+            .show();
+    }
 
-            return new Column()
-                .gap(8)
-                .children(
-                    new Text(update ? "Editar Documento" : "Novo Documento").fontSize(18),
-                    new TextField().label("Titulo").bindTo(vm.tituloDocumento),
-                    new Dropdown<>(List.of(TipoDocumentoPessoal.values()))
-                        .label("Categoria:")
-                        .bindTo(vm.categoriaDocumento),
-                    new Row()
-                        .gap(5)
-                        .children(
-                            new DatePicker()
-                                .label("Data de Emissao:")
-                                .bindTo(vm.dataEmissaoDocumento),
-                            new DatePicker()
-                                .label("Data de Validacao")
-                                .bindTo(vm.dataValidadeDocumento)
-                        ),
-                    new TextField().multiline().label("Notas").bindTo(vm.notasDocumento),
-                    new Row()
-                        .gap(8)
-                        .modifier(new Modifier().alignment(Pos.BOTTOM_RIGHT))
-                        .children(
-                            new Button("Cancelar").onClick(modal::close),
-                            new Button(update ? "Atualizar" : "Adicionar").onClick(() -> {
-                                if (update) {
-                                    vm.updateDocumento(documento.getId());
-                                } else {
-                                    vm.novoDocumento(pessoa.getId());
-                                }
+    private Component documentoForm() {
+        return new Column()
+            .gap(8)
+            .children(
+                new TextField().label("Titulo").bindTo(vm.tituloDocumento),
+                new Dropdown<>(List.of(TipoDocumentoPessoal.values()))
+                    .label("Categoria:")
+                    .bindTo(vm.categoriaDocumento),
+                new Row()
+                    .gap(5)
+                    .children(
+                        new DatePicker().label("Data de Emissao:").bindTo(vm.dataEmissaoDocumento),
+                        new DatePicker().label("Data de Validacao").bindTo(vm.dataValidadeDocumento)
+                    ),
+                new TextField().multiline().label("Notas").bindTo(vm.notasDocumento)
+            );
+    }
 
-                                vm.carregarDocumentos();
-                                modal.close();
-                            })
-                        )
-                );
-        });
+    private void preencherDocumentoImportado(java.io.File file, String content) {
+        vm.tituloDocumento.set(DocumentoImportacao.titulo(file, content));
+        vm.categoriaDocumento
+            .set(
+                DocumentoImportacao
+                    .categoria(TipoDocumentoPessoal.class, content, TipoDocumentoPessoal.OUTRO)
+            );
+        DocumentoImportacao.primeiraData(content).ifPresent(vm.dataEmissaoDocumento::set);
+        DocumentoImportacao.segundaData(content).ifPresent(vm.dataValidadeDocumento::set);
+        vm.notasDocumento.set(DocumentoImportacao.texto(content));
     }
 
     private void preencherDocumento(DocumentosPessoal documento) {

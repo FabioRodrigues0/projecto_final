@@ -24,7 +24,12 @@ public class App extends BricksApplication {
     // ── Estado ────────────────────────────────────────────────────────────────
 
     {
-        setTitle("App");
+        setTitle("LifeBinder+");
+        setAppIcon("/images/lifebinder.png");
+        setTrayIcon("/images/lifebinder.png");
+        setTrayTooltip("LifeBinder+");
+        setTrayMenuLabels("Abrir LifeBinder+", "Sair");
+        minimizeToTray();
         setInitialScene(new DashboardView(this));
         setSize(1280, 720);
         // setTheme(BricksTheme.dark()); // descomenta para dark mode

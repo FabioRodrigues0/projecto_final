@@ -25,6 +25,11 @@ public class VeiculosDocumentosViewModel extends BricksViewModel implements IVie
 
     public final State<Boolean> eSeguro = state(false);
 
+    @Override
+    public String nomeDocumento() {
+        return "Documento";
+    }
+
     public void carregarDocumentos(int veiculoId) {
         listDocumentos.clear();
         listDocumentos

@@ -1,27 +1,24 @@
 package views;
 
 import components.DocumentoCard;
+import components.DocumentoImportacao;
+import components.FormularioModal;
+import components.NotificacoesApp;
+import components.Titulo;
 import fabiorodrigues.bricks.components.Alert;
-import fabiorodrigues.bricks.components.Button;
 import fabiorodrigues.bricks.components.Card;
 import fabiorodrigues.bricks.components.Column;
 import fabiorodrigues.bricks.components.DatePicker;
 import fabiorodrigues.bricks.components.Dropdown;
-import fabiorodrigues.bricks.components.IconButton;
 import fabiorodrigues.bricks.components.ItemsColumn;
-import fabiorodrigues.bricks.components.Modal;
-import fabiorodrigues.bricks.components.Row;
-import fabiorodrigues.bricks.components.Spacer;
 import fabiorodrigues.bricks.components.Text;
 import fabiorodrigues.bricks.components.TextField;
 import fabiorodrigues.bricks.components.When;
 import fabiorodrigues.bricks.core.BricksApplication;
 import fabiorodrigues.bricks.core.BricksScene;
 import fabiorodrigues.bricks.core.Component;
-import fabiorodrigues.bricks.style.BricksTheme;
 import fabiorodrigues.bricks.style.Modifier;
 import java.util.List;
-import javafx.geometry.Pos;
 import models.TipoDocumentoVeiculo;
 import models.Veiculo.DocumentosVeiculo;
 import viewModels.VeiculosDocumentosViewModel;
@@ -54,21 +51,11 @@ public class VeiculosDocumentosView extends BricksScene {
             .gap(20)
             .modifier(new Modifier().padding(30, 20).fillMaxHeight().fillMaxWidth())
             .children(
-                new Row()
-                    .gap(0)
-                    .children(
-                        new Column()
-                            .gap(8)
-                            .children(
-                                new Text(this.nome).fontSize(24).modifier(new Modifier().bold()),
-                                new Text(String.valueOf(this.ano) + "." + this.matricula)
-                            ),
-                        new Spacer(),
-                        new IconButton("fas-plus", "Adicionar")
-                            .color(BricksTheme.current().colorScheme().onPrimary())
-                            .modifier(new Modifier().height(35).padding(0))
-                            .onClick(() -> abrirDocumentoModal(null))
-                    ),
+                new Titulo(this.app, this.nome)
+                    .subtitulo(this.ano + "." + this.matricula)
+                    .botao("fas-plus", "Adicionar")
+                    .onClick(() -> abrirDocumentoModal(null))
+                    .render(),
                 new ItemsColumn<DocumentosVeiculo>()
                     .gap(10)
                     .modifier(new Modifier().fillMaxWidth().fillMaxHeight())
@@ -87,6 +74,7 @@ public class VeiculosDocumentosView extends BricksScene {
 
                                 vm.apagarDocumento(documento.getId());
                                 vm.carregarDocumentos(this.id);
+                                NotificacoesApp.documentoRemovido(app, vm);
                             }
                         ).render()
                     )
@@ -102,32 +90,24 @@ public class VeiculosDocumentosView extends BricksScene {
             limparDocumento();
         }
 
-        Modal.showUndecorated(app, "Documentos", 550.0, 620.0, modal -> {
-            modal.setOnHidden(event -> limparDocumento());
-
-            return new Column()
-                .gap(8)
-                .children(
-                    new Text(update ? "Editar Documento" : "Novo Documento").fontSize(18),
-                    documentoForm(),
-                    new Row()
-                        .gap(8)
-                        .modifier(new Modifier().alignment(Pos.BOTTOM_RIGHT))
-                        .children(
-                            new Button("Cancelar").onClick(modal::close),
-                            new Button(update ? "Atualizar" : "Adicionar").onClick(() -> {
-                                if (update) {
-                                    vm.updateDocumento(documento.getId());
-                                } else {
-                                    vm.novoDocumento(this.id);
-                                }
-
-                                vm.carregarDocumentos(this.id);
-                                modal.close();
-                            })
-                        )
-                );
-        });
+        new FormularioModal(app, "Documentos")
+            .size(550.0, 620.0)
+            .update(update)
+            .titles("Novo Documento", "Editar Documento")
+            .content(documentoForm())
+            .onFileImport((file, content) -> preencherDocumentoImportado(file, content))
+            .onClear(this::limparDocumento)
+            .onSubmit(() -> {
+                if (update) {
+                    vm.updateDocumento(documento.getId());
+                    NotificacoesApp.documentoAtualizado(app, vm);
+                } else {
+                    vm.novoDocumento(this.id);
+                    NotificacoesApp.documentoCriado(app, vm);
+                }
+                vm.carregarDocumentos(this.id);
+            })
+            .show();
     }
 
     private Component documentoForm() {
@@ -162,6 +142,24 @@ public class VeiculosDocumentosView extends BricksScene {
                 new TextField().label("Valor(€)").decimal().bindTo(vm.valorDocumentoVeiculo),
                 new TextField().label("Notas").multiline().bindTo(vm.notasDocumentoVeiculo)
             );
+    }
+
+    private void preencherDocumentoImportado(java.io.File file, String content) {
+        TipoDocumentoVeiculo tipo = DocumentoImportacao
+            .categoria(TipoDocumentoVeiculo.class, content, TipoDocumentoVeiculo.OUTRO);
+
+        vm.tipoDocumentoVeiculo.set(tipo);
+        vm.eSeguro.set(tipo == TipoDocumentoVeiculo.SEGURO);
+        vm.tituloDocumentoVeiculo.set(DocumentoImportacao.titulo(file, content));
+        DocumentoImportacao.primeiraData(content).ifPresent(vm.dataValidadeDocumentoVeiculo::set);
+        DocumentoImportacao
+            .valorPorEtiqueta(content, "seguradora", "companhia")
+            .ifPresent(vm.seguradoraDocumentoVeiculo::set);
+        DocumentoImportacao
+            .valorPorEtiqueta(content, "cobertura", "plano")
+            .ifPresent(vm.coberturaDocumentoVeiculo::set);
+        DocumentoImportacao.primeiroValor(content).ifPresent(vm.valorDocumentoVeiculo::set);
+        vm.notasDocumentoVeiculo.set(DocumentoImportacao.texto(content));
     }
 
     private void preencherDocumento(DocumentosVeiculo documento) {

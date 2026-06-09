@@ -5,31 +5,37 @@ import fabiorodrigues.bricks.core.State;
 import fabiorodrigues.bricks.core.StateList;
 import fabiorodrigues.bricks.data.DB;
 import fabiorodrigues.bricks.data.WhereOperator;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.List;
-import models.Veiculo.DocumentosVeiculo;
+import java.util.stream.Stream;
 import models.Veiculo.Veiculos;
 
-public class VeiculosViewModel extends BricksViewModel implements IViewModel<Veiculos>, IViewModelDocumentos<DocumentosVeiculo> {
+public class VeiculosViewModel extends BricksViewModel implements IViewModel<Veiculos> {
 
     public final StateList<Veiculos> listVeiculos = stateList(List.of());
-    public final StateList<DocumentosVeiculo> listDocumentos = stateList(List.of());
     public final State<String> marcaVeiculo = state("");
     public final State<String> modeloVeiculo = state("");
     public final State<Integer> anoVeiculo = state(null);
     public final State<String> matriculaVeiculo = state("");
     public final State<String> fotoVeiculo = state("");
+    public final State<File> fotoFileVeiculo = state(null);
+    public final State<Boolean> removerFotoVeiculo = state(false);
     public final State<String> notasVeiculo = state("");
+
+    @Override
+    public String nomeRecurso() {
+        return "Veículo";
+    }
 
     public void carregarVeiculos() {
         listVeiculos.clear();
         listVeiculos.addAll(ver());
-    }
-
-    public void carregarDocumentos(int id) {
-
-        listDocumentos.clear();
-        listDocumentos.addAll(verDocumentos());
     }
 
     @Override
@@ -43,7 +49,7 @@ public class VeiculosViewModel extends BricksViewModel implements IViewModel<Vei
 
     @Override
     public void novo() {
-        DB
+        int id = DB
             .query()
             .insertInto("veiculos")
             .value("nome", marcaVeiculo.get() + " " + modeloVeiculo.get())
@@ -52,6 +58,25 @@ public class VeiculosViewModel extends BricksViewModel implements IViewModel<Vei
             .value("matricula", matriculaVeiculo.get())
             .value("foto", fotoVeiculo.get())
             .execute();
+
+        File foto = fotoFileVeiculo.get();
+        if (foto != null) {
+            try {
+                String relPath = "data/veiculos/" + id + "/" + foto.getName();
+                Path destino = Path.of(relPath);
+                Files.createDirectories(destino.getParent());
+                Files.copy(foto.toPath(), destino, StandardCopyOption.REPLACE_EXISTING);
+                DB
+                    .query()
+                    .update("veiculos")
+                    .value("foto", relPath)
+                    .where("id", WhereOperator.EQ, id)
+                    .execute();
+            } catch (IOException e) {
+                System.err.println("[VeiculosViewModel] Erro ao guardar foto: " + e.getMessage());
+            }
+            fotoFileVeiculo.set(null);
+        }
     }
 
     @Override
@@ -59,57 +84,71 @@ public class VeiculosViewModel extends BricksViewModel implements IViewModel<Vei
         DB
             .query()
             .update("veiculos")
-            .value("nome", (marcaVeiculo.get() + " " + modeloVeiculo.get()).trim())
-            .value("ano", anoVeiculo.get())
-            .value("matricula", matriculaVeiculo.get())
-            .value("foto", fotoVeiculo.get())
+            .when(
+                !(marcaVeiculo.get() + " " + modeloVeiculo.get()).trim().isEmpty(),
+                q -> q.value("nome", (marcaVeiculo.get() + " " + modeloVeiculo.get()).trim())
+            )
+            .when(anoVeiculo.get() != null, q -> q.value("ano", anoVeiculo.get()))
+            .when(
+                !matriculaVeiculo.get().isEmpty(),
+                q -> q.value("matricula", matriculaVeiculo.get())
+            )
+            .when(!fotoVeiculo.get().isEmpty(), q -> q.value("foto", fotoVeiculo.get()))
+            .when(removerFotoVeiculo.get(), q -> q.value("foto", ""))
             .where("id", WhereOperator.EQ, id)
             .execute();
-    }
 
-    public void atualizarFoto(int id, String foto) {
-        DB
-            .query()
-            .update("veiculos")
-            .value("foto", foto)
-            .where("id", WhereOperator.EQ, id)
-            .execute();
+        if (removerFotoVeiculo.get()) {
+            Path pasta = Path.of("data/veiculos/" + id);
+            if (Files.exists(pasta)) {
+                try (Stream<Path> stream = Files.walk(pasta)) {
+                    stream
+                        .sorted(Comparator.reverseOrder())
+                        .map(Path::toFile)
+                        .forEach(File::delete);
+                } catch (IOException e) {
+                    System.err
+                        .println(
+                            "[VeiculosViewModel] Erro ao apagar pasta foto: " + e.getMessage()
+                        );
+                }
+            }
+            removerFotoVeiculo.set(false);
+            return;
+        }
+
+        File foto = fotoFileVeiculo.get();
+        if (foto != null) {
+            try {
+                String relPath = "data/veiculos/" + id + "/" + foto.getName();
+                Path destino = Path.of(relPath);
+                Files.createDirectories(destino.getParent());
+                Files.copy(foto.toPath(), destino, StandardCopyOption.REPLACE_EXISTING);
+                DB
+                    .query()
+                    .update("veiculos")
+                    .value("foto", relPath)
+                    .where("id", WhereOperator.EQ, id)
+                    .execute();
+            } catch (IOException e) {
+                System.err.println("[VeiculosViewModel] Erro ao guardar foto: " + e.getMessage());
+            }
+            fotoFileVeiculo.set(null);
+        }
     }
 
     @Override
     public void apagar(int id) {
         DB.query().deleteFrom("veiculos").where("id", WhereOperator.EQ, id).execute();
-    }
 
-    @Override
-    public List<DocumentosVeiculo> verDocumentos() {
-        return DB
-            .query()
-            .select(
-                "id",
-                "veiculo_id",
-                "titulo",
-                "tipo",
-                "data_validade",
-                "seguradora",
-                "cobertura",
-                "valor",
-                "notas"
-            )
-            .from("documentos_veiculo")
-            .execute(DocumentosVeiculo.class);
-    }
-
-    @Override
-    public void novoDocumento(int veiculoId) {
-    }
-
-    @Override
-    public void updateDocumento(int id) {
-    }
-
-    @Override
-    public void apagarDocumento(int id) {
-        DB.query().deleteFrom("documentos_veiculo").where("id", WhereOperator.EQ, id).execute();
+        Path pasta = Path.of("data/veiculos/" + id);
+        if (Files.exists(pasta)) {
+            try (Stream<Path> stream = Files.walk(pasta)) {
+                stream.sorted(Comparator.reverseOrder()).map(Path::toFile).forEach(File::delete);
+            } catch (IOException e) {
+                System.err
+                    .println("[VeiculosViewModel] Erro ao apagar pasta foto: " + e.getMessage());
+            }
+        }
     }
 }

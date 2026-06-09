@@ -24,6 +24,16 @@ public class DocumentosViewModel extends BricksViewModel implements IViewModel<P
     public final State<LocalDate> dataValidadeDocumento = state(null);
     public final State<String> notasDocumento = state("");
 
+    @Override
+    public String nomeRecurso() {
+        return "Pessoa";
+    }
+
+    @Override
+    public String nomeDocumento() {
+        return "Documento";
+    }
+
     public void carregarPessoas() {
         listPessoas.clear();
         listPessoas.addAll(ver());

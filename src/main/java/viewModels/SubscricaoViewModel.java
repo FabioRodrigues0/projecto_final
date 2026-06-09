@@ -36,6 +36,16 @@ public class SubscricaoViewModel extends BricksViewModel implements IViewModel<S
     public final State<LocalDate> dataRenovacaoSubscricao = state(null);
     public final State<Boolean> estadoSubscricao = state(true);
 
+    @Override
+    public String nomeRecurso() {
+        return "Subscrição";
+    }
+
+    @Override
+    public String nomeDocumento() {
+        return "Subscrição";
+    }
+
     public void carregarSubscricoes() {
         listSubscricoes.clear();
         listSubscricoes.addAll(ver());
