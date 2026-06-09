@@ -92,7 +92,7 @@ public class VeiculosView extends BricksScene {
         }
 
         new FormularioModal(app, "Veiculos")
-            .size(520.0, 540.0)
+            .size(520.0, 480.0)
             .update(update)
             .titles("Novo Veiculo", "Editar Veiculo")
             .content(veiculoForm(veiculo))
