@@ -233,14 +233,25 @@ public class DashboardView extends BricksScene {
                             .modifier(new Modifier().fillMaxWidth())
                             .children(
                                 new Row()
-                                    .gap(2)
+                                    .gap(12)
+                                    .modifier(new Modifier().padding(20))
                                     .children(
+                                        new Icon("fas-file-alt")
+                                            .color(Color.web("#1a73e8"))
+                                            .size(24)
+                                            .modifier(
+                                                new Modifier()
+                                                    .padding(10)
+                                                    .background(Color.web("#e8f0fe"))
+                                                    .borderRadius(8)
+                                            ),
                                         new Column()
-                                            .gap(5)
-                                            .modifier(new Modifier().padding(20))
+                                            .gap(4)
                                             .children(
-                                                new Text("Gerir Documentos"),
+                                                new Text("Gerir Documentos")
+                                                    .modifier(new Modifier().bold()),
                                                 new Text("Garantias, contratos e faturas")
+                                                    .modifier(new Modifier().textColor(Color.GRAY))
                                             )
                                     )
                             ),
@@ -249,14 +260,25 @@ public class DashboardView extends BricksScene {
                             .modifier(new Modifier().fillMaxWidth())
                             .children(
                                 new Row()
-                                    .gap(2)
+                                    .gap(12)
+                                    .modifier(new Modifier().padding(20))
                                     .children(
+                                        new Icon("fas-car-alt")
+                                            .color(Color.web("#1a73e8"))
+                                            .size(24)
+                                            .modifier(
+                                                new Modifier()
+                                                    .padding(10)
+                                                    .background(Color.web("#e8f0fe"))
+                                                    .borderRadius(8)
+                                            ),
                                         new Column()
-                                            .gap(5)
-                                            .modifier(new Modifier().padding(20))
+                                            .gap(4)
                                             .children(
-                                                new Text("Gerir Veiculos"),
+                                                new Text("Gerir Veiculos")
+                                                    .modifier(new Modifier().bold()),
                                                 new Text("Seguro, IUC e inspecao")
+                                                    .modifier(new Modifier().textColor(Color.GRAY))
                                             )
                                     )
                             ),
@@ -265,14 +287,25 @@ public class DashboardView extends BricksScene {
                             .modifier(new Modifier().fillMaxWidth())
                             .children(
                                 new Row()
-                                    .gap(2)
+                                    .gap(12)
+                                    .modifier(new Modifier().padding(20))
                                     .children(
+                                        new Icon("fas-tv")
+                                            .color(Color.web("#1a73e8"))
+                                            .size(24)
+                                            .modifier(
+                                                new Modifier()
+                                                    .padding(10)
+                                                    .background(Color.web("#e8f0fe"))
+                                                    .borderRadius(8)
+                                            ),
                                         new Column()
-                                            .gap(5)
-                                            .modifier(new Modifier().padding(20))
+                                            .gap(4)
                                             .children(
-                                                new Text("Gerir Subscricoes"),
+                                                new Text("Gerir Subscricoes")
+                                                    .modifier(new Modifier().bold()),
                                                 new Text("Netflix, Spotify e mais")
+                                                    .modifier(new Modifier().textColor(Color.GRAY))
                                             )
                                     )
                             )
