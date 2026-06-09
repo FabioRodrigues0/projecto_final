@@ -135,7 +135,18 @@ public class DashboardView extends BricksScene {
                                                     ),
                                                 new Text(String.valueOf(vm.qntSubscricoes.get()))
                                                     .fontSize(20)
-                                                    .modifier(new Modifier().bold())
+                                                    .modifier(new Modifier().bold()),
+                                                new Text(
+                                                    String
+                                                        .format(
+                                                            "%.2f",
+                                                            vm.gastoMensal.get()
+                                                        ) + "€/mês"
+                                                )
+                                                    .fontSize(14)
+                                                    .modifier(
+                                                        new Modifier().textColor(Color.GRAY).bold()
+                                                    )
                                             ),
                                         new Spacer(),
                                         new Icon("fas-tv")
