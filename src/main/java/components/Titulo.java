@@ -35,11 +35,7 @@ public class Titulo {
     // Construtor simples - sem modal
     public Titulo(BricksApplication app, String titulo, String subTitulo, String iconButton, String textButton) {
         this(
-<<<<<<< HEAD
-            app, titulo, subTitulo, iconButton, textButton, "", (Supplier<Component>) null, () -> {}, () -> {}, DEFAULT_MODAL_WIDTH, DEFAULT_MODAL_HEIGHT
-=======
             app, titulo, subTitulo, iconButton, textButton, "", (Component) null, () -> {}, () -> {}
->>>>>>> 4ae45f26c125c0f624a39df2102cafcf48837a25
         );
     }
 
@@ -47,27 +43,7 @@ public class Titulo {
                   BricksApplication app, String titulo, String subTitulo, String iconButton, String textButton, String tituloModal
     ) {
         this(
-<<<<<<< HEAD
-            app, titulo, subTitulo, iconButton, textButton, tituloModal, (Supplier<Component>) null, () -> {}, () -> {}, DEFAULT_MODAL_WIDTH, DEFAULT_MODAL_HEIGHT
-        );
-    }
-
-    public Titulo(
-                  BricksApplication app, String titulo, String subTitulo, String iconButton, String textButton, Supplier<Component> modalContent, Runnable onSubmit, Runnable onClear
-    ) {
-        this(
-            app, titulo, subTitulo, iconButton, textButton, textButton, modalContent, onSubmit, onClear
-        );
-    }
-
-    public Titulo(
-                  BricksApplication app, String titulo, String subTitulo, String iconButton, String textButton, Supplier<Component> modalContent, Runnable onSubmit, Runnable onClear, double modalWidth, double modalHeight
-    ) {
-        this(
-            app, titulo, subTitulo, iconButton, textButton, textButton, modalContent, onSubmit, onClear, modalWidth, modalHeight
-=======
             app, titulo, subTitulo, iconButton, textButton, tituloModal, (Component) null, null, null
->>>>>>> 4ae45f26c125c0f624a39df2102cafcf48837a25
         );
     }
 
