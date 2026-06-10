@@ -83,8 +83,9 @@ public final class NotificacoesApp {
     }
 
     private static String mensagemExpiracao(Expiracoes expiracao) {
-        String prazo = expiracao.tipo() == TipoExpiracoes.EXPIRADO ? expiracao
-            .dias() + " dias em atraso" : expiracao.dias() + " dias restantes";
+        int dias = expiracao.tipo() == TipoExpiracoes.EXPIRADO ? -expiracao.dias() : expiracao
+            .dias();
+        String prazo = DiasRestantes.texto(dias);
 
         if (expiracao.subTitulo() == null || expiracao.subTitulo().isBlank()) {
             return prazo;
