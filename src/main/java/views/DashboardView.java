@@ -6,6 +6,7 @@ import components.Titulo;
 import fabiorodrigues.bricks.components.Card;
 import fabiorodrigues.bricks.components.Column;
 import fabiorodrigues.bricks.components.Icon;
+import fabiorodrigues.bricks.components.IconButton;
 import fabiorodrigues.bricks.components.ItemsColumn;
 import fabiorodrigues.bricks.components.Row;
 import fabiorodrigues.bricks.components.Spacer;
@@ -14,6 +15,7 @@ import fabiorodrigues.bricks.core.BricksApplication;
 import fabiorodrigues.bricks.core.BricksScene;
 import fabiorodrigues.bricks.core.Component;
 import fabiorodrigues.bricks.style.Modifier;
+import javafx.geometry.Pos;
 import javafx.scene.paint.Color;
 import models.Expiracoes;
 import viewModels.DashboardViewModel;
@@ -72,14 +74,16 @@ public class DashboardView extends BricksScene {
                                                     .modifier(new Modifier().bold())
                                             ),
                                         new Spacer(),
-                                        new Icon("fas-file-alt")
-                                            .color(Color.web("#1a73e8"))
-                                            .size(30)
+                                        new IconButton("fas-file-alt")
+                                            .color(Color.web("#155dfc"))
+                                            .size(20)
                                             .modifier(
                                                 new Modifier()
-                                                    .padding(12)
-                                                    .background(Color.web("#e8f0fe"))
+                                                    .padding(8, 5)
+                                                    .background(Color.web("#e7eefe"))
                                                     .borderRadius(8)
+                                                    .width(44)
+                                                    .height(43)
                                             )
                                     )
                             ),
@@ -105,19 +109,21 @@ public class DashboardView extends BricksScene {
                                                     .modifier(new Modifier().bold())
                                             ),
                                         new Spacer(),
-                                        new Icon("fas-car-alt")
-                                            .color(Color.web("#1a73e8"))
-                                            .size(30)
+                                        new IconButton("fas-car-side")
+                                            .color(Color.web("#4f39f6"))
+                                            .size(20)
                                             .modifier(
                                                 new Modifier()
-                                                    .padding(12)
-                                                    .background(Color.web("#e8f0fe"))
+                                                    .background(Color.web("#ededfe"))
                                                     .borderRadius(8)
+                                                    .padding(8, 5)
+                                                    .width(44)
+                                                    .height(43)
                                             )
                                     )
                             ),
 
-                        // Subscrições (Corrigido o posicionamento do .padding)
+                        // Subscrições
                         new Card()
                             .elevation(2)
                             .modifier(new Modifier().fillMaxWidth())
@@ -149,19 +155,21 @@ public class DashboardView extends BricksScene {
                                                     )
                                             ),
                                         new Spacer(),
-                                        new Icon("fas-tv")
-                                            .color(Color.web("#1a73e8"))
-                                            .size(30)
+                                        new IconButton("fas-tv")
+                                            .color(Color.web("#7f22fe"))
+                                            .size(20)
                                             .modifier(
                                                 new Modifier()
-                                                    .padding(12)
-                                                    .background(Color.web("#e8f0fe"))
+                                                    .padding(8, 5)
+                                                    .background(Color.web("#f2e8fe"))
                                                     .borderRadius(8)
+                                                    .width(44)
+                                                    .height(43)
                                             )
                                     )
                             ),
 
-                        // Alertas (Corrigido o posicionamento do .padding)
+                        // Alertas
                         new Card()
                             .elevation(2)
                             .modifier(new Modifier().fillMaxWidth())
@@ -182,14 +190,22 @@ public class DashboardView extends BricksScene {
                                                     .modifier(new Modifier().bold())
                                             ),
                                         new Spacer(),
-                                        new Icon("fas-exclamation-triangle")
-                                            .color(Color.web("#1a73e8"))
-                                            .size(30)
+                                        new IconButton("fas-exclamation-triangle")
                                             .modifier(
                                                 new Modifier()
-                                                    .padding(12)
-                                                    .background(Color.web("#e8f0fe"))
+                                                    .background(Color.web("#f1f5f9"))
+                                                    .width(35)
+                                                    .height(36)
+                                            )
+                                            .color(Color.web("#e7000b"))
+                                            .size(20)
+                                            .modifier(
+                                                new Modifier()
+                                                    .padding(8, 5)
+                                                    .background(Color.web("#fce5e6"))
                                                     .borderRadius(8)
+                                                    .width(44)
+                                                    .height(43)
                                             )
                                     )
                             )
@@ -201,11 +217,17 @@ public class DashboardView extends BricksScene {
                     .modifier(new Modifier().fillMaxHeight())
                     .children(
                         new Column()
-                            .gap(0)
+                            .gap(10)
                             .modifier(new Modifier().padding(20).fillMaxHeight())
                             .children(
-                                new Text("Proximas Expiracoes (30 dias)")
-                                    .modifier(new Modifier().bold().fontSize(18)),
+                                new Row()
+                                    .gap(5)
+                                    .children(
+                                        new Icon("fas-exclamation-triangle")
+                                            .color(Color.web("#fe9a00")),
+                                        new Text("Proximas Expiracoes (30 dias)")
+                                            .modifier(new Modifier().bold().fontSize(18))
+                                    ),
                                 new ItemsColumn<Expiracoes>()
                                     .gap(10)
                                     .padding(0)
@@ -226,54 +248,83 @@ public class DashboardView extends BricksScene {
                     .gap(8)
                     .children(
                         new Card()
+                            .padding(20)
                             .elevation(2)
                             .modifier(new Modifier().fillMaxWidth())
                             .children(
                                 new Row()
-                                    .gap(2)
+                                    .gap(10)
+                                    .modifier(new Modifier().alignment(Pos.CENTER_LEFT))
                                     .children(
+                                        new IconButton("fas-file-alt")
+                                            .modifier(
+                                                new Modifier()
+                                                    .width(35)
+                                                    .height(36)
+                                                    .background(Color.web("#f1f5f9"))
+                                            ),
                                         new Column()
-                                            .gap(5)
-                                            .modifier(new Modifier().padding(20))
+                                            .gap(2)
+                                            .modifier(new Modifier())
                                             .children(
-                                                new Text("Gerir Documentos"),
+                                                new Text("Gerir Documentos").bold(),
                                                 new Text("Garantias, contratos e faturas")
                                             )
                                     )
-                            ),
+                            )
+                            .onClick(() -> app.navigateTo(new DocumentosView(app))),
                         new Card()
+                            .padding(20)
                             .elevation(2)
                             .modifier(new Modifier().fillMaxWidth())
                             .children(
                                 new Row()
-                                    .gap(2)
+                                    .gap(10)
+                                    .modifier(new Modifier().alignment(Pos.CENTER_LEFT))
                                     .children(
+                                        new IconButton("fas-car-side")
+                                            .modifier(
+                                                new Modifier()
+                                                    .width(35)
+                                                    .height(36)
+                                                    .background(Color.web("#f1f5f9"))
+                                            ),
                                         new Column()
-                                            .gap(5)
-                                            .modifier(new Modifier().padding(20))
+                                            .gap(2)
+                                            .modifier(new Modifier())
                                             .children(
-                                                new Text("Gerir Veiculos"),
+                                                new Text("Gerir Veiculos").bold(),
                                                 new Text("Seguro, IUC e inspecao")
                                             )
                                     )
-                            ),
+                            )
+                            .onClick(() -> app.navigateTo(new VeiculosView(app))),
                         new Card()
+                            .padding(20)
                             .elevation(2)
-                            .modifier(new Modifier().fillMaxWidth())
+                            .modifier(new Modifier().fillMaxWidth().alignment(Pos.CENTER))
                             .children(
                                 new Row()
-                                    .gap(2)
+                                    .gap(10)
+                                    .modifier(new Modifier().alignment(Pos.CENTER_LEFT))
                                     .children(
+                                        new IconButton("fas-credit-card")
+                                            .modifier(
+                                                new Modifier()
+                                                    .width(35)
+                                                    .height(36)
+                                                    .background(Color.web("#f1f5f9"))
+                                            ),
                                         new Column()
-                                            .gap(5)
-                                            .modifier(new Modifier().padding(20))
+                                            .gap(2)
                                             .children(
-                                                new Text("Gerir Subscricoes"),
+                                                new Text("Gerir Subscricoes").bold(),
                                                 new Text("Netflix, Spotify e mais")
                                             )
                                     )
                             )
+                            .onClick(() -> app.navigateTo(new SubscricaoView(app)))
                     )
-            ); // <--- Aqui fechava corretamente a árvore de componentes da Column principal
+            );
     }
 }
