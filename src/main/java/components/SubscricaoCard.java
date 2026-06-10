@@ -1,6 +1,5 @@
 package components;
 
-import fabiorodrigues.bricks.components.Badge;
 import fabiorodrigues.bricks.components.BadgeVariant;
 import fabiorodrigues.bricks.components.Card;
 import fabiorodrigues.bricks.components.Column;
@@ -122,28 +121,15 @@ public class SubscricaoCard {
     private EstadoSubscricao estado() {
         if (this.dataRenovacao == null) {
             return new EstadoSubscricao(
-                "Sem renovacao", "Sem renovacao", BadgeVariant.INFO, Color.GRAY
+                "Sem renovacao", new BadgeEstado("Sem renovacao", BadgeVariant.INFO), Color.GRAY
             );
         }
 
         int diasReais = (int) ChronoUnit.DAYS.between(LocalDate.now(), this.dataRenovacao);
-        int dias = Math.abs(diasReais);
-
-        if (diasReais < 0) {
-            return new EstadoSubscricao(
-                dias + " dias em atraso", "Expirado", BadgeVariant.DANGER, Color.rgb(193, 0, 7)
-            );
-        }
-
-        if (diasReais <= 30) {
-            return new EstadoSubscricao(
-                dias + " dias restantes", "Expira em breve", BadgeVariant.WARNING, Color
-                    .rgb(187, 77, 0)
-            );
-        }
+        BadgeEstado badgeEstado = new BadgeEstado(diasReais);
 
         return new EstadoSubscricao(
-            dias + " dias restantes", "Valido", BadgeVariant.SUCCESS, Color.rgb(20, 120, 55)
+            DiasRestantes.texto(diasReais), badgeEstado, DiasRestantes.cor(diasReais)
         );
     }
 
@@ -184,7 +170,7 @@ public class SubscricaoCard {
                                 new Text(estado.tempo())
                                     .modifier(new Modifier().bold().textColor(estado.corTexto()))
                             ),
-                        new Badge(estado.badge()).soft().variant(estado.variant()),
+                        estado.badge().render(),
                         new IconButton("fas-pen").ghost().onClick(this.onEditar),
                         new IconButton("fas-trash-alt")
                             .ghost()
@@ -206,7 +192,6 @@ public class SubscricaoCard {
         return String.format("€%.2f", this.custo);
     }
 
-    private record EstadoSubscricao(String tempo, String badge, BadgeVariant variant,
-                                    Color corTexto) {
+    private record EstadoSubscricao(String tempo, BadgeEstado badge, Color corTexto) {
     }
 }
