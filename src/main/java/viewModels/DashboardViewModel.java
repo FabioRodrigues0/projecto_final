@@ -1,14 +1,15 @@
 package viewModels;
 
-import fabiorodrigues.bricks.core.BricksViewModel;
-import fabiorodrigues.bricks.core.State;
-import fabiorodrigues.bricks.core.StateList;
-import fabiorodrigues.bricks.data.DB;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+
+import fabiorodrigues.bricks.core.BricksViewModel;
+import fabiorodrigues.bricks.core.State;
+import fabiorodrigues.bricks.core.StateList;
+import fabiorodrigues.bricks.data.DB;
 import models.Expiracoes;
 import models.TipoExpiracoes;
 
@@ -16,7 +17,7 @@ public class DashboardViewModel extends BricksViewModel {
     public final State<Integer> qntDocumentos = state(0);
     public final State<Integer> qntVeiculos = state(0);
     public final State<Integer> qntSubscricoes = state(0);
-    public final State<Double> gastoMensal = state(0.0);//referente subscriçoes
+    public final State<Double> gastoMensal = state(0.0);
     public final State<Integer> qntAlertas = state(0);
     public final StateList<Expiracoes> listExpiracoes = stateList(List.of());
 
