@@ -1,11 +1,11 @@
 package components;
 
-import fabiorodrigues.bricks.components.Badge;
-import fabiorodrigues.bricks.components.BadgeVariant;
 import fabiorodrigues.bricks.components.Column;
+import fabiorodrigues.bricks.components.IconButton;
 import fabiorodrigues.bricks.components.Row;
 import fabiorodrigues.bricks.components.Spacer;
 import fabiorodrigues.bricks.components.Text;
+import fabiorodrigues.bricks.components.When;
 import fabiorodrigues.bricks.core.Component;
 import fabiorodrigues.bricks.style.Modifier;
 import javafx.geometry.Pos;
@@ -13,40 +13,53 @@ import javafx.scene.paint.Color;
 import models.TipoExpiracoes;
 
 public class ExpiracaoCard {
-
+    private final String icon;
     private final String titulo;
     private final String subTitulo;
     private final int dias;
-    private final TipoExpiracoes tipo;
+    private final BadgeEstado estado;
 
     public ExpiracaoCard(String titulo, String subTitulo, int dias, TipoExpiracoes tipo) {
+        this.icon = "";
         this.titulo = titulo;
         this.subTitulo = subTitulo;
         this.dias = dias;
-        this.tipo = tipo;
+        this.estado = badgeEstado(tipo);
+    }
+
+    public ExpiracaoCard(String icon, String titulo, String subTitulo, int dias) {
+        this.icon = icon;
+        this.titulo = titulo;
+        this.subTitulo = subTitulo;
+        this.dias = dias;
+        this.estado = new BadgeEstado(dias);
+    }
+
+    public ExpiracaoCard(String titulo, String subTitulo, int dias) {
+        this.icon = "";
+        this.titulo = titulo;
+        this.subTitulo = subTitulo;
+        this.dias = dias;
+        this.estado = new BadgeEstado(dias);
     }
 
     private Component renderTipo() {
-        BadgeVariant variant = this.tipo == TipoExpiracoes.BREVE ? BadgeVariant.WARNING : BadgeVariant.DANGER;
-
-        String texto = this.tipo == TipoExpiracoes.BREVE ? "Expira em Breve" : "Expirado";
-        return new Badge(texto).variant(variant).soft();
+        return this.estado.render();
     }
 
     private Component renderTempo() {
-        Color corTexto = this.tipo == TipoExpiracoes.BREVE ? Color.rgb(187, 77, 0, 1) : Color
-            .rgb(193, 0, 7, 1);
-
-        String texto;
-        if (this.tipo == TipoExpiracoes.BREVE) {
-            texto = this.dias + " dias restantes";
-        } else {
-            texto = this.dias + " dias em atraso";
-        }
         return new Column()
             .gap(0)
             .modifier(new Modifier().fillMaxHeight().alignment(Pos.CENTER))
-            .children(new Text(texto).modifier(new Modifier().bold().textColor(corTexto).bold()));
+            .children(new DiasRestantes(this.dias).render());
+    }
+
+    private BadgeEstado badgeEstado(TipoExpiracoes tipo) {
+        if (tipo == TipoExpiracoes.EXPIRADO) {
+            return new BadgeEstado(-1);
+        }
+
+        return new BadgeEstado(30);
     }
 
     public Component render() {
@@ -58,6 +71,16 @@ public class ExpiracaoCard {
                     .gap(8)
                     .modifier(new Modifier().alignment(Pos.CENTER).padding(10, 10))
                     .children(
+                        new When(!this.icon.isBlank())
+                            .children(
+                                new IconButton(this.icon)
+                                    .modifier(
+                                        new Modifier()
+                                            .width(35)
+                                            .height(36)
+                                            .background(Color.web("#f1f5f9"))
+                                    )
+                            ),
                         new Column()
                             .gap(2)
                             .children(
