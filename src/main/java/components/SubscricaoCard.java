@@ -2,7 +2,6 @@ package components;
 
 import fabiorodrigues.bricks.components.Badge;
 import fabiorodrigues.bricks.components.BadgeVariant;
-import fabiorodrigues.bricks.components.Card;
 import fabiorodrigues.bricks.components.Column;
 import fabiorodrigues.bricks.components.Icon;
 import fabiorodrigues.bricks.components.IconButton;
@@ -150,14 +149,21 @@ public class SubscricaoCard {
     public Component render() {
         EstadoSubscricao estado = estado();
 
-        return new Card()
-            .elevation(2)
-            .padding(15)
-            .modifier(new Modifier().fillMaxWidth())
+        return new Row()
+            .gap(0)
+            .modifier(new Modifier().fillMaxWidth().background(Color.WHITE).borderRadius(8))
             .children(
+                new Column()
+                    .modifier(
+                        new Modifier()
+                            .width(5)
+                            .fillMaxHeight()
+                            .background(estado.corTexto())
+                            .borderRadius(8)
+                    ),
                 new Row()
                     .gap(10)
-                    .modifier(new Modifier().alignment(Pos.CENTER))
+                    .modifier(new Modifier().padding(15).fillMaxWidth().alignment(Pos.CENTER))
                     .children(
                         new Icon(this.icon),
                         new Column()

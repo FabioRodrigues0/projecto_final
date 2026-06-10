@@ -109,7 +109,7 @@ public class DashboardView extends BricksScene {
                                             ),
                                         new Spacer(),
                                         new Icon("fas-car-alt")
-                                            .color(Color.web("#1a73e8"))
+                                            .color(Color.web("#0820fc"))
                                             .size(30)
                                             .modifier(
                                                 new Modifier()
@@ -153,7 +153,7 @@ public class DashboardView extends BricksScene {
                                             ),
                                         new Spacer(),
                                         new Icon("fas-tv")
-                                            .color(Color.web("#1a73e8"))
+                                            .color(Color.web("#d509e8"))
                                             .size(30)
                                             .modifier(
                                                 new Modifier()
@@ -186,7 +186,7 @@ public class DashboardView extends BricksScene {
                                             ),
                                         new Spacer(),
                                         new Icon("fas-exclamation-triangle")
-                                            .color(Color.web("#1a73e8"))
+                                            .color(Color.web("#ed5509"))
                                             .size(30)
                                             .modifier(
                                                 new Modifier()

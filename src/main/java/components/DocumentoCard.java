@@ -2,7 +2,6 @@ package components;
 
 import fabiorodrigues.bricks.components.Badge;
 import fabiorodrigues.bricks.components.BadgeVariant;
-import fabiorodrigues.bricks.components.Card;
 import fabiorodrigues.bricks.components.Column;
 import fabiorodrigues.bricks.components.Icon;
 import fabiorodrigues.bricks.components.IconButton;
@@ -99,14 +98,23 @@ public class DocumentoCard {
     public Component render() {
         EstadoDocumento estado = estado();
 
-        return new Card()
-            .elevation(2)
-            .padding(15)
-            .modifier(new Modifier().fillMaxWidth())
+        return new Row()
+            .gap(0)
+            .modifier(new Modifier().fillMaxWidth().background(Color.WHITE).borderRadius(8))
             .children(
+                // Barra lateral color
+                new Column()
+                    .modifier(
+                        new Modifier()
+                            .width(5)
+                            .fillMaxHeight()
+                            .background(estado.corTexto())
+                            .borderRadius(8)
+                    ),
+
                 new Row()
                     .gap(10)
-                    .modifier(new Modifier().alignment(Pos.CENTER))
+                    .modifier(new Modifier().padding(15).fillMaxWidth().alignment(Pos.CENTER))
                     .children(
                         new Icon("fas-file-alt"),
                         new Column()
@@ -117,7 +125,7 @@ public class DocumentoCard {
                                     .gap(0)
                                     .children(
                                         new Text(this.tipoDocumento),
-                                        new Text(" validade: " + dataValidadeTexto())
+                                        new Text(" · Validade: " + dataValidadeTexto())
                                     )
                             ),
                         new Spacer(),
