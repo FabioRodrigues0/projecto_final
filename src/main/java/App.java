@@ -12,6 +12,7 @@ import javafx.scene.paint.Color;
 import views.CalendarioView;
 import views.DashboardView;
 import views.DocumentosView;
+import views.SettingsView;
 import views.SubscricaoView;
 import views.VeiculosView;
 
@@ -129,6 +130,11 @@ public class App extends BricksApplication {
                     .item(
                         new SidebarItem(
                             "fas-calendar", "Calendário", () -> navigateTo(new CalendarioView(this))
+                        )
+                    )
+                    .bottomItem(
+                        new SidebarItem(
+                            "fas-cog", "Settings", () -> navigateTo(new SettingsView(this))
                         )
                     )
             )
