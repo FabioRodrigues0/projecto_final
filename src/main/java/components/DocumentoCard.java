@@ -1,6 +1,5 @@
 package components;
 
-import fabiorodrigues.bricks.components.Badge;
 import fabiorodrigues.bricks.components.BadgeVariant;
 import fabiorodrigues.bricks.components.Column;
 import fabiorodrigues.bricks.components.Icon;
@@ -70,28 +69,15 @@ public class DocumentoCard {
     private EstadoDocumento estado() {
         if (this.dataValidade == null) {
             return new EstadoDocumento(
-                "Sem validade", "Sem validade", BadgeVariant.INFO, Color.GRAY
+                "Sem validade", new BadgeEstado("Sem validade", BadgeVariant.INFO), Color.GRAY
             );
         }
 
         int diasReais = (int) ChronoUnit.DAYS.between(LocalDate.now(), this.dataValidade);
-        int dias = Math.abs(diasReais);
-
-        if (diasReais < 0) {
-            return new EstadoDocumento(
-                dias + " dias em atraso", "Expirado", BadgeVariant.DANGER, Color.rgb(193, 0, 7)
-            );
-        }
-
-        if (diasReais <= 30) {
-            return new EstadoDocumento(
-                dias + " dias restantes", "Expira em breve", BadgeVariant.WARNING, Color
-                    .rgb(187, 77, 0)
-            );
-        }
+        BadgeEstado badgeEstado = new BadgeEstado(diasReais);
 
         return new EstadoDocumento(
-            dias + " dias restantes", "Valido", BadgeVariant.SUCCESS, Color.rgb(20, 120, 55)
+            DiasRestantes.texto(diasReais), badgeEstado, DiasRestantes.cor(diasReais)
         );
     }
 
@@ -131,7 +117,7 @@ public class DocumentoCard {
                         new Spacer(),
                         new Text(estado.tempo())
                             .modifier(new Modifier().bold().textColor(estado.corTexto())),
-                        new Badge(estado.badge()).soft().variant(estado.variant()),
+                        estado.badge().render(),
                         new IconButton("fas-pen").ghost().onClick(this.onEditar),
                         new IconButton("fas-trash-alt")
                             .ghost()
@@ -145,7 +131,6 @@ public class DocumentoCard {
         return this.dataValidade == null ? "-" : this.dataValidade.toString();
     }
 
-    private record EstadoDocumento(String tempo, String badge, BadgeVariant variant,
-                                   Color corTexto) {
+    private record EstadoDocumento(String tempo, BadgeEstado badge, Color corTexto) {
     }
 }
