@@ -1,15 +1,14 @@
 package viewModels;
 
+import fabiorodrigues.bricks.core.BricksViewModel;
+import fabiorodrigues.bricks.core.State;
+import fabiorodrigues.bricks.core.StateList;
+import fabiorodrigues.bricks.data.DB;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
-
-import fabiorodrigues.bricks.core.BricksViewModel;
-import fabiorodrigues.bricks.core.State;
-import fabiorodrigues.bricks.core.StateList;
-import fabiorodrigues.bricks.data.DB;
 import models.Expiracoes;
 import models.TipoExpiracoes;
 

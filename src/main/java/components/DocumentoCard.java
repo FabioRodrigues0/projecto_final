@@ -85,8 +85,15 @@ public class DocumentoCard {
         EstadoDocumento estado = estado();
 
         return new Row()
-            .gap(0)
-            .modifier(new Modifier().fillMaxWidth().background(Color.WHITE).borderRadius(8))
+            .gap(10)
+            .modifier(
+                new Modifier()
+                    .border(Color.GRAY, 1)
+                    .fillMaxWidth()
+                    .background(Color.WHITE)
+                    .borderRadius(8)
+                    .alignment(Pos.CENTER_LEFT)
+            )
             .children(
                 // Barra lateral color
                 new Column()
@@ -98,32 +105,35 @@ public class DocumentoCard {
                             .borderRadius(8)
                     ),
 
-                new Row()
-                    .gap(10)
-                    .modifier(new Modifier().padding(15).fillMaxWidth().alignment(Pos.CENTER))
+                new Icon("fas-file-alt"),
+
+                new Column()
+                    .gap(1)
                     .children(
-                        new Icon("fas-file-alt"),
-                        new Column()
-                            .gap(1)
+                        new Text(this.titulo).modifier(new Modifier().bold()),
+                        new Row()
+                            .gap(0)
                             .children(
-                                new Text(this.titulo).modifier(new Modifier().bold()),
-                                new Row()
-                                    .gap(0)
-                                    .children(
-                                        new Text(this.tipoDocumento),
-                                        new Text(" · Validade: " + dataValidadeTexto())
-                                    )
-                            ),
-                        new Spacer(),
-                        new Text(estado.tempo())
-                            .modifier(new Modifier().bold().textColor(estado.corTexto())),
-                        estado.badge().render(),
-                        new IconButton("fas-pen").ghost().onClick(this.onEditar),
-                        new IconButton("fas-trash-alt")
-                            .ghost()
-                            .color(Color.RED)
-                            .onClick(this.onApagar)
-                    )
+                                new Text(this.tipoDocumento),
+                                new Text(" · Validade: " + dataValidadeTexto())
+                            )
+                    ),
+
+                new Spacer(),
+
+                new Text(estado.tempo())
+                    .modifier(
+                        new Modifier()
+                            .bold()
+                            .textColor((javafx.scene.paint.Color) estado.corTexto())
+                    ),
+                estado.badge().render(),
+                new IconButton("fas-pen").ghost().onClick(this.onEditar),
+                new IconButton("fas-trash-alt")
+                    .ghost()
+                    .color(Color.RED)
+                    .onClick(this.onApagar)
+                    .modifier(new Modifier().padding(0, 15, 0, 0))
             );
     }
 

@@ -112,15 +112,9 @@ public class DashboardView extends BricksScene {
                                                     .modifier(new Modifier().bold())
                                             ),
                                         new Spacer(),
-<<<<<<< HEAD
-                                        new Icon("fas-car-alt")
-                                            .color(Color.web("#0820fc"))
-                                            .size(30)
-=======
                                         new IconButton("fas-car-side")
                                             .color(Color.web("#4f39f6"))
                                             .size(20)
->>>>>>> a7da3126a972335c238bfbb9ceeb4f7d8e937094
                                             .modifier(
                                                 new Modifier()
                                                     .background(Color.web("#ededfe"))
@@ -164,15 +158,9 @@ public class DashboardView extends BricksScene {
                                                     )
                                             ),
                                         new Spacer(),
-<<<<<<< HEAD
-                                        new Icon("fas-tv")
-                                            .color(Color.web("#d509e8"))
-                                            .size(30)
-=======
                                         new IconButton("fas-tv")
                                             .color(Color.web("#7f22fe"))
                                             .size(20)
->>>>>>> a7da3126a972335c238bfbb9ceeb4f7d8e937094
                                             .modifier(
                                                 new Modifier()
                                                     .padding(8, 5)
@@ -205,13 +193,7 @@ public class DashboardView extends BricksScene {
                                                     .modifier(new Modifier().bold())
                                             ),
                                         new Spacer(),
-<<<<<<< HEAD
-                                        new Icon("fas-exclamation-triangle")
-                                            .color(Color.web("#ed5509"))
-                                            .size(30)
-=======
                                         new IconButton("fas-exclamation-triangle")
->>>>>>> a7da3126a972335c238bfbb9ceeb4f7d8e937094
                                             .modifier(
                                                 new Modifier()
                                                     .background(Color.web("#f1f5f9"))
@@ -274,25 +256,6 @@ public class DashboardView extends BricksScene {
                             .modifier(new Modifier().fillMaxWidth())
                             .children(
                                 new Row()
-<<<<<<< HEAD
-                                    .gap(12)
-                                    .modifier(new Modifier().padding(20))
-                                    .children(
-                                        new Icon("fas-file-alt")
-                                            .color(Color.web("#1a73e8"))
-                                            .size(24)
-                                            .modifier(
-                                                new Modifier()
-                                                    .padding(10)
-                                                    .background(Color.web("#e8f0fe"))
-                                                    .borderRadius(8)
-                                            ),
-                                        new Column()
-                                            .gap(4)
-                                            .children(
-                                                new Text("Gerir Documentos")
-                                                    .modifier(new Modifier().bold()),
-=======
                                     .gap(10)
                                     .modifier(new Modifier().alignment(Pos.CENTER_LEFT))
                                     .children(
@@ -308,7 +271,6 @@ public class DashboardView extends BricksScene {
                                             .modifier(new Modifier())
                                             .children(
                                                 new Text("Gerir Documentos").bold(),
->>>>>>> a7da3126a972335c238bfbb9ceeb4f7d8e937094
                                                 new Text("Garantias, contratos e faturas")
                                                     .modifier(new Modifier().textColor(Color.GRAY))
                                             )
@@ -321,25 +283,6 @@ public class DashboardView extends BricksScene {
                             .modifier(new Modifier().fillMaxWidth())
                             .children(
                                 new Row()
-<<<<<<< HEAD
-                                    .gap(12)
-                                    .modifier(new Modifier().padding(20))
-                                    .children(
-                                        new Icon("fas-car-alt")
-                                            .color(Color.web("#1a73e8"))
-                                            .size(24)
-                                            .modifier(
-                                                new Modifier()
-                                                    .padding(10)
-                                                    .background(Color.web("#e8f0fe"))
-                                                    .borderRadius(8)
-                                            ),
-                                        new Column()
-                                            .gap(4)
-                                            .children(
-                                                new Text("Gerir Veiculos")
-                                                    .modifier(new Modifier().bold()),
-=======
                                     .gap(10)
                                     .modifier(new Modifier().alignment(Pos.CENTER_LEFT))
                                     .children(
@@ -355,7 +298,6 @@ public class DashboardView extends BricksScene {
                                             .modifier(new Modifier())
                                             .children(
                                                 new Text("Gerir Veiculos").bold(),
->>>>>>> a7da3126a972335c238bfbb9ceeb4f7d8e937094
                                                 new Text("Seguro, IUC e inspecao")
                                                     .modifier(new Modifier().textColor(Color.GRAY))
                                             )
@@ -368,25 +310,6 @@ public class DashboardView extends BricksScene {
                             .modifier(new Modifier().fillMaxWidth().alignment(Pos.CENTER))
                             .children(
                                 new Row()
-<<<<<<< HEAD
-                                    .gap(12)
-                                    .modifier(new Modifier().padding(20))
-                                    .children(
-                                        new Icon("fas-tv")
-                                            .color(Color.web("#1a73e8"))
-                                            .size(24)
-                                            .modifier(
-                                                new Modifier()
-                                                    .padding(10)
-                                                    .background(Color.web("#e8f0fe"))
-                                                    .borderRadius(8)
-                                            ),
-                                        new Column()
-                                            .gap(4)
-                                            .children(
-                                                new Text("Gerir Subscricoes")
-                                                    .modifier(new Modifier().bold()),
-=======
                                     .gap(10)
                                     .modifier(new Modifier().alignment(Pos.CENTER_LEFT))
                                     .children(
@@ -401,7 +324,6 @@ public class DashboardView extends BricksScene {
                                             .gap(2)
                                             .children(
                                                 new Text("Gerir Subscricoes").bold(),
->>>>>>> a7da3126a972335c238bfbb9ceeb4f7d8e937094
                                                 new Text("Netflix, Spotify e mais")
                                                     .modifier(new Modifier().textColor(Color.GRAY))
                                             )
