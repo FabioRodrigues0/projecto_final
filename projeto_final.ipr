@@ -36,27 +36,41 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/-666321368/Documents.projeto_final.iml" filepath="$PROJECT_DIR$/-666321368/Documents.projeto_final.iml" />
+      <module fileurl="file://$PROJECT_DIR$/-666321368/fabio.Documents.projeto_final.iml" filepath="$PROJECT_DIR$/-666321368/fabio.Documents.projeto_final.iml" />
+      <module fileurl="file://$PROJECT_DIR$/-666321368/fabio.Documents.projeto_final.main.iml" filepath="$PROJECT_DIR$/-666321368/fabio.Documents.projeto_final.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/-666321368/fabio.Documents.projeto_final.test.iml" filepath="$PROJECT_DIR$/-666321368/fabio.Documents.projeto_final.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/projeto_final.iml" filepath="$PROJECT_DIR$/projeto_final.iml" />
       <module fileurl="file://$PROJECT_DIR$/-666321368/projeto_final.main.iml" filepath="$PROJECT_DIR$/-666321368/projeto_final.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/-666321368/projeto_final.test.iml" filepath="$PROJECT_DIR$/-666321368/projeto_final.test.iml" />
     </modules>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_21" default="true" project-jdk-name="21" project-jdk-type="JavaSDK" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_21" default="true" project-jdk-name="21 (mise)" project-jdk-type="JavaSDK" />
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="Git" />
-    <mapping directory="/var/home/fabio/Documents/projeto_final" vcs="Git" />
   </component>
   <component name="libraryTable">
-    <library name="Gradle: com.github.FabioRodrigues0:bricks:v0.6.3.5" type="java-imported" external-system-id="GRADLE">
-      <properties groupId="com.github.FabioRodrigues0" artifactId="bricks" version="v0.6.3.5" baseVersion="v0.6.3.5" />
+    <library name="Gradle: com.github.FabioRodrigues0:bricks:v0.7.5" type="java-imported" external-system-id="GRADLE">
+      <properties groupId="com.github.FabioRodrigues0" artifactId="bricks" version="v0.7.5" baseVersion="v0.7.5" />
       <CLASSES>
-        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/com.github.FabioRodrigues0/bricks/v0.6.3.5/706f60abf24f2afd16d6aa1ca28d434df626b5a4/bricks-v0.6.3.5.jar!/" />
+        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/com.github.FabioRodrigues0/bricks/v0.7.5/502ab683f661e907c7d994119f9ed96d122ed7f2/bricks-v0.7.5.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/com.github.FabioRodrigues0/bricks/v0.6.3.5/b485b670aeaebc8d3bc7ea198b6f3e3e53308c91/bricks-v0.6.3.5-javadoc.jar!/" />
+        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/com.github.FabioRodrigues0/bricks/v0.7.5/28b341f86c2fc014f57171e1eaeb162af05360d5/bricks-v0.7.5-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/com.github.FabioRodrigues0/bricks/v0.6.3.5/4f49ff3d148a4cacf398678d6d451717a1a0f0c0/bricks-v0.6.3.5-sources.jar!/" />
+        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/com.github.FabioRodrigues0/bricks/v0.7.5/32a31d0cfcac2a467f525425c0a995ff94ef8936/bricks-v0.7.5-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: com.github.jai-imageio:jai-imageio-core:1.4.0" type="java-imported" external-system-id="GRADLE">
+      <properties groupId="com.github.jai-imageio" artifactId="jai-imageio-core" version="1.4.0" baseVersion="1.4.0" />
+      <CLASSES>
+        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/com.github.jai-imageio/jai-imageio-core/1.4.0/fb6d79b929556362a241b2f65a04e538062f0077/jai-imageio-core-1.4.0.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/com.github.jai-imageio/jai-imageio-core/1.4.0/2773b579c2a0e907ba718624f2b3d58780300505/jai-imageio-core-1.4.0-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/com.github.jai-imageio/jai-imageio-core/1.4.0/48ffdb9d2066dd196271038f6d9598aba202ae46/jai-imageio-core-1.4.0-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Gradle: com.google.protobuf:protobuf-java:3.25.1" type="java-imported" external-system-id="GRADLE">
@@ -81,6 +95,174 @@
       </JAVADOC>
       <SOURCES>
         <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/com.mysql/mysql-connector-j/8.3.0/8d17dc45e67cc13840ad6ee05e31adabe65e804c/mysql-connector-j-8.3.0-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: commons-io:commons-io:2.16.1" type="java-imported" external-system-id="GRADLE">
+      <properties groupId="commons-io" artifactId="commons-io" version="2.16.1" baseVersion="2.16.1" />
+      <CLASSES>
+        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/commons-io/commons-io/2.16.1/377d592e740dc77124e0901291dbfaa6810a200e/commons-io-2.16.1.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/commons-io/commons-io/2.16.1/f78cbef5cbb122392b041ef0b9e6aa09520c8e65/commons-io-2.16.1-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/commons-io/commons-io/2.16.1/e0dbaef3c79b647e9c510b40a8366b6765cff249/commons-io-2.16.1-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: commons-logging:commons-logging:1.3.3" type="java-imported" external-system-id="GRADLE">
+      <properties groupId="commons-logging" artifactId="commons-logging" version="1.3.3" baseVersion="1.3.3" />
+      <CLASSES>
+        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/commons-logging/commons-logging/1.3.3/580ad1a4f34876c4f964c083361de31b3d60be68/commons-logging-1.3.3.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/commons-logging/commons-logging/1.3.3/4e61e6e67a48eab88cdfc5c2dbe7894a59698851/commons-logging-1.3.3-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/commons-logging/commons-logging/1.3.3/c5b9980056fe50e75c73f1ceeb1042646d494ed8/commons-logging-1.3.3-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: info.picocli:picocli:4.7.6" type="java-imported" external-system-id="GRADLE">
+      <properties groupId="info.picocli" artifactId="picocli" version="4.7.6" baseVersion="4.7.6" />
+      <CLASSES>
+        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/info.picocli/picocli/4.7.6/77c2cb87814b6a03d431fc856024a9f8ff605ad4/picocli-4.7.6.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/info.picocli/picocli/4.7.6/924c2b42ed00a85bcf99f36a0947fac8ba69b08c/picocli-4.7.6-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/info.picocli/picocli/4.7.6/b85b06a050ffa9fa8c75fd6e386b54718d54edbd/picocli-4.7.6-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: net.java.dev.jna:jna:5.14.0" type="java-imported" external-system-id="GRADLE">
+      <properties groupId="net.java.dev.jna" artifactId="jna" version="5.14.0" baseVersion="5.14.0" />
+      <CLASSES>
+        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/net.java.dev.jna/jna/5.14.0/67bf3eaea4f0718cb376a181a629e5f88fa1c9dd/jna-5.14.0.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/net.java.dev.jna/jna/5.14.0/dec0e212ac204fe2be60745a5117605486ec36b6/jna-5.14.0-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/net.java.dev.jna/jna/5.14.0/13bda98796cf4739f5d40cb825578cfaa8463c6e/jna-5.14.0-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: net.sourceforge.lept4j:lept4j:1.19.1" type="java-imported" external-system-id="GRADLE">
+      <properties groupId="net.sourceforge.lept4j" artifactId="lept4j" version="1.19.1" baseVersion="1.19.1" />
+      <CLASSES>
+        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/net.sourceforge.lept4j/lept4j/1.19.1/ec69d554f05e030b5e06295a4d39057634759549/lept4j-1.19.1.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/net.sourceforge.lept4j/lept4j/1.19.1/8c8211ba8e863e0d7225e27b94e9cdebb775eb8a/lept4j-1.19.1-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/net.sourceforge.lept4j/lept4j/1.19.1/460a38a2dc2bfb58edd5973c05471359f4432dee/lept4j-1.19.1-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: net.sourceforge.tess4j:tess4j:5.13.0" type="java-imported" external-system-id="GRADLE">
+      <properties groupId="net.sourceforge.tess4j" artifactId="tess4j" version="5.13.0" baseVersion="5.13.0" />
+      <CLASSES>
+        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/net.sourceforge.tess4j/tess4j/5.13.0/b9c7f04d93b1d809f9c786d5754047d892a7f134/tess4j-5.13.0.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/net.sourceforge.tess4j/tess4j/5.13.0/f24c19237ac9ac2ba6ff7c84a36849b8305862e/tess4j-5.13.0-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/net.sourceforge.tess4j/tess4j/5.13.0/6759e2e1e9883a49e84f27c5434a8f8b990115de/tess4j-5.13.0-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: org.apache.pdfbox:fontbox:3.0.3" type="java-imported" external-system-id="GRADLE">
+      <properties groupId="org.apache.pdfbox" artifactId="fontbox" version="3.0.3" baseVersion="3.0.3" />
+      <CLASSES>
+        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/org.apache.pdfbox/fontbox/3.0.3/9eebd1ee868a79fcf7390283b2baf4179dadb8ed/fontbox-3.0.3.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/org.apache.pdfbox/fontbox/3.0.3/ce87121e4cb2f659e7f68701685a75f8ae2b6047/fontbox-3.0.3-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/org.apache.pdfbox/fontbox/3.0.3/17fd3f0223bebb3e383715de60ea8fdef7ecf382/fontbox-3.0.3-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: org.apache.pdfbox:jbig2-imageio:3.0.4" type="java-imported" external-system-id="GRADLE">
+      <properties groupId="org.apache.pdfbox" artifactId="jbig2-imageio" version="3.0.4" baseVersion="3.0.4" />
+      <CLASSES>
+        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/org.apache.pdfbox/jbig2-imageio/3.0.4/ad09a9bb94ea791ea81fb6c5bc2b13dd77872598/jbig2-imageio-3.0.4.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/org.apache.pdfbox/jbig2-imageio/3.0.4/1c3012dda0325ece1222b7ef19e084a5cebe7ea2/jbig2-imageio-3.0.4-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/org.apache.pdfbox/jbig2-imageio/3.0.4/e477bff5d962ea62a431dd2d732a9ab78e20261a/jbig2-imageio-3.0.4-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: org.apache.pdfbox:pdfbox-debugger:3.0.3" type="java-imported" external-system-id="GRADLE">
+      <properties groupId="org.apache.pdfbox" artifactId="pdfbox-debugger" version="3.0.3" baseVersion="3.0.3" />
+      <CLASSES>
+        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/org.apache.pdfbox/pdfbox-debugger/3.0.3/1f8500ec45564fbf63a883d8b8c5be9ed1ffc706/pdfbox-debugger-3.0.3.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/org.apache.pdfbox/pdfbox-debugger/3.0.3/20d9f09c14d49a44842b7e125020b4b994a8d66/pdfbox-debugger-3.0.3-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/org.apache.pdfbox/pdfbox-debugger/3.0.3/8bbece934a200196391802068620d9e18fa595ab/pdfbox-debugger-3.0.3-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: org.apache.pdfbox:pdfbox-io:3.0.3" type="java-imported" external-system-id="GRADLE">
+      <properties groupId="org.apache.pdfbox" artifactId="pdfbox-io" version="3.0.3" baseVersion="3.0.3" />
+      <CLASSES>
+        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/org.apache.pdfbox/pdfbox-io/3.0.3/c40dcf555b72b1d8c0cd19391d63e5b58382b9cb/pdfbox-io-3.0.3.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/org.apache.pdfbox/pdfbox-io/3.0.3/4cda52026455a90c6d63e43750b1d37f65ec6f1/pdfbox-io-3.0.3-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/org.apache.pdfbox/pdfbox-io/3.0.3/f39ef7be02fd854f1cf0197504ebf8523e1845f9/pdfbox-io-3.0.3-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: org.apache.pdfbox:pdfbox-tools:3.0.3" type="java-imported" external-system-id="GRADLE">
+      <properties groupId="org.apache.pdfbox" artifactId="pdfbox-tools" version="3.0.3" baseVersion="3.0.3" />
+      <CLASSES>
+        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/org.apache.pdfbox/pdfbox-tools/3.0.3/8902f30227864ba6c9f841c14dfee2f2857dba85/pdfbox-tools-3.0.3.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/org.apache.pdfbox/pdfbox-tools/3.0.3/fdc8324d18c0150c9b61e7e5559f3f54e62450f4/pdfbox-tools-3.0.3-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/org.apache.pdfbox/pdfbox-tools/3.0.3/d57322e82d49b781bee1769fd14a0a3b2e604571/pdfbox-tools-3.0.3-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: org.apache.pdfbox:pdfbox:3.0.3" type="java-imported" external-system-id="GRADLE">
+      <properties groupId="org.apache.pdfbox" artifactId="pdfbox" version="3.0.3" baseVersion="3.0.3" />
+      <CLASSES>
+        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/org.apache.pdfbox/pdfbox/3.0.3/a739bfc1b72d2f98d973cd1419f5ae2decd36068/pdfbox-3.0.3.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/org.apache.pdfbox/pdfbox/3.0.3/b8b7573e25c6f42e66ad6ab060f9d9eb9d125303/pdfbox-3.0.3-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/org.apache.pdfbox/pdfbox/3.0.3/1613d20f160e72b132e5d4fe3e9f77f7cd154fe1/pdfbox-3.0.3-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: org.jboss.logging:jboss-logging:3.1.4.GA" type="java-imported" external-system-id="GRADLE">
+      <properties groupId="org.jboss.logging" artifactId="jboss-logging" version="3.1.4.GA" baseVersion="3.1.4.GA" />
+      <CLASSES>
+        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/org.jboss.logging/jboss-logging/3.1.4.GA/90fdefa08d8ad069b86f4ea6033671970459a078/jboss-logging-3.1.4.GA.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/org.jboss.logging/jboss-logging/3.1.4.GA/7095d65167983d8f88d960df66336f5d6424ed71/jboss-logging-3.1.4.GA-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/org.jboss.logging/jboss-logging/3.1.4.GA/a2fa636c76e804854661f1607fdd8492d89b8e7a/jboss-logging-3.1.4.GA-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: org.jboss:jboss-vfs:3.2.17.Final" type="java-imported" external-system-id="GRADLE">
+      <properties groupId="org.jboss" artifactId="jboss-vfs" version="3.2.17.Final" baseVersion="3.2.17.Final" />
+      <CLASSES>
+        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/org.jboss/jboss-vfs/3.2.17.Final/ba8d2791290f9651b80fc1a026058a6b950ef1cc/jboss-vfs-3.2.17.Final.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/org.jboss/jboss-vfs/3.2.17.Final/55dd04d8271732f7fdc2b3b35765f0b782eb46c0/jboss-vfs-3.2.17.Final-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/org.jboss/jboss-vfs/3.2.17.Final/bc1d24aad19cd3f61a50401854bca9626003361d/jboss-vfs-3.2.17.Final-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Gradle: org.kordamp.ikonli:ikonli-core:12.3.1" type="java-imported" external-system-id="GRADLE">
@@ -167,16 +349,16 @@
         <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/org.postgresql/postgresql/42.7.3/d32df46259ce227fb10139bd707728f83354c1d1/postgresql-42.7.3-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Gradle: org.slf4j:slf4j-api:1.7.36" type="java-imported" external-system-id="GRADLE">
-      <properties groupId="org.slf4j" artifactId="slf4j-api" version="1.7.36" baseVersion="1.7.36" />
+    <library name="Gradle: org.slf4j:slf4j-api:2.0.16" type="java-imported" external-system-id="GRADLE">
+      <properties groupId="org.slf4j" artifactId="slf4j-api" version="2.0.16" baseVersion="2.0.16" />
       <CLASSES>
-        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.7.36/6c62681a2f655b49963a5983b8b0950a6120ae14/slf4j-api-1.7.36.jar!/" />
+        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/2.0.16/172931663a09a1fa515567af5fbef00897d3c04/slf4j-api-2.0.16.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.7.36/f91b284d55365e88248e6493bc5959c8e81d5fa3/slf4j-api-1.7.36-javadoc.jar!/" />
+        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/2.0.16/c4fe72d738e3fab168b09da17bb659969085ac83/slf4j-api-2.0.16-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.7.36/ae9c1aae0033af915cfa75d850eb9d880f21a701/slf4j-api-1.7.36-sources.jar!/" />
+        <root url="jar:///var/home/fabio/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/2.0.16/68223612de5e53b90b752bbbe520390ae1f104db/slf4j-api-2.0.16-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Gradle: org.xerial:sqlite-jdbc:3.45.1.0" type="java-imported" external-system-id="GRADLE">

@@ -16,6 +16,7 @@ import fabiorodrigues.bricks.core.BricksApplication;
 import fabiorodrigues.bricks.core.BricksScene;
 import fabiorodrigues.bricks.core.Component;
 import fabiorodrigues.bricks.core.State;
+import fabiorodrigues.bricks.style.BricksTheme;
 import fabiorodrigues.bricks.style.Modifier;
 import java.time.LocalDate;
 import java.util.List;
@@ -82,18 +83,31 @@ public class CalendarioView extends BricksScene {
                         new Text("Válido")
                             .fontSize(13)
                             .modifier(
-                                new Modifier().textColor(Color.web("#475569")).padding(0, 10, 0, 0)
+                                new Modifier()
+                                    .textColor(
+                                        BricksTheme.current().colorScheme().onSurfaceVariant()
+                                    )
+                                    .padding(0, 10, 0, 0)
                             ),
                         () -> new Circle(5, Color.web("#f59e0b")),
                         new Text("Expira Em Breve")
                             .fontSize(13)
                             .modifier(
-                                new Modifier().textColor(Color.web("#475569")).padding(0, 10, 0, 0)
+                                new Modifier()
+                                    .textColor(
+                                        BricksTheme.current().colorScheme().onSurfaceVariant()
+                                    )
+                                    .padding(0, 10, 0, 0)
                             ),
                         () -> new Circle(5, Color.web("#ef4444")),
                         new Text("Expirado")
                             .fontSize(13)
-                            .modifier(new Modifier().textColor(Color.web("#475569")))
+                            .modifier(
+                                new Modifier()
+                                    .textColor(
+                                        BricksTheme.current().colorScheme().onSurfaceVariant()
+                                    )
+                            )
                     ),
 
                 // Calendário principal
@@ -138,10 +152,19 @@ public class CalendarioView extends BricksScene {
                                                                         item.getCategoria()
                                                                     )
                                                                 )
+                                                                    .color(
+                                                                        BricksTheme
+                                                                            .current()
+                                                                            .colorScheme()
+                                                                            .onSurfaceVariant()
+                                                                    )
                                                                     .modifier(
                                                                         new Modifier()
                                                                             .background(
-                                                                                Color.web("#f1f5f9")
+                                                                                BricksTheme
+                                                                                    .current()
+                                                                                    .colorScheme()
+                                                                                    .surfaceVariant()
                                                                             )
                                                                             .width(35)
                                                                             .height(36)

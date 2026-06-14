@@ -1,6 +1,7 @@
 package components;
 
 import fabiorodrigues.bricks.components.BadgeVariant;
+import fabiorodrigues.bricks.components.Card;
 import fabiorodrigues.bricks.components.Column;
 import fabiorodrigues.bricks.components.Icon;
 import fabiorodrigues.bricks.components.IconButton;
@@ -8,6 +9,7 @@ import fabiorodrigues.bricks.components.Row;
 import fabiorodrigues.bricks.components.Spacer;
 import fabiorodrigues.bricks.components.Text;
 import fabiorodrigues.bricks.core.Component;
+import fabiorodrigues.bricks.style.BricksTheme;
 import fabiorodrigues.bricks.style.Modifier;
 import java.text.Normalizer;
 import java.time.LocalDate;
@@ -135,53 +137,68 @@ public class SubscricaoCard {
     public Component render() {
         EstadoSubscricao estado = estado();
 
-        return new Row()
-            .gap(0)
-            .modifier(new Modifier().fillMaxWidth().background(Color.WHITE).borderRadius(8))
+        return new Card()
+            .elevation(2)
+            .padding(0)
+            .background(BricksTheme.current().colorScheme().surface())
+            .modifier(new Modifier().fillMaxWidth())
             .children(
-                new Column()
-                    .modifier(
-                        new Modifier()
-                            .width(5)
-                            .fillMaxHeight()
-                            .background(estado.corTexto())
-                            .borderRadius(8)
-                    ),
                 new Row()
-                    .gap(10)
-                    .modifier(new Modifier().padding(15).fillMaxWidth().alignment(Pos.CENTER))
+                    .gap(0)
+                    .modifier(new Modifier().fillMaxWidth().alignment(Pos.CENTER_LEFT))
                     .children(
-                        new Icon(this.icon),
                         new Column()
-                            .gap(2)
+                            .modifier(
+                                new Modifier()
+                                    .width(5)
+                                    .fillMaxHeight()
+                                    .background(estado.corTexto())
+                                    .borderRadius(8)
+                            ),
+                        new Row()
+                            .gap(10)
+                            .modifier(
+                                new Modifier().padding(15).fillMaxWidth().alignment(Pos.CENTER)
+                            )
                             .children(
-                                new Text(this.nome).modifier(new Modifier().bold()),
-                                new Row()
-                                    .gap(4)
+                                new Icon(this.icon)
+                                    .color(BricksTheme.current().colorScheme().onSurfaceVariant()),
+                                new Column()
+                                    .gap(2)
                                     .children(
-                                        new Text(this.tipo)
-                                            .fontSize(12)
-                                            .modifier(new Modifier().textColor(Color.GRAY)),
-                                        new Text(planoTexto())
-                                            .fontSize(12)
-                                            .modifier(new Modifier().textColor(Color.GRAY))
-                                    )
-                            ),
-                        new Spacer(),
-                        new Column()
-                            .gap(2)
-                            .modifier(new Modifier().alignment(Pos.CENTER))
-                            .children(
-                                new Text(valorTexto()).modifier(new Modifier().bold()),
-                                new Text(estado.tempo())
-                                    .modifier(new Modifier().bold().textColor(estado.corTexto()))
-                            ),
-                        estado.badge().render(),
-                        new IconButton("fas-pen").ghost().onClick(this.onEditar),
-                        new IconButton("fas-trash-alt")
-                            .ghost()
-                            .color(Color.RED)
-                            .onClick(this.onApagar)
+                                        new Text(this.nome).modifier(new Modifier().bold()),
+                                        new Row()
+                                            .gap(4)
+                                            .children(
+                                                new Text(this.tipo)
+                                                    .fontSize(12)
+                                                    .modifier(new Modifier().textColor(Color.GRAY)),
+                                                new Text(planoTexto())
+                                                    .fontSize(12)
+                                                    .modifier(new Modifier().textColor(Color.GRAY))
+                                            )
+                                    ),
+                                new Spacer(),
+                                new Column()
+                                    .gap(2)
+                                    .modifier(new Modifier().alignment(Pos.CENTER))
+                                    .children(
+                                        new Text(valorTexto()).modifier(new Modifier().bold()),
+                                        new Text(estado.tempo())
+                                            .modifier(
+                                                new Modifier().bold().textColor(estado.corTexto())
+                                            )
+                                    ),
+                                estado.badge().render(),
+                                new IconButton("fas-pen")
+                                    .ghost()
+                                    .color(BricksTheme.current().colorScheme().onSurface())
+                                    .onClick(this.onEditar),
+                                new IconButton("fas-trash-alt")
+                                    .ghost()
+                                    .color(Color.RED)
+                                    .onClick(this.onApagar)
+                            )
                     )
             );
     }

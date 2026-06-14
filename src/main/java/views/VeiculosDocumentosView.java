@@ -17,6 +17,7 @@ import fabiorodrigues.bricks.components.When;
 import fabiorodrigues.bricks.core.BricksApplication;
 import fabiorodrigues.bricks.core.BricksScene;
 import fabiorodrigues.bricks.core.Component;
+import fabiorodrigues.bricks.style.BricksTheme;
 import fabiorodrigues.bricks.style.Modifier;
 import java.util.List;
 import models.TipoDocumentoVeiculo;
@@ -59,7 +60,12 @@ public class VeiculosDocumentosView extends BricksScene {
                 new ItemsColumn<DocumentosVeiculo>()
                     .gap(10)
                     .modifier(new Modifier().fillMaxWidth().fillMaxHeight())
-                    .emptyState(new Card().elevation(2).children(new Text("Sem Documentos")))
+                    .emptyState(
+                        new Card()
+                            .elevation(2)
+                            .background(BricksTheme.current().colorScheme().surface())
+                            .children(new Text("Sem Documentos"))
+                    )
                     .items(this.vm.listDocumentos.get())
                     .item(
                         documento -> new DocumentoCard(

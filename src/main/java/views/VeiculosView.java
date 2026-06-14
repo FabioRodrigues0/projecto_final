@@ -7,6 +7,7 @@ import components.VeiculosCard;
 import fabiorodrigues.bricks.components.Alert;
 import fabiorodrigues.bricks.components.Card;
 import fabiorodrigues.bricks.components.Column;
+import fabiorodrigues.bricks.components.FilePicker;
 import fabiorodrigues.bricks.components.IconButton;
 import fabiorodrigues.bricks.components.ItemsColumn;
 import fabiorodrigues.bricks.components.Row;
@@ -15,11 +16,16 @@ import fabiorodrigues.bricks.components.Text;
 import fabiorodrigues.bricks.components.TextField;
 import fabiorodrigues.bricks.components.When;
 import fabiorodrigues.bricks.core.BricksApplication;
+import fabiorodrigues.bricks.core.BricksPaths;
 import fabiorodrigues.bricks.core.BricksScene;
 import fabiorodrigues.bricks.core.Component;
+import fabiorodrigues.bricks.style.BricksTheme;
 import fabiorodrigues.bricks.style.Modifier;
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import models.Veiculo.Veiculos;
@@ -52,7 +58,12 @@ public class VeiculosView extends BricksScene {
                     .gap(10)
                     .columns(3)
                     .modifier(new Modifier().fillMaxWidth().fillMaxHeight())
-                    .emptyState(new Card().elevation(2).children(new Text("Sem veiculos")))
+                    .emptyState(
+                        new Card()
+                            .elevation(2)
+                            .background(BricksTheme.current().colorScheme().surface())
+                            .children(new Text("Sem veiculos"))
+                    )
                     .items(this.vm.listVeiculos)
                     .item(
                         veiculo -> new VeiculosCard(
@@ -67,16 +78,7 @@ public class VeiculosView extends BricksScene {
                                 vm.apagar(veiculo.getId());
                                 vm.carregarVeiculos();
                                 NotificacoesApp.removido(app, vm);
-                            }, new IconButton("fas-camera", "Foto").ghost().onClick(() -> {
-                                File selected = escolherFoto();
-                                if (selected == null) {
-                                    return;
-                                }
-                                vm.fotoFileVeiculo.set(selected);
-                                vm.update(veiculo.getId());
-                                vm.carregarVeiculos();
-                                NotificacoesApp.atualizado(app, vm);
-                            })
+                            }, fotoIconButton(veiculo)
                         ).render()
                     )
             );
@@ -147,14 +149,7 @@ public class VeiculosView extends BricksScene {
                     .children(
                         new Text(fotoLabel(veiculo)),
                         new Spacer(),
-                        new IconButton(
-                            "fas-camera", temFoto(veiculo) ? "Alterar foto" : "Adicionar foto"
-                        ).ghost().onClick(() -> {
-                            File selected = escolherFoto();
-                            if (selected != null) {
-                                vm.fotoFileVeiculo.set(selected);
-                            }
-                        }),
+                        fotoPicker(veiculo),
                         new When(temFoto(veiculo))
                             .children(
                                 new IconButton("fas-trash-alt")
@@ -162,7 +157,6 @@ public class VeiculosView extends BricksScene {
                                     .color(Color.RED)
                                     .onClick(() -> {
                                         vm.removerFotoVeiculo.set(true);
-                                        vm.fotoFileVeiculo.set(null);
                                     })
                             )
                     ),
@@ -181,13 +175,66 @@ public class VeiculosView extends BricksScene {
         return veiculo != null && veiculo.getFoto() != null && !veiculo.getFoto().isBlank();
     }
 
+    private Component fotoIconButton(Veiculos veiculo) {
+        return new IconButton("fas-camera")
+            .tooltip(temFoto(veiculo) ? "Alterar foto" : "Adicionar foto")
+            .color(BricksTheme.current().colorScheme().onSurfaceVariant())
+            .modifier(
+                new Modifier()
+                    .background(BricksTheme.current().colorScheme().surfaceVariant())
+                    .borderRadius(8)
+                    .width(42)
+                    .height(40)
+            )
+            .onClick(() -> guardarFotoVeiculo(veiculo));
+    }
+
+    private void guardarFotoVeiculo(Veiculos veiculo) {
+        File selected = escolherFoto();
+        if (selected == null) {
+            return;
+        }
+
+        String path = vm.fotoPath(veiculo.getId(), selected.getName());
+        Path destino = BricksPaths.resolveUserData(path);
+        try {
+            Files.createDirectories(destino.getParent());
+            Files.copy(selected.toPath(), destino, StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException e) {
+            Alert.error("Erro", "Não foi possível guardar a foto.");
+            return;
+        }
+
+        vm.fotoVeiculo.set(path);
+        vm.removerFotoVeiculo.set(false);
+        vm.update(veiculo.getId());
+        vm.fotoVeiculo.set("");
+        vm.carregarVeiculos();
+        NotificacoesApp.atualizado(app, vm);
+    }
+
     private File escolherFoto() {
         FileChooser chooser = new FileChooser();
         chooser.setTitle("Foto do veículo");
         chooser
             .getExtensionFilters()
-            .add(new FileChooser.ExtensionFilter("Imagens", "*.png", "*.jpg"));
-        return chooser.showOpenDialog(null);
+            .add(new FileChooser.ExtensionFilter("Imagens", "*.png", "*.jpg", "*.jpeg"));
+        return chooser.showOpenDialog(app.getStage());
+    }
+
+    private Component fotoPicker(Veiculos veiculo) {
+        FilePicker picker = new FilePicker()
+            .label(temFoto(veiculo) ? "Alterar foto" : "Adicionar foto")
+            .title("Foto do veículo")
+            .filter("Imagens", "*.png", "*.jpg", "*.jpeg");
+
+        return picker.pathToUserData().saveTo(file -> {
+            String path = veiculo == null ? vm.fotoPath(file.getName()) : vm
+                .fotoPath(veiculo.getId(), file.getName());
+            vm.fotoVeiculo.set(path);
+            vm.removerFotoVeiculo.set(false);
+            return path;
+        });
     }
 
     private void preencherVeiculo(Veiculos veiculo) {
@@ -195,6 +242,8 @@ public class VeiculosView extends BricksScene {
         vm.modeloVeiculo.set("");
         vm.anoVeiculo.set(veiculo.getAno());
         vm.matriculaVeiculo.set(veiculo.getMatricula());
+        vm.fotoVeiculo.set("");
+        vm.removerFotoVeiculo.set(false);
         vm.notasVeiculo.set("");
     }
 
@@ -204,7 +253,6 @@ public class VeiculosView extends BricksScene {
         vm.anoVeiculo.set(null);
         vm.matriculaVeiculo.set("");
         vm.fotoVeiculo.set("");
-        vm.fotoFileVeiculo.set(null);
         vm.removerFotoVeiculo.set(false);
         vm.notasVeiculo.set("");
     }

@@ -56,7 +56,12 @@ public class DocumentosView extends BricksScene {
                 new ItemsColumn<Pessoas>()
                     .gap(10)
                     .modifier(new Modifier().fillMaxWidth().fillMaxHeight())
-                    .emptyState(new Card().elevation(2).children(new Text("Sem Pessoas")))
+                    .emptyState(
+                        new Card()
+                            .elevation(2)
+                            .background(BricksTheme.current().colorScheme().surface())
+                            .children(new Text("Sem Pessoas"))
+                    )
                     .items(this.vm.listPessoas)
                     .item(
                         pessoa -> new Column()
@@ -72,6 +77,7 @@ public class DocumentosView extends BricksScene {
                                         new IconButton("fas-pen")
                                             .modifier(new Modifier().height(35).padding(0))
                                             .ghost()
+                                            .color(BricksTheme.current().colorScheme().onSurface())
                                             .onClick(() -> abrirPessoaModal(pessoa)),
                                         new IconButton("fas-trash-alt")
                                             .modifier(new Modifier().height(35).padding(0))
@@ -105,6 +111,9 @@ public class DocumentosView extends BricksScene {
                                         new Card()
                                             .elevation(2)
                                             .padding(15)
+                                            .background(
+                                                BricksTheme.current().colorScheme().surface()
+                                            )
                                             .children(new Text("Sem Documentos"))
                                     )
                                     .items(

@@ -8,16 +8,23 @@ import fabiorodrigues.bricks.components.Dropdown;
 import fabiorodrigues.bricks.core.BricksApplication;
 import fabiorodrigues.bricks.core.BricksScene;
 import fabiorodrigues.bricks.core.Component;
+import fabiorodrigues.bricks.style.BricksTheme;
 import fabiorodrigues.bricks.style.Modifier;
 import java.util.List;
+import theme.AppThemes;
+import viewModels.SettingsViewModel;
 
 public class SettingsView extends BricksScene {
 
+    private final SettingsViewModel vm = new SettingsViewModel();
     private final BricksApplication app;
 
     public SettingsView(BricksApplication app) {
         super(app);
+        use(this.vm);
         this.app = app;
+        this.vm.carregarSettings();
+        aplicarTema();
     }
 
     @Override
@@ -32,12 +39,24 @@ public class SettingsView extends BricksScene {
                 new Card()
                     .padding(15)
                     .elevation(2)
+                    .background(BricksTheme.current().colorScheme().surface())
                     .modifier(new Modifier().fillMaxWidth())
                     .children(
-                        new Checkbox("Notificacões"),
-                        new Dropdown<>(List.of("Light", "Dark")).label("Tema")
+                        new Checkbox("Notificações")
+                            .bindTo(vm.notificacoesAtivas)
+                            .onChange(value -> vm.guardar()),
+                        new Dropdown<>(
+                            List.of(SettingsViewModel.TEMA_LIGHT, SettingsViewModel.TEMA_DARK)
+                        ).label("Tema").bindTo(vm.tema).onChange(value -> {
+                            vm.guardar();
+                            aplicarTema();
+                        })
 
                     )
             );
+    }
+
+    private void aplicarTema() {
+        app.setTheme(AppThemes.from(vm.tema.get()));
     }
 }

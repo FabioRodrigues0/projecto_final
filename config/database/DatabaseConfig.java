@@ -1,3 +1,4 @@
+import fabiorodrigues.bricks.core.BricksPaths;
 import fabiorodrigues.bricks.data.DB;
 import fabiorodrigues.bricks.data.config.SQLiteConfig;
 
@@ -9,8 +10,8 @@ import fabiorodrigues.bricks.data.config.SQLiteConfig;
 public class DatabaseConfig {
 
     static {
-        // SQLite (padrão) — sem configuração necessária
-        DB.configure(new SQLiteConfig());
+        // SQLite (padrão)
+        DB.configure(new SQLiteConfig(BricksPaths.resolveUserData("data/database.db").toString()));
 
         // MySQL — descomentar e preencher credenciais
         // DB.configure(new MySQLConfig()

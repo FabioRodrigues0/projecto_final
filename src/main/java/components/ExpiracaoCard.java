@@ -7,6 +7,7 @@ import fabiorodrigues.bricks.components.Spacer;
 import fabiorodrigues.bricks.components.Text;
 import fabiorodrigues.bricks.components.When;
 import fabiorodrigues.bricks.core.Component;
+import fabiorodrigues.bricks.style.BricksTheme;
 import fabiorodrigues.bricks.style.Modifier;
 import javafx.geometry.Pos;
 import javafx.scene.paint.Color;
@@ -65,7 +66,12 @@ public class ExpiracaoCard {
     public Component render() {
         return new Column()
             .gap(5)
-            .modifier(new Modifier().border(Color.rgb(225, 231, 239), 1).borderRadius(10))
+            .modifier(
+                new Modifier()
+                    .background(BricksTheme.current().colorScheme().surface())
+                    .border(BricksTheme.current().colorScheme().outlineVariant(), 1)
+                    .borderRadius(10)
+            )
             .children(
                 new Row()
                     .gap(8)
@@ -74,11 +80,14 @@ public class ExpiracaoCard {
                         new When(!this.icon.isBlank())
                             .children(
                                 new IconButton(this.icon)
+                                    .color(BricksTheme.current().colorScheme().onSurfaceVariant())
                                     .modifier(
                                         new Modifier()
                                             .width(35)
                                             .height(36)
-                                            .background(Color.web("#f1f5f9"))
+                                            .background(
+                                                BricksTheme.current().colorScheme().surfaceVariant()
+                                            )
                                     )
                             ),
                         new Column()

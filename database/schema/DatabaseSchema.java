@@ -14,7 +14,9 @@ public class DatabaseSchema {
     private static final String VEICULO_TIPO;
     private static final String SUBSCRICAO_TIPO;
     private static final String PAGAMENTO_TIPO;
+    private static final String TEMA_TIPO;
     private static final String ATIVA_BOOLEAN = "INTEGER NOT NULL DEFAULT 1 CHECK(ativa IN (0, 1))";
+    private static final String NOTIFICACOES_BOOLEAN = notificacoesBoolean();
     private static final String FK_PESSOA = "REFERENCES pessoas(id) ON DELETE CASCADE";
     private static final String FK_VEICULO = "REFERENCES veiculos(id) ON DELETE CASCADE";
     private static final String FK_SUBSCRICAO = "REFERENCES subscricoes(id) ON DELETE CASCADE";
@@ -30,6 +32,7 @@ public class DatabaseSchema {
             "'OUTRO'"
         );
         PAGAMENTO_TIPO = textCheck("modelo_pagamento", "'MENSAL'", "'ANUAL'");
+        TEMA_TIPO = textCheck("tema", "'Light'", "'Dark'");
     }
 
     private DatabaseSchema() {
@@ -47,6 +50,7 @@ public class DatabaseSchema {
         createDocumentosPessoal();
         createDocumentosVeiculo();
         createDocumentosSubscricao();
+        createSettings();
     }
 
     private static void enableForeignKeys() {
@@ -141,7 +145,23 @@ public class DatabaseSchema {
             .execute();
     }
 
+    private static void createSettings() {
+        DB
+            .query()
+            .createTableIfNotExists("settings")
+            .column("id", "INTEGER PRIMARY KEY")
+            .column("nome", "TEXT NOT NULL")
+            .column("data", "TEXT NOT NULL")
+            .column("tema", TEMA_TIPO)
+            .column("notificacoes_ativas", NOTIFICACOES_BOOLEAN)
+            .execute();
+    }
+
     private static String textCheck(String column, String... values) {
         return TEXT_NOT_NULL + "CHECK(" + column + " IN (" + String.join(", ", values) + "))";
+    }
+
+    private static String notificacoesBoolean() {
+        return "INTEGER NOT NULL DEFAULT 0 CHECK(notificacoes_ativas IN (0, 1))";
     }
 }

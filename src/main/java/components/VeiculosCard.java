@@ -11,8 +11,8 @@ import fabiorodrigues.bricks.components.Spacer;
 import fabiorodrigues.bricks.components.Text;
 import fabiorodrigues.bricks.core.BricksApplication;
 import fabiorodrigues.bricks.core.Component;
+import fabiorodrigues.bricks.style.BricksTheme;
 import fabiorodrigues.bricks.style.Modifier;
-import java.io.File;
 import javafx.geometry.Pos;
 import javafx.scene.paint.Color;
 import models.Veiculo.Veiculos;
@@ -43,17 +43,16 @@ public class VeiculosCard {
     }
 
     public Component render() {
-        String imagePath = resolveImagePath();
-
         return new Card()
             .elevation(2)
             .cornerRadius(10)
-            .coverImage(imagePath, 160)
+            .background(BricksTheme.current().colorScheme().surface())
+            .coverImageUserData(resolveImagePath(), 160)
             .coverPlaceholder(
                 new Box()
                     .modifier(
                         new Modifier()
-                            .background(Color.LIGHTGRAY)
+                            .background(BricksTheme.current().colorScheme().surfaceVariant())
                             .alignment(Pos.CENTER)
                             .fillMaxWidth()
                             .fillMaxHeight()
@@ -86,6 +85,7 @@ public class VeiculosCard {
                                 this.fotoPicker,
                                 new IconButton("fas-pen")
                                     .ghost()
+                                    .color(BricksTheme.current().colorScheme().onSurface())
                                     .modifier(new Modifier())
                                     .onClick(this.onEditar),
                                 new IconButton("fas-trash-alt")
@@ -96,9 +96,9 @@ public class VeiculosCard {
                         new Button("Ver Documentos")
                             .modifier(
                                 new Modifier()
-                                    .background(Color.WHITE)
-                                    .textColor(Color.BLACK)
-                                    .border(Color.GRAY, 0.5)
+                                    .background(BricksTheme.current().colorScheme().surface())
+                                    .textColor(BricksTheme.current().colorScheme().onSurface())
+                                    .border(BricksTheme.current().colorScheme().outline(), 0.5)
                                     .fillMaxWidth()
                             )
                             .onClick(
@@ -116,11 +116,6 @@ public class VeiculosCard {
     private String resolveImagePath() {
         if (this.foto == null || this.foto.isBlank()) {
             return "missing-cover-image";
-        }
-
-        File file = new File(this.foto);
-        if (file.exists() && file.isFile()) {
-            return file.toURI().toString();
         }
 
         return this.foto;

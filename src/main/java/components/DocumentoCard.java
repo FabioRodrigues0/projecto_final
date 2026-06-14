@@ -1,6 +1,7 @@
 package components;
 
 import fabiorodrigues.bricks.components.BadgeVariant;
+import fabiorodrigues.bricks.components.Card;
 import fabiorodrigues.bricks.components.Column;
 import fabiorodrigues.bricks.components.Icon;
 import fabiorodrigues.bricks.components.IconButton;
@@ -8,6 +9,7 @@ import fabiorodrigues.bricks.components.Row;
 import fabiorodrigues.bricks.components.Spacer;
 import fabiorodrigues.bricks.components.Text;
 import fabiorodrigues.bricks.core.Component;
+import fabiorodrigues.bricks.style.BricksTheme;
 import fabiorodrigues.bricks.style.Modifier;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -84,56 +86,57 @@ public class DocumentoCard {
     public Component render() {
         EstadoDocumento estado = estado();
 
-        return new Row()
-            .gap(10)
-            .modifier(
-                new Modifier()
-                    .border(Color.GRAY, 1)
-                    .fillMaxWidth()
-                    .background(Color.WHITE)
-                    .borderRadius(8)
-                    .alignment(Pos.CENTER_LEFT)
-            )
+        return new Card()
+            .elevation(2)
+            .padding(0)
+            .background(BricksTheme.current().colorScheme().surface())
+            .modifier(new Modifier().fillMaxWidth())
             .children(
-                // Barra lateral color
-                new Column()
-                    .modifier(
-                        new Modifier()
-                            .width(5)
-                            .fillMaxHeight()
-                            .background(estado.corTexto())
-                            .borderRadius(8)
-                    ),
-
-                new Icon("fas-file-alt"),
-
-                new Column()
-                    .gap(1)
+                new Row()
+                    .gap(0)
+                    .modifier(new Modifier().fillMaxWidth().alignment(Pos.CENTER_LEFT))
                     .children(
-                        new Text(this.titulo).modifier(new Modifier().bold()),
+                        new Column()
+                            .modifier(
+                                new Modifier()
+                                    .width(5)
+                                    .fillMaxHeight()
+                                    .background(estado.corTexto())
+                                    .borderRadius(8)
+                            ),
                         new Row()
-                            .gap(0)
-                            .children(
-                                new Text(this.tipoDocumento),
-                                new Text(" · Validade: " + dataValidadeTexto())
+                            .gap(10)
+                            .modifier(
+                                new Modifier().padding(15).fillMaxWidth().alignment(Pos.CENTER)
                             )
-                    ),
-
-                new Spacer(),
-
-                new Text(estado.tempo())
-                    .modifier(
-                        new Modifier()
-                            .bold()
-                            .textColor((javafx.scene.paint.Color) estado.corTexto())
-                    ),
-                estado.badge().render(),
-                new IconButton("fas-pen").ghost().onClick(this.onEditar),
-                new IconButton("fas-trash-alt")
-                    .ghost()
-                    .color(Color.RED)
-                    .onClick(this.onApagar)
-                    .modifier(new Modifier().padding(0, 15, 0, 0))
+                            .children(
+                                new Icon("fas-file-alt")
+                                    .color(BricksTheme.current().colorScheme().onSurfaceVariant()),
+                                new Column()
+                                    .gap(1)
+                                    .children(
+                                        new Text(this.titulo).modifier(new Modifier().bold()),
+                                        new Row()
+                                            .gap(0)
+                                            .children(
+                                                new Text(this.tipoDocumento),
+                                                new Text(" · Validade: " + dataValidadeTexto())
+                                            )
+                                    ),
+                                new Spacer(),
+                                new Text(estado.tempo())
+                                    .modifier(new Modifier().bold().textColor(estado.corTexto())),
+                                estado.badge().render(),
+                                new IconButton("fas-pen")
+                                    .ghost()
+                                    .color(BricksTheme.current().colorScheme().onSurface())
+                                    .onClick(this.onEditar),
+                                new IconButton("fas-trash-alt")
+                                    .ghost()
+                                    .color(Color.RED)
+                                    .onClick(this.onApagar)
+                            )
+                    )
             );
     }
 

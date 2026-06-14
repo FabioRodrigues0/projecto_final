@@ -21,7 +21,7 @@ repositories {
 
 dependencies {
     // Bricks — UI library (inclui JavaFX internamente)
-    implementation 'com.github.FabioRodrigues0:bricks:v0.7.8.1'
+    implementation 'com.github.FabioRodrigues0:bricks:v0.7.8.2'
     //implementation 'com.github.fabiorodrigues0:bricks:0.7.4.4'
     implementation 'org.apache.pdfbox:pdfbox:3.0.1'
     implementation 'net.sourceforge.tess4j:tess4j:5.13.0'
@@ -39,6 +39,9 @@ sourceSets {
     main {
         java {
             srcDirs = ['src/main/java', 'database/schema', 'database/seeds', 'config/database']
+        }
+        resources {
+            exclude 'veiculos/**'
         }
     }
 }

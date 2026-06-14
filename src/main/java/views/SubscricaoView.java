@@ -19,6 +19,7 @@ import fabiorodrigues.bricks.components.TextField;
 import fabiorodrigues.bricks.core.BricksApplication;
 import fabiorodrigues.bricks.core.BricksScene;
 import fabiorodrigues.bricks.core.Component;
+import fabiorodrigues.bricks.style.BricksTheme;
 import fabiorodrigues.bricks.style.Modifier;
 import java.util.List;
 import models.Subscricao.DocumentosSubscricao;
@@ -78,7 +79,12 @@ public class SubscricaoView extends BricksScene {
                 new ItemsColumn<DocumentosSubscricao>()
                     .gap(10)
                     .modifier(new Modifier().fillMaxWidth().fillMaxHeight())
-                    .emptyState(new Card().elevation(2).children(new Text("Sem subscricoes")))
+                    .emptyState(
+                        new Card()
+                            .elevation(2)
+                            .background(BricksTheme.current().colorScheme().surface())
+                            .children(new Text("Sem subscricoes"))
+                    )
                     .items(this.vm.listDocumentosSubscricao)
                     .item(documento -> {
                         Subscricoes subscricao = subscricaoDoDocumento(documento);

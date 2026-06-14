@@ -14,6 +14,7 @@ import fabiorodrigues.bricks.components.Text;
 import fabiorodrigues.bricks.core.BricksApplication;
 import fabiorodrigues.bricks.core.BricksScene;
 import fabiorodrigues.bricks.core.Component;
+import fabiorodrigues.bricks.style.BricksTheme;
 import fabiorodrigues.bricks.style.Modifier;
 import javafx.geometry.Pos;
 import javafx.scene.paint.Color;
@@ -59,6 +60,7 @@ public class DashboardView extends BricksScene {
                         // Documentos
                         new Card()
                             .elevation(2)
+                            .background(BricksTheme.current().colorScheme().surface())
                             .modifier(new Modifier().fillMaxWidth())
                             .children(
                                 new Row()
@@ -94,6 +96,7 @@ public class DashboardView extends BricksScene {
                         // Veículos
                         new Card()
                             .elevation(2)
+                            .background(BricksTheme.current().colorScheme().surface())
                             .modifier(new Modifier().fillMaxWidth())
                             .children(
                                 new Row()
@@ -129,6 +132,7 @@ public class DashboardView extends BricksScene {
                         // Subscrições
                         new Card()
                             .elevation(2)
+                            .background(BricksTheme.current().colorScheme().surface())
                             .modifier(new Modifier().fillMaxWidth())
                             .children(
                                 new Row()
@@ -175,6 +179,7 @@ public class DashboardView extends BricksScene {
                         // Alertas
                         new Card()
                             .elevation(2)
+                            .background(BricksTheme.current().colorScheme().surface())
                             .modifier(new Modifier().fillMaxWidth())
                             .children(
                                 new Row()
@@ -196,7 +201,12 @@ public class DashboardView extends BricksScene {
                                         new IconButton("fas-exclamation-triangle")
                                             .modifier(
                                                 new Modifier()
-                                                    .background(Color.web("#f1f5f9"))
+                                                    .background(
+                                                        BricksTheme
+                                                            .current()
+                                                            .colorScheme()
+                                                            .surfaceVariant()
+                                                    )
                                                     .width(35)
                                                     .height(36)
                                             )
@@ -217,6 +227,7 @@ public class DashboardView extends BricksScene {
                 // Próximas Expirações
                 new Card()
                     .elevation(2)
+                    .background(BricksTheme.current().colorScheme().surface())
                     .modifier(new Modifier().fillMaxHeight())
                     .children(
                         new Column()
@@ -253,6 +264,7 @@ public class DashboardView extends BricksScene {
                         new Card()
                             .padding(20)
                             .elevation(2)
+                            .background(BricksTheme.current().colorScheme().surface())
                             .modifier(new Modifier().fillMaxWidth())
                             .children(
                                 new Row()
@@ -260,11 +272,22 @@ public class DashboardView extends BricksScene {
                                     .modifier(new Modifier().alignment(Pos.CENTER_LEFT))
                                     .children(
                                         new IconButton("fas-file-alt")
+                                            .color(
+                                                BricksTheme
+                                                    .current()
+                                                    .colorScheme()
+                                                    .onSurfaceVariant()
+                                            )
                                             .modifier(
                                                 new Modifier()
                                                     .width(35)
                                                     .height(36)
-                                                    .background(Color.web("#f1f5f9"))
+                                                    .background(
+                                                        BricksTheme
+                                                            .current()
+                                                            .colorScheme()
+                                                            .surfaceVariant()
+                                                    )
                                             ),
                                         new Column()
                                             .gap(2)
@@ -280,6 +303,7 @@ public class DashboardView extends BricksScene {
                         new Card()
                             .padding(20)
                             .elevation(2)
+                            .background(BricksTheme.current().colorScheme().surface())
                             .modifier(new Modifier().fillMaxWidth())
                             .children(
                                 new Row()
@@ -287,11 +311,22 @@ public class DashboardView extends BricksScene {
                                     .modifier(new Modifier().alignment(Pos.CENTER_LEFT))
                                     .children(
                                         new IconButton("fas-car-side")
+                                            .color(
+                                                BricksTheme
+                                                    .current()
+                                                    .colorScheme()
+                                                    .onSurfaceVariant()
+                                            )
                                             .modifier(
                                                 new Modifier()
                                                     .width(35)
                                                     .height(36)
-                                                    .background(Color.web("#f1f5f9"))
+                                                    .background(
+                                                        BricksTheme
+                                                            .current()
+                                                            .colorScheme()
+                                                            .surfaceVariant()
+                                                    )
                                             ),
                                         new Column()
                                             .gap(2)
@@ -307,6 +342,7 @@ public class DashboardView extends BricksScene {
                         new Card()
                             .padding(20)
                             .elevation(2)
+                            .background(BricksTheme.current().colorScheme().surface())
                             .modifier(new Modifier().fillMaxWidth().alignment(Pos.CENTER))
                             .children(
                                 new Row()
@@ -314,11 +350,22 @@ public class DashboardView extends BricksScene {
                                     .modifier(new Modifier().alignment(Pos.CENTER_LEFT))
                                     .children(
                                         new IconButton("fas-credit-card")
+                                            .color(
+                                                BricksTheme
+                                                    .current()
+                                                    .colorScheme()
+                                                    .onSurfaceVariant()
+                                            )
                                             .modifier(
                                                 new Modifier()
                                                     .width(35)
                                                     .height(36)
-                                                    .background(Color.web("#f1f5f9"))
+                                                    .background(
+                                                        BricksTheme
+                                                            .current()
+                                                            .colorScheme()
+                                                            .surfaceVariant()
+                                                    )
                                             ),
                                         new Column()
                                             .gap(2)
