@@ -26,12 +26,20 @@ import models.TipoItemCalendario;
 import models.calendario.ItemCalendario;
 import viewModels.CalendarioViewModel;
 
+/**
+ * Representa CalendarioView na aplicação.
+ */
 public class CalendarioView extends BricksScene {
 
     private final BricksApplication app;
     private final CalendarioViewModel vm = new CalendarioViewModel();
     private final State<LocalDate> diaAtualBricks = new State<>(LocalDate.now());
 
+    /**
+     * Cria uma nova instância.
+     *
+     * @param app valor usado pela operação
+     */
     public CalendarioView(BricksApplication app) {
         super(app);
         this.app = app;
@@ -39,6 +47,12 @@ public class CalendarioView extends BricksScene {
         this.vm.carregarExpirações();
     }
 
+    /**
+     * Executa a operação formatarCategoria.
+     *
+     * @param categoria valor usado pela operação
+     * @return resultado da operação
+     */
     private String formatarCategoria(TipoItemCalendario categoria) {
         if (categoria == null) {
             return "Sem categoria";
@@ -51,6 +65,12 @@ public class CalendarioView extends BricksScene {
         };
     }
 
+    /**
+     * Executa a operação iconFontAwesomeCalendario.
+     *
+     * @param categoria valor usado pela operação
+     * @return resultado da operação
+     */
     private String iconFontAwesomeCalendario(TipoItemCalendario categoria) {
         if (categoria == null) {
             return "far-file-alt";
@@ -63,6 +83,11 @@ public class CalendarioView extends BricksScene {
         };
     }
 
+    /**
+     * Constrói o componente visual.
+     *
+     * @return resultado da operação
+     */
     @Override
     public Component render() {
         return new Column()

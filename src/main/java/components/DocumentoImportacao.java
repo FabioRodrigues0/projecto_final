@@ -14,6 +14,9 @@ import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Representa DocumentoImportacao na aplicação.
+ */
 public final class DocumentoImportacao {
 
     private static final Pattern DATE_PATTERN = Pattern
@@ -31,9 +34,19 @@ public final class DocumentoImportacao {
             "(?i)(?:€\\s*)?(\\d+(?:[.,]\\d{1,2})?)\\s*(?:€|eur|euros)|(?:custo|preco|preço|valor|total|mensal|anual)[^\\d€]*(?:€\\s*)?(\\d+(?:[.,]\\d{1,2})?)"
         );
 
+    /**
+     * Cria uma nova instância.
+     */
     private DocumentoImportacao() {
     }
 
+    /**
+     * Executa a operação titulo.
+     *
+     * @param file    valor usado pela operação
+     * @param content valor usado pela operação
+     * @return resultado da operação
+     */
     public static String titulo(File file, String content) {
         return linhas(content)
             .stream()
@@ -45,24 +58,54 @@ public final class DocumentoImportacao {
             .orElseGet(() -> nomeSemExtensao(file));
     }
 
+    /**
+     * Executa a operação texto.
+     *
+     * @param content valor usado pela operação
+     * @return resultado da operação
+     */
     public static String texto(String content) {
         return content == null ? "" : content.trim();
     }
 
+    /**
+     * Executa a operação primeiraData.
+     *
+     * @param content valor usado pela operação
+     * @return resultado da operação
+     */
     public static Optional<LocalDate> primeiraData(String content) {
         return datas(content).stream().findFirst();
     }
 
+    /**
+     * Executa a operação segundaData.
+     *
+     * @param content valor usado pela operação
+     * @return resultado da operação
+     */
     public static Optional<LocalDate> segundaData(String content) {
         List<LocalDate> dates = datas(content);
         return dates.size() > 1 ? Optional.of(dates.get(1)) : Optional.empty();
     }
 
+    /**
+     * Executa a operação ultimaData.
+     *
+     * @param content valor usado pela operação
+     * @return resultado da operação
+     */
     public static Optional<LocalDate> ultimaData(String content) {
         List<LocalDate> dates = datas(content);
         return dates.isEmpty() ? Optional.empty() : Optional.of(dates.get(dates.size() - 1));
     }
 
+    /**
+     * Executa a operação temPeriodoAnual.
+     *
+     * @param content valor usado pela operação
+     * @return resultado da operação
+     */
     public static boolean temPeriodoAnual(String content) {
         List<LocalDate> dates = datas(content);
         for (int i = 0; i < dates.size(); i++) {
@@ -76,6 +119,12 @@ public final class DocumentoImportacao {
         return false;
     }
 
+    /**
+     * Executa a operação primeiroValor.
+     *
+     * @param content valor usado pela operação
+     * @return resultado da operação
+     */
     public static Optional<Double> primeiroValor(String content) {
         Matcher matcher = MONEY_WITH_CONTEXT_PATTERN.matcher(content == null ? "" : content);
         while (matcher.find()) {
@@ -96,6 +145,13 @@ public final class DocumentoImportacao {
         return Optional.empty();
     }
 
+    /**
+     * Executa a operação valorPorEtiquetaNumerico.
+     *
+     * @param content valor usado pela operação
+     * @param labels  valor usado pela operação
+     * @return resultado da operação
+     */
     public static Optional<Double> valorPorEtiquetaNumerico(String content, String... labels) {
         List<String> lines = linhas(content);
         for (String label : labels) {
@@ -114,6 +170,12 @@ public final class DocumentoImportacao {
         return Optional.empty();
     }
 
+    /**
+     * Executa a operação valorTotalFatura.
+     *
+     * @param content valor usado pela operação
+     * @return resultado da operação
+     */
     public static Optional<Double> valorTotalFatura(String content) {
         List<String> lines = linhas(content);
         Optional<Double> dueValue = Optional.empty();
@@ -141,6 +203,12 @@ public final class DocumentoImportacao {
         return dueValue.isPresent() ? dueValue : totalValue;
     }
 
+    /**
+     * Executa a operação descricaoFatura.
+     *
+     * @param content valor usado pela operação
+     * @return resultado da operação
+     */
     public static Optional<String> descricaoFatura(String content) {
         List<String> lines = linhas(content);
 
@@ -171,6 +239,12 @@ public final class DocumentoImportacao {
         return Optional.empty();
     }
 
+    /**
+     * Executa a operação pareceFatura.
+     *
+     * @param content valor usado pela operação
+     * @return resultado da operação
+     */
     public static boolean pareceFatura(String content) {
         String normalized = normalizar(content);
         return normalized.contains("invoice") || normalized.contains("fatura") || normalized
@@ -178,6 +252,13 @@ public final class DocumentoImportacao {
                 .contains("total due") || normalized.contains("total a pagar");
     }
 
+    /**
+     * Executa a operação valorPorEtiqueta.
+     *
+     * @param content valor usado pela operação
+     * @param labels  valor usado pela operação
+     * @return resultado da operação
+     */
     public static Optional<String> valorPorEtiqueta(String content, String... labels) {
         List<String> normalizedLabels = Arrays
             .stream(labels)
@@ -210,6 +291,12 @@ public final class DocumentoImportacao {
         return fallback;
     }
 
+    /**
+     * Executa a operação datas.
+     *
+     * @param content valor usado pela operação
+     * @return resultado da operação
+     */
     private static List<LocalDate> datas(String content) {
         String value = content == null ? "" : content;
         Matcher numericMatcher = DATE_PATTERN.matcher(value);
@@ -232,6 +319,12 @@ public final class DocumentoImportacao {
             .toList();
     }
 
+    /**
+     * Executa a operação parseDate.
+     *
+     * @param value valor usado pela operação
+     * @return resultado da operação
+     */
     private static Optional<LocalDate> parseDate(String value) {
         for (String pattern : List.of("d/M/uuuu", "d-M-uuuu", "d/M/uu", "d-M-uu")) {
             try {
@@ -243,6 +336,12 @@ public final class DocumentoImportacao {
         return Optional.empty();
     }
 
+    /**
+     * Executa a operação parseMonthDate.
+     *
+     * @param value valor usado pela operação
+     * @return resultado da operação
+     */
     private static Optional<LocalDate> parseMonthDate(String value) {
         for (
             String pattern : List.of("MMMM d, uuuu", "MMM d, uuuu", "MMMM dd, uuuu", "MMM dd, uuuu")
@@ -263,6 +362,12 @@ public final class DocumentoImportacao {
         return Optional.empty();
     }
 
+    /**
+     * Executa a operação ultimoValorMonetario.
+     *
+     * @param line valor usado pela operação
+     * @return resultado da operação
+     */
     private static Optional<Double> ultimoValorMonetario(String line) {
         Matcher matcher = MONEY_TOKEN_PATTERN.matcher(line);
         Double value = null;
@@ -284,6 +389,12 @@ public final class DocumentoImportacao {
         return Optional.ofNullable(value);
     }
 
+    /**
+     * Executa a operação linhas.
+     *
+     * @param content valor usado pela operação
+     * @return resultado da operação
+     */
     private static List<String> linhas(String content) {
         return Arrays
             .stream((content == null ? "" : content).split("\\R"))
@@ -293,12 +404,24 @@ public final class DocumentoImportacao {
             .toList();
     }
 
+    /**
+     * Executa a operação isPagination.
+     *
+     * @param line valor usado pela operação
+     * @return resultado da operação
+     */
     private static boolean isPagination(String line) {
         String normalized = normalizar(line);
         return normalized.matches("^(page|pagina|pag)\\s+\\d+\\s+(of|de)\\s+\\d+$") || normalized
             .matches("^\\d+\\s*/\\s*\\d+$");
     }
 
+    /**
+     * Executa a operação nomeSemExtensao.
+     *
+     * @param file valor usado pela operação
+     * @return resultado da operação
+     */
     private static String nomeSemExtensao(File file) {
         if (file == null) {
             return "";
@@ -309,6 +432,12 @@ public final class DocumentoImportacao {
         return dot > 0 ? name.substring(0, dot) : name;
     }
 
+    /**
+     * Executa a operação normalizar.
+     *
+     * @param value valor usado pela operação
+     * @return resultado da operação
+     */
     private static String normalizar(String value) {
         String normalized = Normalizer.normalize(value == null ? "" : value, Normalizer.Form.NFD);
         return normalized

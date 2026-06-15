@@ -16,6 +16,9 @@ import models.Subscricao.Subscricoes;
 import models.TipoDocumentoSubscricao;
 import models.TipoPagamento;
 
+/**
+ * Representa SubscricaoViewModel na aplicação.
+ */
 public class SubscricaoViewModel extends BricksViewModel implements IViewModel<Subscricoes>, IViewModelDocumentos<DocumentosSubscricao> {
 
     public final StateList<DocumentosSubscricao> listDocumentosSubscricao = stateList(List.of());
@@ -36,27 +39,46 @@ public class SubscricaoViewModel extends BricksViewModel implements IViewModel<S
     public final State<LocalDate> dataRenovacaoSubscricao = state(null);
     public final State<Boolean> estadoSubscricao = state(true);
 
+    /**
+     * Executa a operação nomeRecurso.
+     *
+     * @return resultado da operação
+     */
     @Override
     public String nomeRecurso() {
         return "Subscrição";
     }
 
+    /**
+     * Executa a operação nomeDocumento.
+     *
+     * @return resultado da operação
+     */
     @Override
     public String nomeDocumento() {
         return "Subscrição";
     }
 
+    /**
+     * Carrega a lista de subscrições.
+     */
     public void carregarSubscricoes() {
         listSubscricoes.clear();
         listSubscricoes.addAll(ver());
     }
 
+    /**
+     * Carrega a lista de documentos.
+     */
     public void carregarDocumentos() {
         listDocumentosSubscricao.clear();
         listDocumentosSubscricao.addAll(verDocumentos());
         calcularGastos();
     }
 
+    /**
+     * Executa a operação limparCampos.
+     */
     public void limparCampos() {
         nomeSubscricao.set("");
         servicoSubscricao.set("");
@@ -67,6 +89,9 @@ public class SubscricaoViewModel extends BricksViewModel implements IViewModel<S
         estadoSubscricao.set(true);
     }
 
+    /**
+     * Executa a operação calcularGastos.
+     */
     private void calcularGastos() {
         double mensal = 0.0;
         double anual = 0.0;
@@ -97,6 +122,11 @@ public class SubscricaoViewModel extends BricksViewModel implements IViewModel<S
         subscricoesAtivas.set(ativas.size());
     }
 
+    /**
+     * Obtém os registos existentes.
+     *
+     * @return resultado da operação
+     */
     @Override
     public List<Subscricoes> ver() {
         return DB
@@ -106,6 +136,9 @@ public class SubscricaoViewModel extends BricksViewModel implements IViewModel<S
             .execute(Subscricoes.class);
     }
 
+    /**
+     * Cria um novo registo.
+     */
     @Override
     public void novo() {
         QueryResult result = DB
@@ -118,6 +151,11 @@ public class SubscricaoViewModel extends BricksViewModel implements IViewModel<S
         novoDocumento(result.getGeneratedIdAsInt());
     }
 
+    /**
+     * Atualiza um registo existente.
+     *
+     * @param id valor usado pela operação
+     */
     @Override
     public void update(int id) {
         DB
@@ -128,11 +166,21 @@ public class SubscricaoViewModel extends BricksViewModel implements IViewModel<S
             .execute();
     }
 
+    /**
+     * Remove um registo existente.
+     *
+     * @param id valor usado pela operação
+     */
     @Override
     public void apagar(int id) {
         DB.query().deleteFrom("subscricoes").where("id", WhereOperator.EQ, id).execute();
     }
 
+    /**
+     * Obtém os documentos existentes.
+     *
+     * @return resultado da operação
+     */
     @Override
     public List<DocumentosSubscricao> verDocumentos() {
         return DB
@@ -152,6 +200,11 @@ public class SubscricaoViewModel extends BricksViewModel implements IViewModel<S
             .execute(DocumentosSubscricao.class);
     }
 
+    /**
+     * Cria um novo documento.
+     *
+     * @param subscricaoId valor usado pela operação
+     */
     @Override
     public void novoDocumento(int subscricaoId) {
         DB
@@ -168,6 +221,11 @@ public class SubscricaoViewModel extends BricksViewModel implements IViewModel<S
             .execute();
     }
 
+    /**
+     * Atualiza um documento existente.
+     *
+     * @param id valor usado pela operação
+     */
     @Override
     public void updateDocumento(int id) {
         DB
@@ -183,6 +241,11 @@ public class SubscricaoViewModel extends BricksViewModel implements IViewModel<S
             .execute();
     }
 
+    /**
+     * Remove um documento existente.
+     *
+     * @param id valor usado pela operação
+     */
     @Override
     public void apagarDocumento(int id) {
         DB.query().deleteFrom("documentos_subscricao").where("id", WhereOperator.EQ, id).execute();

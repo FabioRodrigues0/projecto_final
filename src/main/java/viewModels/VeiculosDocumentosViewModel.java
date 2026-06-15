@@ -10,6 +10,9 @@ import java.util.List;
 import models.TipoDocumentoVeiculo;
 import models.Veiculo.DocumentosVeiculo;
 
+/**
+ * Representa VeiculosDocumentosViewModel na aplicação.
+ */
 public class VeiculosDocumentosViewModel extends BricksViewModel implements IViewModelDocumentos<DocumentosVeiculo> {
 
     public final StateList<DocumentosVeiculo> listDocumentos = stateList(List.of());
@@ -25,11 +28,21 @@ public class VeiculosDocumentosViewModel extends BricksViewModel implements IVie
 
     public final State<Boolean> eSeguro = state(false);
 
+    /**
+     * Executa a operação nomeDocumento.
+     *
+     * @return resultado da operação
+     */
     @Override
     public String nomeDocumento() {
         return "Documento";
     }
 
+    /**
+     * Carrega a lista de documentos.
+     *
+     * @param veiculoId valor usado pela operação
+     */
     public void carregarDocumentos(int veiculoId) {
         listDocumentos.clear();
         listDocumentos
@@ -38,6 +51,11 @@ public class VeiculosDocumentosViewModel extends BricksViewModel implements IVie
             );
     }
 
+    /**
+     * Obtém os documentos existentes.
+     *
+     * @return resultado da operação
+     */
     @Override
     public List<DocumentosVeiculo> verDocumentos() {
         return DB
@@ -57,6 +75,11 @@ public class VeiculosDocumentosViewModel extends BricksViewModel implements IVie
             .execute(DocumentosVeiculo.class);
     }
 
+    /**
+     * Cria um novo documento.
+     *
+     * @param veiculoId valor usado pela operação
+     */
     @Override
     public void novoDocumento(int veiculoId) {
         DB
@@ -73,6 +96,11 @@ public class VeiculosDocumentosViewModel extends BricksViewModel implements IVie
             .execute();
     }
 
+    /**
+     * Atualiza um documento existente.
+     *
+     * @param id valor usado pela operação
+     */
     @Override
     public void updateDocumento(int id) {
         DB
@@ -89,6 +117,11 @@ public class VeiculosDocumentosViewModel extends BricksViewModel implements IVie
             .execute();
     }
 
+    /**
+     * Remove um documento existente.
+     *
+     * @param id valor usado pela operação
+     */
     @Override
     public void apagarDocumento(int id) {
         DB.query().deleteFrom("documentos_veiculo").where("id", WhereOperator.EQ, id).execute();

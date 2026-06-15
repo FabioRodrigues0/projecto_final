@@ -36,6 +36,9 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.rendering.ImageType;
 import org.apache.pdfbox.rendering.PDFRenderer;
 
+/**
+ * Representa FormularioModal na aplicação.
+ */
 public class FormularioModal {
 
     private static final double DEFAULT_WIDTH = 500.0;
@@ -57,73 +60,156 @@ public class FormularioModal {
     private Runnable onClear = () -> {};
     private BiConsumer<File, String> onFileImport = null;
 
+    /**
+     * Cria uma nova instância.
+     *
+     * @param app         valor usado pela operação
+     * @param windowTitle valor usado pela operação
+     */
     public FormularioModal(BricksApplication app, String windowTitle) {
         this.app = app;
         this.windowTitle = windowTitle;
     }
 
+    /**
+     * Executa a operação size.
+     *
+     * @param width  valor usado pela operação
+     * @param height valor usado pela operação
+     * @return resultado da operação
+     */
     public FormularioModal size(double width, double height) {
         this.width = width;
         this.height = height;
         return this;
     }
 
+    /**
+     * Atualiza um registo existente.
+     *
+     * @param update valor usado pela operação
+     * @return resultado da operação
+     */
     public FormularioModal update(boolean update) {
         this.update = update;
         return this;
     }
 
+    /**
+     * Executa a operação createTitle.
+     *
+     * @param createTitle valor usado pela operação
+     * @return resultado da operação
+     */
     public FormularioModal createTitle(String createTitle) {
         this.createTitle = createTitle;
         return this;
     }
 
+    /**
+     * Executa a operação editTitle.
+     *
+     * @param editTitle valor usado pela operação
+     * @return resultado da operação
+     */
     public FormularioModal editTitle(String editTitle) {
         this.editTitle = editTitle;
         return this;
     }
 
+    /**
+     * Executa a operação titles.
+     *
+     * @param createTitle valor usado pela operação
+     * @param editTitle   valor usado pela operação
+     * @return resultado da operação
+     */
     public FormularioModal titles(String createTitle, String editTitle) {
         this.createTitle = createTitle;
         this.editTitle = editTitle;
         return this;
     }
 
+    /**
+     * Executa a operação cancelLabel.
+     *
+     * @param cancelLabel valor usado pela operação
+     * @return resultado da operação
+     */
     public FormularioModal cancelLabel(String cancelLabel) {
         this.cancelLabel = cancelLabel;
         return this;
     }
 
+    /**
+     * Executa a operação createLabel.
+     *
+     * @param createLabel valor usado pela operação
+     * @return resultado da operação
+     */
     public FormularioModal createLabel(String createLabel) {
         this.createLabel = createLabel;
         return this;
     }
 
+    /**
+     * Executa a operação updateLabel.
+     *
+     * @param updateLabel valor usado pela operação
+     * @return resultado da operação
+     */
     public FormularioModal updateLabel(String updateLabel) {
         this.updateLabel = updateLabel;
         return this;
     }
 
+    /**
+     * Executa a operação content.
+     *
+     * @param content valor usado pela operação
+     * @return resultado da operação
+     */
     public FormularioModal content(Component content) {
         this.content = content;
         return this;
     }
 
+    /**
+     * Executa a operação onSubmit.
+     *
+     * @param onSubmit valor usado pela operação
+     * @return resultado da operação
+     */
     public FormularioModal onSubmit(Runnable onSubmit) {
         this.onSubmit = onSubmit != null ? onSubmit : () -> {};
         return this;
     }
 
+    /**
+     * Executa a operação onClear.
+     *
+     * @param onClear valor usado pela operação
+     * @return resultado da operação
+     */
     public FormularioModal onClear(Runnable onClear) {
         this.onClear = onClear != null ? onClear : () -> {};
         return this;
     }
 
+    /**
+     * Executa a operação onFileImport.
+     *
+     * @param onFileImport valor usado pela operação
+     * @return resultado da operação
+     */
     public FormularioModal onFileImport(BiConsumer<File, String> onFileImport) {
         this.onFileImport = onFileImport;
         return this;
     }
 
+    /**
+     * Executa a operação show.
+     */
     public void show() {
         Stage modal = new Stage();
         modal.initModality(Modality.APPLICATION_MODAL);
@@ -167,6 +253,14 @@ public class FormularioModal {
         modal.show();
     }
 
+    /**
+     * Executa a operação buildBody.
+     *
+     * @param modal        valor usado pela operação
+     * @param importedFile valor usado pela operação
+     * @param fileReader   valor usado pela operação
+     * @return resultado da operação
+     */
     private Component buildBody(Stage modal, State<File> importedFile, FileReader fileReader) {
         Column column = new Column()
             .gap(8)
@@ -214,6 +308,12 @@ public class FormularioModal {
         return column;
     }
 
+    /**
+     * Executa a operação importButton.
+     *
+     * @param importedFile valor usado pela operação
+     * @return resultado da operação
+     */
     private Component importButton(State<File> importedFile) {
         if (onFileImport == null) {
             return new Text("");
@@ -227,6 +327,12 @@ public class FormularioModal {
             .bindTo(importedFile);
     }
 
+    /**
+     * Executa a operação buildFileReader.
+     *
+     * @param importedFile valor usado pela operação
+     * @return resultado da operação
+     */
     private FileReader buildFileReader(State<File> importedFile) {
         if (onFileImport == null) {
             return null;
@@ -246,6 +352,12 @@ public class FormularioModal {
         }).onError(e -> Alert.warning("Aviso", "Não foi possível ler o ficheiro selecionado."));
     }
 
+    /**
+     * Executa a operação handlePdfContent.
+     *
+     * @param file    valor usado pela operação
+     * @param content valor usado pela operação
+     */
     private void handlePdfContent(File file, String content) {
         printImportedContent("PDFBox", file, content);
 
@@ -264,6 +376,12 @@ public class FormularioModal {
         }
     }
 
+    /**
+     * Executa a operação handleImportedContent.
+     *
+     * @param file    valor usado pela operação
+     * @param content valor usado pela operação
+     */
     private void handleImportedContent(File file, String content) {
         if (onFileImport == null || file == null) {
             return;
@@ -277,12 +395,25 @@ public class FormularioModal {
         onFileImport.accept(file, content);
     }
 
+    /**
+     * Executa a operação printImportedContent.
+     *
+     * @param source  valor usado pela operação
+     * @param file    valor usado pela operação
+     * @param content valor usado pela operação
+     */
     private void printImportedContent(String source, File file, String content) {
         System.out.println("----- " + source + " import: " + file.getAbsolutePath() + " -----");
         System.out.println(content == null ? "<null>" : content);
         System.out.println("----- fim " + source + " import -----");
     }
 
+    /**
+     * Executa a operação readImageWithOcr.
+     *
+     * @param file valor usado pela operação
+     * @return resultado da operação
+     */
     private String readImageWithOcr(File file) throws Exception {
         BufferedImage image = ImageIO.read(file);
         if (image == null) {
@@ -292,6 +423,12 @@ public class FormularioModal {
         return buildTesseract().doOCR(image);
     }
 
+    /**
+     * Executa a operação readPdfWithOcr.
+     *
+     * @param file valor usado pela operação
+     * @return resultado da operação
+     */
     private String readPdfWithOcr(File file) throws Exception {
         StringBuilder content = new StringBuilder();
 
@@ -308,6 +445,11 @@ public class FormularioModal {
         return content.toString();
     }
 
+    /**
+     * Executa a operação buildTesseract.
+     *
+     * @return resultado da operação
+     */
     private Tesseract buildTesseract() {
         Tesseract tesseract = new Tesseract();
         resolveTessdataPath().ifPresent(tesseract::setDatapath);
@@ -315,6 +457,12 @@ public class FormularioModal {
         return tesseract;
     }
 
+    /**
+     * Executa a operação isWeakExtractedText.
+     *
+     * @param content valor usado pela operação
+     * @return resultado da operação
+     */
     private boolean isWeakExtractedText(String content) {
         if (content == null || content.isBlank()) {
             return true;
@@ -328,6 +476,11 @@ public class FormularioModal {
         return meaningful.length() < 20 || meaningful.split("\\s+").length < 4;
     }
 
+    /**
+     * Executa a operação resolveTessdataPath.
+     *
+     * @return resultado da operação
+     */
     private java.util.Optional<String> resolveTessdataPath() {
         String configured = System.getProperty("tessdata.path");
         if (configured == null || configured.isBlank()) {
@@ -350,6 +503,11 @@ public class FormularioModal {
             .findFirst();
     }
 
+    /**
+     * Executa a operação applyBackdrop.
+     *
+     * @param modal valor usado pela operação
+     */
     private void applyBackdrop(Stage modal) {
         if (app.getStage() == null || app.getStage().getScene() == null) {
             return;

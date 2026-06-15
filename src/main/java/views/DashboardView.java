@@ -21,12 +21,20 @@ import javafx.scene.paint.Color;
 import models.Expiracoes;
 import viewModels.DashboardViewModel;
 
+/**
+ * Representa DashboardView na aplicação.
+ */
 public class DashboardView extends BricksScene {
 
     private final DashboardViewModel vm = new DashboardViewModel();
     private final BricksApplication app;
 
     // Recebe as dependências necessárias no construtor da View
+    /**
+     * Cria uma nova instância.
+     *
+     * @param app valor usado pela operação
+     */
     public DashboardView(BricksApplication app) {
         super(app);
         this.app = app;
@@ -39,6 +47,11 @@ public class DashboardView extends BricksScene {
         this.vm.carregarSubscricoes();
     }
 
+    /**
+     * Constrói o componente visual.
+     *
+     * @return resultado da operação
+     */
     @Override
     public Component render() {
         return new Column()

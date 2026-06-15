@@ -15,6 +15,9 @@ import models.TipoItemCalendario;
 import models.Veiculo.DocumentosVeiculo;
 import models.calendario.ItemCalendario;
 
+/**
+ * Representa CalendarioViewModel na aplicação.
+ */
 public class CalendarioViewModel extends BricksViewModel {
 
     private final List<ItemCalendario> todososPrazos = new ArrayList<>();
@@ -26,6 +29,9 @@ public class CalendarioViewModel extends BricksViewModel {
     private YearMonth mesAtual = YearMonth.now();
     private LocalDate diaSelecionado = LocalDate.now();
 
+    /**
+     * Carrega a lista de expirações.
+     */
     public void carregarExpirações() {
         try {
             this.todososPrazos.clear();
@@ -124,35 +130,64 @@ public class CalendarioViewModel extends BricksViewModel {
         }
     }
 
+    /**
+     * Executa a operação avancarMes.
+     */
     public void avancarMes() {
         this.mesAtual = this.mesAtual.plusMonths(1);
         this.diaSelecionado = this.mesAtual.atDay(1);
         atualizarItensDoDia();
     }
 
+    /**
+     * Executa a operação recuarMes.
+     */
     public void recuarMes() {
         this.mesAtual = this.mesAtual.minusMonths(1);
         this.diaSelecionado = this.mesAtual.atDay(1);
         atualizarItensDoDia();
     }
 
+    /**
+     * Executa a operação selecionarDia.
+     *
+     * @param dia valor usado pela operação
+     */
     public void selecionarDia(LocalDate dia) {
         this.diaSelecionado = dia;
         atualizarItensDoDia();
     }
 
+    /**
+     * Executa a operação getMesAtualVisivel.
+     *
+     * @return resultado da operação
+     */
     public YearMonth getMesAtualVisivel() {
         return this.mesAtual;
     }
 
+    /**
+     * Executa a operação getDiaSelecionado.
+     *
+     * @return resultado da operação
+     */
     public LocalDate getDiaSelecionado() {
         return this.diaSelecionado;
     }
 
+    /**
+     * Executa a operação getTodosOsPrazos.
+     *
+     * @return resultado da operação
+     */
     public List<ItemCalendario> getTodosOsPrazos() {
         return this.todososPrazos;
     }
 
+    /**
+     * Executa a operação atualizarItensDoDia.
+     */
     private void atualizarItensDoDia() {
         this.itensDoDia.clear();
         for (ItemCalendario item : todososPrazos) {
@@ -162,6 +197,9 @@ public class CalendarioViewModel extends BricksViewModel {
         }
     }
 
+    /**
+     * Executa a operação atualizarProximosEventos.
+     */
     private void atualizarProximosEventos() {
         this.proximosPrazos.clear();
         LocalDate hoje = LocalDate.now();
@@ -174,6 +212,12 @@ public class CalendarioViewModel extends BricksViewModel {
         }
     }
 
+    /**
+     * Executa a operação obterCorHex.
+     *
+     * @param data valor usado pela operação
+     * @return resultado da operação
+     */
     public String obterCorHex(LocalDate data) {
         long dias = ChronoUnit.DAYS.between(LocalDate.now(), data);
         if (dias < 0) return "#ef4444";      // Vermelho
@@ -181,6 +225,12 @@ public class CalendarioViewModel extends BricksViewModel {
         return "#22c55e";                    // Verde
     }
 
+    /**
+     * Executa a operação diasRestantes.
+     *
+     * @param data valor usado pela operação
+     * @return resultado da operação
+     */
     public long diasRestantes(LocalDate data) {
         return ChronoUnit.DAYS.between(LocalDate.now(), data);
     }

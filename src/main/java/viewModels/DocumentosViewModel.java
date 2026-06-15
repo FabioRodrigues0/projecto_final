@@ -12,6 +12,9 @@ import models.Pessoal.DocumentosPessoal;
 import models.Pessoal.Pessoas;
 import models.TipoDocumentoPessoal;
 
+/**
+ * Representa DocumentosViewModel na aplicação.
+ */
 public class DocumentosViewModel extends BricksViewModel implements IViewModel<Pessoas>, IViewModelDocumentos<DocumentosPessoal> {
     public final StateList<DocumentosPessoal> listDocumentos = stateList(List.of());
     public final StateList<Pessoas> listPessoas = stateList(List.of());
@@ -24,31 +27,55 @@ public class DocumentosViewModel extends BricksViewModel implements IViewModel<P
     public final State<LocalDate> dataValidadeDocumento = state(null);
     public final State<String> notasDocumento = state("");
 
+    /**
+     * Executa a operação nomeRecurso.
+     *
+     * @return resultado da operação
+     */
     @Override
     public String nomeRecurso() {
         return "Pessoa";
     }
 
+    /**
+     * Executa a operação nomeDocumento.
+     *
+     * @return resultado da operação
+     */
     @Override
     public String nomeDocumento() {
         return "Documento";
     }
 
+    /**
+     * Executa a operação carregarPessoas.
+     */
     public void carregarPessoas() {
         listPessoas.clear();
         listPessoas.addAll(ver());
     }
 
+    /**
+     * Carrega a lista de documentos.
+     */
     public void carregarDocumentos() {
         listDocumentos.clear();
         listDocumentos.addAll(verDocumentos());
     }
 
+    /**
+     * Obtém os registos existentes.
+     *
+     * @return resultado da operação
+     */
     @Override
     public List<Pessoas> ver() {
         return DB.query().select("id", "nome", "data").from("pessoas").execute(Pessoas.class);
     }
 
+    /**
+     * Cria um novo registo.
+     */
     @Override
     public void novo() {
         DB
@@ -59,6 +86,11 @@ public class DocumentosViewModel extends BricksViewModel implements IViewModel<P
             .execute();
     }
 
+    /**
+     * Atualiza um registo existente.
+     *
+     * @param id valor usado pela operação
+     */
     @Override
     public void update(int id) {
         DB
@@ -69,6 +101,11 @@ public class DocumentosViewModel extends BricksViewModel implements IViewModel<P
             .execute();
     }
 
+    /**
+     * Remove um registo existente.
+     *
+     * @param id valor usado pela operação
+     */
     @Override
     public void apagar(int id) {
         DB.query().deleteFrom("pessoas").where("id", WhereOperator.EQ, id).execute();
@@ -83,6 +120,11 @@ public class DocumentosViewModel extends BricksViewModel implements IViewModel<P
         }
     }
 
+    /**
+     * Obtém os documentos existentes.
+     *
+     * @return resultado da operação
+     */
     @Override
     public List<DocumentosPessoal> verDocumentos() {
         return DB
@@ -92,6 +134,11 @@ public class DocumentosViewModel extends BricksViewModel implements IViewModel<P
             .execute(DocumentosPessoal.class);
     }
 
+    /**
+     * Cria um novo documento.
+     *
+     * @param pessoaId valor usado pela operação
+     */
     @Override
     public void novoDocumento(int pessoaId) {
         DB
@@ -106,6 +153,11 @@ public class DocumentosViewModel extends BricksViewModel implements IViewModel<P
             .execute();
     }
 
+    /**
+     * Atualiza um documento existente.
+     *
+     * @param id valor usado pela operação
+     */
     @Override
     public void updateDocumento(int id) {
         DB
@@ -121,6 +173,11 @@ public class DocumentosViewModel extends BricksViewModel implements IViewModel<P
 
     }
 
+    /**
+     * Remove um documento existente.
+     *
+     * @param id valor usado pela operação
+     */
     @Override
     public void apagarDocumento(int id) {
         DB.query().deleteFrom("documentos_pessoal").where("id", WhereOperator.EQ, id).execute();

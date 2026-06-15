@@ -19,6 +19,9 @@ import models.Pessoal.DocumentosPessoal;
 import models.Veiculo.DocumentosVeiculo;
 import models.calendario.ItemCalendario;
 
+/**
+ * Representa DocumentoCard na aplicação.
+ */
 public class DocumentoCard {
     private final String titulo;
     private final String tipoDocumento;
@@ -26,12 +29,22 @@ public class DocumentoCard {
     private final Runnable onEditar;
     private final Runnable onApagar;
 
+    /**
+     * Cria uma nova instância.
+     */
     public DocumentoCard() {
         this("Titulo", "Tipo", null, () -> {
         }, () -> {
         });
     }
 
+    /**
+     * Cria uma nova instância.
+     *
+     * @param documento valor usado pela operação
+     * @param onEditar  valor usado pela operação
+     * @param onApagar  valor usado pela operação
+     */
     public DocumentoCard(DocumentosVeiculo documento, Runnable onEditar, Runnable onApagar) {
         this(
             documento.getTitulo(), formatTipo(documento.getTipo()), documento
@@ -39,6 +52,13 @@ public class DocumentoCard {
         );
     }
 
+    /**
+     * Cria uma nova instância.
+     *
+     * @param documento valor usado pela operação
+     * @param onEditar  valor usado pela operação
+     * @param onApagar  valor usado pela operação
+     */
     public DocumentoCard(DocumentosPessoal documento, Runnable onEditar, Runnable onApagar) {
         this(
             documento.getTitulo(), formatTipo(documento.getTipo()), documento
@@ -46,6 +66,15 @@ public class DocumentoCard {
         );
     }
 
+    /**
+     * Cria uma nova instância.
+     *
+     * @param titulo        valor usado pela operação
+     * @param tipoDocumento valor usado pela operação
+     * @param dataValidade  valor usado pela operação
+     * @param onEditar      valor usado pela operação
+     * @param onApagar      valor usado pela operação
+     */
     public DocumentoCard(
                          String titulo, String tipoDocumento, LocalDate dataValidade, Runnable onEditar, Runnable onApagar) {
         this.titulo = titulo;
@@ -55,10 +84,23 @@ public class DocumentoCard {
         this.onApagar = onApagar;
     }
 
+    /**
+     * Cria uma nova instância.
+     *
+     * @param item     valor usado pela operação
+     * @param onEditar valor usado pela operação
+     * @param onApagar valor usado pela operação
+     */
     public DocumentoCard(ItemCalendario item, Runnable onEditar, Runnable onApagar) {
         this(item.getTitulo(), formatTipo(item.getCategoria()), item.getData(), onEditar, onApagar);
     }
 
+    /**
+     * Executa a operação formatTipo.
+     *
+     * @param tipo valor usado pela operação
+     * @return resultado da operação
+     */
     private static String formatTipo(Enum<?> tipo) {
         if (tipo == null) {
             return "Sem tipo";
@@ -68,6 +110,11 @@ public class DocumentoCard {
         return texto.substring(0, 1).toUpperCase() + texto.substring(1);
     }
 
+    /**
+     * Executa a operação estado.
+     *
+     * @return resultado da operação
+     */
     private EstadoDocumento estado() {
         if (this.dataValidade == null) {
             return new EstadoDocumento(
@@ -83,6 +130,11 @@ public class DocumentoCard {
         );
     }
 
+    /**
+     * Constrói o componente visual.
+     *
+     * @return resultado da operação
+     */
     public Component render() {
         EstadoDocumento estado = estado();
 
@@ -140,10 +192,18 @@ public class DocumentoCard {
             );
     }
 
+    /**
+     * Executa a operação dataValidadeTexto.
+     *
+     * @return resultado da operação
+     */
     private String dataValidadeTexto() {
         return this.dataValidade == null ? "-" : this.dataValidade.toString();
     }
 
+    /**
+     * Representa os dados imutáveis de EstadoDocumento.
+     */
     private record EstadoDocumento(String tempo, BadgeEstado badge, Color corTexto) {
     }
 }

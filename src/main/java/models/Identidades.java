@@ -19,16 +19,40 @@ public abstract class Identidades {
      * getters e setters
      * id unico para cada identidade, nome e data de criação
      */
-
     public abstract int getId();
 
+    /**
+     * Executa a operação getNome.
+     *
+     * @return resultado da operação
+     */
     public abstract String getNome();
 
+    /**
+     * Executa a operação getData.
+     *
+     * @return resultado da operação
+     */
     public abstract LocalDateTime getData();
 
+    /**
+     * Executa a operação setId.
+     *
+     * @param id valor usado pela operação
+     */
     public abstract void setId(int id);
 
+    /**
+     * Executa a operação setNome.
+     *
+     * @param nome valor usado pela operação
+     */
     public abstract void setNome(String nome);
 
+    /**
+     * Executa a operação setData.
+     *
+     * @param data valor usado pela operação
+     */
     public abstract void setData(LocalDateTime data);
 }

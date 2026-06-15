@@ -15,6 +15,9 @@ import java.util.List;
 import java.util.stream.Stream;
 import models.Veiculo.Veiculos;
 
+/**
+ * Representa VeiculosViewModel na aplicação.
+ */
 public class VeiculosViewModel extends BricksViewModel implements IViewModel<Veiculos> {
 
     public final StateList<Veiculos> listVeiculos = stateList(List.of());
@@ -26,16 +29,29 @@ public class VeiculosViewModel extends BricksViewModel implements IViewModel<Vei
     public final State<Boolean> removerFotoVeiculo = state(false);
     public final State<String> notasVeiculo = state("");
 
+    /**
+     * Executa a operação nomeRecurso.
+     *
+     * @return resultado da operação
+     */
     @Override
     public String nomeRecurso() {
         return "Veículo";
     }
 
+    /**
+     * Carrega a lista de veículos.
+     */
     public void carregarVeiculos() {
         listVeiculos.clear();
         listVeiculos.addAll(ver());
     }
 
+    /**
+     * Obtém os registos existentes.
+     *
+     * @return resultado da operação
+     */
     @Override
     public List<Veiculos> ver() {
         return DB
@@ -45,6 +61,9 @@ public class VeiculosViewModel extends BricksViewModel implements IViewModel<Vei
             .execute(Veiculos.class);
     }
 
+    /**
+     * Cria um novo registo.
+     */
     @Override
     public void novo() {
         int id = DB
@@ -58,6 +77,11 @@ public class VeiculosViewModel extends BricksViewModel implements IViewModel<Vei
             .execute();
     }
 
+    /**
+     * Atualiza um registo existente.
+     *
+     * @param id valor usado pela operação
+     */
     @Override
     public void update(int id) {
         String fotoAtual = removerFotoVeiculo.get() ? fotoDoVeiculo(id) : "";
@@ -85,6 +109,11 @@ public class VeiculosViewModel extends BricksViewModel implements IViewModel<Vei
         }
     }
 
+    /**
+     * Remove um registo existente.
+     *
+     * @param id valor usado pela operação
+     */
     @Override
     public void apagar(int id) {
         String foto = fotoDoVeiculo(id);
@@ -93,6 +122,12 @@ public class VeiculosViewModel extends BricksViewModel implements IViewModel<Vei
         apagarFotos(id, foto);
     }
 
+    /**
+     * Executa a operação apagarFotos.
+     *
+     * @param id   valor usado pela operação
+     * @param foto valor usado pela operação
+     */
     private void apagarFotos(int id, String foto) {
         if (foto != null && !foto.isBlank()) {
             try {
@@ -115,6 +150,12 @@ public class VeiculosViewModel extends BricksViewModel implements IViewModel<Vei
         }
     }
 
+    /**
+     * Executa a operação fotoDoVeiculo.
+     *
+     * @param id valor usado pela operação
+     * @return resultado da operação
+     */
     private String fotoDoVeiculo(int id) {
         List<Veiculos> veiculos = DB
             .query()
@@ -126,14 +167,33 @@ public class VeiculosViewModel extends BricksViewModel implements IViewModel<Vei
         return veiculos.isEmpty() ? "" : veiculos.get(0).getFoto();
     }
 
+    /**
+     * Executa a operação fotoPath.
+     *
+     * @param id       valor usado pela operação
+     * @param fileName valor usado pela operação
+     * @return resultado da operação
+     */
     public String fotoPath(int id, String fileName) {
         return "veiculos/" + id + "/" + safeFileName(fileName);
     }
 
+    /**
+     * Executa a operação fotoPath.
+     *
+     * @param fileName valor usado pela operação
+     * @return resultado da operação
+     */
     public String fotoPath(String fileName) {
         return "veiculos/" + safeFileName(fileName);
     }
 
+    /**
+     * Executa a operação safeFileName.
+     *
+     * @param fileName valor usado pela operação
+     * @return resultado da operação
+     */
     private String safeFileName(String fileName) {
         return Path.of(fileName).getFileName().toString().replaceAll("[\\\\/:*?\"<>|]", "_");
     }

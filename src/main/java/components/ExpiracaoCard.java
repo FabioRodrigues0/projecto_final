@@ -13,6 +13,9 @@ import javafx.geometry.Pos;
 import javafx.scene.paint.Color;
 import models.TipoExpiracoes;
 
+/**
+ * Representa ExpiracaoCard na aplicação.
+ */
 public class ExpiracaoCard {
     private final String icon;
     private final String titulo;
@@ -20,6 +23,14 @@ public class ExpiracaoCard {
     private final int dias;
     private final BadgeEstado estado;
 
+    /**
+     * Cria uma nova instância.
+     *
+     * @param titulo    valor usado pela operação
+     * @param subTitulo valor usado pela operação
+     * @param dias      valor usado pela operação
+     * @param tipo      valor usado pela operação
+     */
     public ExpiracaoCard(String titulo, String subTitulo, int dias, TipoExpiracoes tipo) {
         this.icon = "";
         this.titulo = titulo;
@@ -28,6 +39,14 @@ public class ExpiracaoCard {
         this.estado = badgeEstado(tipo);
     }
 
+    /**
+     * Cria uma nova instância.
+     *
+     * @param icon      valor usado pela operação
+     * @param titulo    valor usado pela operação
+     * @param subTitulo valor usado pela operação
+     * @param dias      valor usado pela operação
+     */
     public ExpiracaoCard(String icon, String titulo, String subTitulo, int dias) {
         this.icon = icon;
         this.titulo = titulo;
@@ -36,6 +55,13 @@ public class ExpiracaoCard {
         this.estado = new BadgeEstado(dias);
     }
 
+    /**
+     * Cria uma nova instância.
+     *
+     * @param titulo    valor usado pela operação
+     * @param subTitulo valor usado pela operação
+     * @param dias      valor usado pela operação
+     */
     public ExpiracaoCard(String titulo, String subTitulo, int dias) {
         this.icon = "";
         this.titulo = titulo;
@@ -44,10 +70,20 @@ public class ExpiracaoCard {
         this.estado = new BadgeEstado(dias);
     }
 
+    /**
+     * Executa a operação renderTipo.
+     *
+     * @return resultado da operação
+     */
     private Component renderTipo() {
         return this.estado.render();
     }
 
+    /**
+     * Executa a operação renderTempo.
+     *
+     * @return resultado da operação
+     */
     private Component renderTempo() {
         return new Column()
             .gap(0)
@@ -55,6 +91,12 @@ public class ExpiracaoCard {
             .children(new DiasRestantes(this.dias).render());
     }
 
+    /**
+     * Executa a operação badgeEstado.
+     *
+     * @param tipo valor usado pela operação
+     * @return resultado da operação
+     */
     private BadgeEstado badgeEstado(TipoExpiracoes tipo) {
         if (tipo == TipoExpiracoes.EXPIRADO) {
             return new BadgeEstado(-1);
@@ -63,6 +105,11 @@ public class ExpiracaoCard {
         return new BadgeEstado(30);
     }
 
+    /**
+     * Constrói o componente visual.
+     *
+     * @return resultado da operação
+     */
     public Component render() {
         return new Column()
             .gap(5)

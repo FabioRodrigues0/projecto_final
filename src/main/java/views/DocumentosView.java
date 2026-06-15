@@ -29,11 +29,19 @@ import models.Pessoal.Pessoas;
 import models.TipoDocumentoPessoal;
 import viewModels.DocumentosViewModel;
 
+/**
+ * Representa DocumentosView na aplicação.
+ */
 public class DocumentosView extends BricksScene {
 
     private final DocumentosViewModel vm = new DocumentosViewModel();
     private final BricksApplication app;
 
+    /**
+     * Cria uma nova instância.
+     *
+     * @param app valor usado pela operação
+     */
     public DocumentosView(BricksApplication app) {
         super(app);
         use(this.vm);
@@ -42,6 +50,11 @@ public class DocumentosView extends BricksScene {
         this.vm.carregarPessoas();
     }
 
+    /**
+     * Constrói o componente visual.
+     *
+     * @return resultado da operação
+     */
     @Override
     public Component render() {
         return new Column()
@@ -151,6 +164,11 @@ public class DocumentosView extends BricksScene {
             );
     }
 
+    /**
+     * Executa a operação abrirPessoaModal.
+     *
+     * @param pessoa valor usado pela operação
+     */
     private void abrirPessoaModal(Pessoas pessoa) {
         boolean update = pessoa != null;
 
@@ -179,6 +197,12 @@ public class DocumentosView extends BricksScene {
             .show();
     }
 
+    /**
+     * Executa a operação abrirDocumentoModal.
+     *
+     * @param pessoa    valor usado pela operação
+     * @param documento valor usado pela operação
+     */
     private void abrirDocumentoModal(Pessoas pessoa, DocumentosPessoal documento) {
         boolean update = documento != null;
 
@@ -208,6 +232,11 @@ public class DocumentosView extends BricksScene {
             .show();
     }
 
+    /**
+     * Executa a operação documentoForm.
+     *
+     * @return resultado da operação
+     */
     private Component documentoForm() {
         return new Column()
             .gap(8)
@@ -226,6 +255,12 @@ public class DocumentosView extends BricksScene {
             );
     }
 
+    /**
+     * Executa a operação preencherDocumentoImportado.
+     *
+     * @param file    valor usado pela operação
+     * @param content valor usado pela operação
+     */
     private void preencherDocumentoImportado(java.io.File file, String content) {
         vm.tituloDocumento.set(DocumentoImportacao.titulo(file, content));
         vm.categoriaDocumento
@@ -238,6 +273,11 @@ public class DocumentosView extends BricksScene {
         vm.notasDocumento.set(DocumentoImportacao.texto(content));
     }
 
+    /**
+     * Executa a operação preencherDocumento.
+     *
+     * @param documento valor usado pela operação
+     */
     private void preencherDocumento(DocumentosPessoal documento) {
         vm.tituloDocumento.set(documento.getTitulo());
         vm.categoriaDocumento.set(documento.getTipo());
@@ -246,6 +286,9 @@ public class DocumentosView extends BricksScene {
         vm.notasDocumento.set(documento.getNotas() == null ? "" : documento.getNotas());
     }
 
+    /**
+     * Executa a operação limparDocumento.
+     */
     private void limparDocumento() {
         vm.tituloDocumento.set("");
         vm.categoriaDocumento.set(TipoDocumentoPessoal.NONE);
@@ -254,10 +297,18 @@ public class DocumentosView extends BricksScene {
         vm.notasDocumento.set("");
     }
 
+    /**
+     * Executa a operação preencherPessoa.
+     *
+     * @param pessoa valor usado pela operação
+     */
     private void preencherPessoa(Pessoas pessoa) {
         vm.nomePessoa.set(pessoa.getNome());
     }
 
+    /**
+     * Executa a operação limparPessoa.
+     */
     private void limparPessoa() {
         vm.nomePessoa.set("");
     }

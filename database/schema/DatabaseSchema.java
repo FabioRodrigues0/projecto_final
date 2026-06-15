@@ -35,6 +35,9 @@ public class DatabaseSchema {
         TEMA_TIPO = textCheck("tema", "'Light'", "'Dark'");
     }
 
+    /**
+     * Cria uma nova instância.
+     */
     private DatabaseSchema() {
     }
 
@@ -53,6 +56,9 @@ public class DatabaseSchema {
         createSettings();
     }
 
+    /**
+     * Executa a operação enableForeignKeys.
+     */
     private static void enableForeignKeys() {
         try (Statement statement = DB.getConnection().createStatement()) {
             statement.execute("PRAGMA foreign_keys = ON");
@@ -61,6 +67,9 @@ public class DatabaseSchema {
         }
     }
 
+    /**
+     * Executa a operação createPessoas.
+     */
     private static void createPessoas() {
         DB
             .query()
@@ -71,6 +80,9 @@ public class DatabaseSchema {
             .execute();
     }
 
+    /**
+     * Executa a operação createVeiculos.
+     */
     private static void createVeiculos() {
         DB
             .query()
@@ -84,6 +96,9 @@ public class DatabaseSchema {
             .execute();
     }
 
+    /**
+     * Executa a operação createSubscricoes.
+     */
     private static void createSubscricoes() {
         DB
             .query()
@@ -95,6 +110,9 @@ public class DatabaseSchema {
             .execute();
     }
 
+    /**
+     * Executa a operação createDocumentosPessoal.
+     */
     private static void createDocumentosPessoal() {
         DB
             .query()
@@ -110,6 +128,9 @@ public class DatabaseSchema {
             .execute();
     }
 
+    /**
+     * Executa a operação createDocumentosVeiculo.
+     */
     private static void createDocumentosVeiculo() {
         DB
             .query()
@@ -127,6 +148,9 @@ public class DatabaseSchema {
             .execute();
     }
 
+    /**
+     * Executa a operação createDocumentosSubscricao.
+     */
     private static void createDocumentosSubscricao() {
         DB
             .query()
@@ -145,6 +169,9 @@ public class DatabaseSchema {
             .execute();
     }
 
+    /**
+     * Executa a operação createSettings.
+     */
     private static void createSettings() {
         DB
             .query()
@@ -157,10 +184,22 @@ public class DatabaseSchema {
             .execute();
     }
 
+    /**
+     * Executa a operação textCheck.
+     *
+     * @param column valor usado pela operação
+     * @param values valor usado pela operação
+     * @return resultado da operação
+     */
     private static String textCheck(String column, String... values) {
         return TEXT_NOT_NULL + "CHECK(" + column + " IN (" + String.join(", ", values) + "))";
     }
 
+    /**
+     * Executa a operação notificacoesBoolean.
+     *
+     * @return resultado da operação
+     */
     private static String notificacoesBoolean() {
         return "INTEGER NOT NULL DEFAULT 0 CHECK(notificacoes_ativas IN (0, 1))";
     }

@@ -24,6 +24,9 @@ import models.TipoDocumentoVeiculo;
 import models.Veiculo.DocumentosVeiculo;
 import viewModels.VeiculosDocumentosViewModel;
 
+/**
+ * Representa VeiculosDocumentosView na aplicação.
+ */
 public class VeiculosDocumentosView extends BricksScene {
 
     private final VeiculosDocumentosViewModel vm = new VeiculosDocumentosViewModel();
@@ -34,6 +37,16 @@ public class VeiculosDocumentosView extends BricksScene {
     private final String matricula;
     private final String foto;
 
+    /**
+     * Cria uma nova instância.
+     *
+     * @param app       valor usado pela operação
+     * @param id        valor usado pela operação
+     * @param nome      valor usado pela operação
+     * @param ano       valor usado pela operação
+     * @param matricula valor usado pela operação
+     * @param foto      valor usado pela operação
+     */
     public VeiculosDocumentosView(BricksApplication app, int id, String nome, int ano, String matricula, String foto) {
         super(app);
         use(this.vm);
@@ -46,6 +59,11 @@ public class VeiculosDocumentosView extends BricksScene {
         this.foto = foto;
     }
 
+    /**
+     * Constrói o componente visual.
+     *
+     * @return resultado da operação
+     */
     @Override
     public Component render() {
         return new Column()
@@ -87,6 +105,11 @@ public class VeiculosDocumentosView extends BricksScene {
             );
     }
 
+    /**
+     * Executa a operação abrirDocumentoModal.
+     *
+     * @param documento valor usado pela operação
+     */
     private void abrirDocumentoModal(DocumentosVeiculo documento) {
         boolean update = documento != null;
 
@@ -116,6 +139,11 @@ public class VeiculosDocumentosView extends BricksScene {
             .show();
     }
 
+    /**
+     * Executa a operação documentoForm.
+     *
+     * @return resultado da operação
+     */
     private Component documentoForm() {
         return new Column()
             .gap(8)
@@ -150,6 +178,12 @@ public class VeiculosDocumentosView extends BricksScene {
             );
     }
 
+    /**
+     * Executa a operação preencherDocumentoImportado.
+     *
+     * @param file    valor usado pela operação
+     * @param content valor usado pela operação
+     */
     private void preencherDocumentoImportado(java.io.File file, String content) {
         TipoDocumentoVeiculo tipo = DocumentoImportacao
             .categoria(TipoDocumentoVeiculo.class, content, TipoDocumentoVeiculo.OUTRO);
@@ -168,6 +202,11 @@ public class VeiculosDocumentosView extends BricksScene {
         vm.notasDocumentoVeiculo.set(DocumentoImportacao.texto(content));
     }
 
+    /**
+     * Executa a operação preencherDocumento.
+     *
+     * @param documento valor usado pela operação
+     */
     private void preencherDocumento(DocumentosVeiculo documento) {
         vm.tipoDocumentoVeiculo.set(documento.getTipo());
         vm.tituloDocumentoVeiculo.set(documento.getTitulo());
@@ -181,6 +220,9 @@ public class VeiculosDocumentosView extends BricksScene {
         vm.notasDocumentoVeiculo.set(documento.getNotas() == null ? "" : documento.getNotas());
     }
 
+    /**
+     * Executa a operação limparDocumento.
+     */
     private void limparDocumento() {
         vm.tipoDocumentoVeiculo.set(TipoDocumentoVeiculo.NONE);
         vm.tituloDocumentoVeiculo.set("");

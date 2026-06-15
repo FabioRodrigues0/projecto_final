@@ -60,7 +60,11 @@ public class App extends BricksApplication {
     });
 
     // ── root() ────────────────────────────────────────────────────────────────
-
+    /**
+     * Constrói a raiz visual da aplicação.
+     *
+     * @return resultado da operação
+     */
     @Override
     public Component root() {
         return new AppLayout()
@@ -123,6 +127,9 @@ public class App extends BricksApplication {
         launch(args);
     }
 
+    /**
+     * Executa a operação aplicarTemaGuardado.
+     */
     private void aplicarTemaGuardado() {
         List<Settings> settings = DB
             .query()
@@ -136,6 +143,11 @@ public class App extends BricksApplication {
         }
     }
 
+    /**
+     * Executa a operação logoPath.
+     *
+     * @return resultado da operação
+     */
     private String logoPath() {
         if (isDarkTheme()) {
             return "/logo_lifebinder_horizontal.png";
@@ -144,6 +156,11 @@ public class App extends BricksApplication {
         return "/logo_lifebinder_horizontal.png";
     }
 
+    /**
+     * Executa a operação isDarkTheme.
+     *
+     * @return resultado da operação
+     */
     private boolean isDarkTheme() {
         return BricksTheme.current().colorScheme().background().equals(Color.web("#111016"));
     }

@@ -9,6 +9,9 @@ import java.util.List;
 import models.Settings;
 import theme.AppThemes;
 
+/**
+ * Representa SettingsViewModel na aplicação.
+ */
 public class SettingsViewModel extends BricksViewModel {
     private static final int SETTINGS_ID = 1;
     private static final String SETTINGS_NOME = "Preferencias";
@@ -18,6 +21,9 @@ public class SettingsViewModel extends BricksViewModel {
     public final State<String> tema = state(TEMA_LIGHT);
     public final State<Boolean> notificacoesAtivas = state(false);
 
+    /**
+     * Carrega as preferências guardadas.
+     */
     public void carregarSettings() {
         Settings settings = procurarSettings();
 
@@ -30,6 +36,9 @@ public class SettingsViewModel extends BricksViewModel {
         notificacoesAtivas.set(settings.isNotificacoesAtivas());
     }
 
+    /**
+     * Guarda as alterações atuais.
+     */
     public void guardar() {
         garantirSettings();
         DB
@@ -41,16 +50,29 @@ public class SettingsViewModel extends BricksViewModel {
             .execute();
     }
 
+    /**
+     * Executa a operação temaEscuro.
+     *
+     * @return resultado da operação
+     */
     public boolean temaEscuro() {
         return TEMA_DARK.equals(tema.get());
     }
 
+    /**
+     * Executa a operação garantirSettings.
+     */
     private void garantirSettings() {
         if (procurarSettings() == null) {
             criarSettingsPadrao();
         }
     }
 
+    /**
+     * Executa a operação procurarSettings.
+     *
+     * @return resultado da operação
+     */
     private Settings procurarSettings() {
         List<Settings> settings = DB
             .query()
@@ -62,6 +84,9 @@ public class SettingsViewModel extends BricksViewModel {
         return settings.isEmpty() ? null : settings.get(0);
     }
 
+    /**
+     * Executa a operação criarSettingsPadrao.
+     */
     private void criarSettingsPadrao() {
         DB
             .query()

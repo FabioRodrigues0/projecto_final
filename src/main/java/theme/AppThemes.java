@@ -3,17 +3,34 @@ package theme;
 import fabiorodrigues.bricks.style.BricksTheme;
 import javafx.scene.paint.Color;
 
+/**
+ * Representa AppThemes na aplicação.
+ */
 public final class AppThemes {
     public static final String LIGHT = "Light";
     public static final String DARK = "Dark";
 
+    /**
+     * Cria uma nova instância.
+     */
     private AppThemes() {
     }
 
+    /**
+     * Executa a operação from.
+     *
+     * @param tema valor usado pela operação
+     * @return resultado da operação
+     */
     public static BricksTheme from(String tema) {
         return DARK.equals(tema) ? dark() : light();
     }
 
+    /**
+     * Executa a operação light.
+     *
+     * @return resultado da operação
+     */
     public static BricksTheme light() {
         return BricksTheme
             .material()
@@ -60,6 +77,11 @@ public final class AppThemes {
             .and();
     }
 
+    /**
+     * Executa a operação dark.
+     *
+     * @return resultado da operação
+     */
     public static BricksTheme dark() {
         return BricksTheme
             .dark()

@@ -12,6 +12,9 @@ import java.util.Map;
 import models.Expiracoes;
 import models.TipoExpiracoes;
 
+/**
+ * Representa DashboardViewModel na aplicação.
+ */
 public class DashboardViewModel extends BricksViewModel {
     public final State<Integer> qntDocumentos = state(0);
     public final State<Integer> qntVeiculos = state(0);
@@ -20,7 +23,9 @@ public class DashboardViewModel extends BricksViewModel {
     public final State<Integer> qntAlertas = state(0);
     public final StateList<Expiracoes> listExpiracoes = stateList(List.of());
 
-
+    /**
+     * Carrega a lista de documentos.
+     */
     public void carregarDocumentos() {
         Map<String, Object> qnt = DB
             .query()
@@ -32,6 +37,9 @@ public class DashboardViewModel extends BricksViewModel {
         qntDocumentos.set((Integer) qnt.get("total"));
     }
 
+    /**
+     * Carrega a lista de veículos.
+     */
     public void carregarVeiculos() {
         Map<String, Object> qnt = DB
             .query()
@@ -43,6 +51,9 @@ public class DashboardViewModel extends BricksViewModel {
         qntVeiculos.set((Integer) qnt.get("total"));
     }
 
+    /**
+     * Carrega a lista de subscrições.
+     */
     public void carregarSubscricoes() {
         Map<String, Object> qnt = DB
             .query()
@@ -68,6 +79,9 @@ public class DashboardViewModel extends BricksViewModel {
         }
     }
 
+    /**
+     * Carrega a lista de expirações.
+     */
     public void carregarExpiracoes() {
         List<Expiracoes> lista = carregarLinhasExpiracoes()
             .stream()
@@ -81,6 +95,11 @@ public class DashboardViewModel extends BricksViewModel {
         listExpiracoes.addAll(lista);
     }
 
+    /**
+     * Executa a operação carregarLinhasExpiracoes.
+     *
+     * @return resultado da operação
+     */
     private List<ExpiracaoRow> carregarLinhasExpiracoes() {
         return DB
             .query()
@@ -122,6 +141,12 @@ public class DashboardViewModel extends BricksViewModel {
             .execute(ExpiracaoRow.class);
     }
 
+    /**
+     * Executa a operação toExpiracaoCalculada.
+     *
+     * @param row valor usado pela operação
+     * @return resultado da operação
+     */
     private ExpiracaoCalculada toExpiracaoCalculada(ExpiracaoRow row) {
         LocalDate dataExpiracao = LocalDate.parse(row.dataExpiracao().substring(0, 10));
         int diasReais = (int) ChronoUnit.DAYS.between(LocalDate.now(), dataExpiracao);
@@ -132,6 +157,12 @@ public class DashboardViewModel extends BricksViewModel {
         );
     }
 
+    /**
+     * Executa a operação subTitulo.
+     *
+     * @param row valor usado pela operação
+     * @return resultado da operação
+     */
     private String subTitulo(ExpiracaoRow row) {
         if ("VEICULO".equals(row.origem()) && hasText(row.nome()) && hasText(row.detalhe())) {
             return row.nome() + " · " + row.detalhe();
@@ -144,15 +175,27 @@ public class DashboardViewModel extends BricksViewModel {
         return row.nome();
     }
 
+    /**
+     * Executa a operação hasText.
+     *
+     * @param value valor usado pela operação
+     * @return resultado da operação
+     */
     private boolean hasText(String value) {
         return value != null && !value.isBlank();
     }
 
+    /**
+     * Representa os dados imutáveis de ExpiracaoRow.
+     */
     private record ExpiracaoRow(
                                 String titulo, String nome, String detalhe, String dataExpiracao,
                                 String origem) {
     }
 
+    /**
+     * Representa os dados imutáveis de ExpiracaoCalculada.
+     */
     private record ExpiracaoCalculada(Expiracoes expiracao, int diasReais) {
     }
 }

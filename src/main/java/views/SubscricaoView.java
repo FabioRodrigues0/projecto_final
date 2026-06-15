@@ -27,11 +27,19 @@ import models.Subscricao.Subscricoes;
 import models.TipoDocumentoSubscricao;
 import viewModels.SubscricaoViewModel;
 
+/**
+ * Representa SubscricaoView na aplicação.
+ */
 public class SubscricaoView extends BricksScene {
 
     private final SubscricaoViewModel vm = new SubscricaoViewModel();
     private final BricksApplication app;
 
+    /**
+     * Cria uma nova instância.
+     *
+     * @param app valor usado pela operação
+     */
     public SubscricaoView(BricksApplication app) {
         super(app);
         use(this.vm);
@@ -40,6 +48,11 @@ public class SubscricaoView extends BricksScene {
         this.vm.carregarDocumentos();
     }
 
+    /**
+     * Constrói o componente visual.
+     *
+     * @return resultado da operação
+     */
     @Override
     public Component render() {
         return new Column()
@@ -111,6 +124,12 @@ public class SubscricaoView extends BricksScene {
             );
     }
 
+    /**
+     * Executa a operação abrirSubscricaoModal.
+     *
+     * @param subscricao valor usado pela operação
+     * @param documento  valor usado pela operação
+     */
     private void abrirSubscricaoModal(Subscricoes subscricao, DocumentosSubscricao documento) {
         boolean update = documento != null;
 
@@ -142,6 +161,12 @@ public class SubscricaoView extends BricksScene {
             .show();
     }
 
+    /**
+     * Executa a operação preencherSubscricaoImportada.
+     *
+     * @param file    valor usado pela operação
+     * @param content valor usado pela operação
+     */
     private void preencherSubscricaoImportada(java.io.File file, String content) {
         vm.servicoSubscricao
             .set(
@@ -159,6 +184,12 @@ public class SubscricaoView extends BricksScene {
         vm.estadoSubscricao.set(true);
     }
 
+    /**
+     * Executa a operação custoSubscricaoImportado.
+     *
+     * @param content valor usado pela operação
+     * @return resultado da operação
+     */
     private java.util.Optional<Double> custoSubscricaoImportado(String content) {
         java.util.Optional<Double> valorFatura = DocumentoImportacao
             .valorTotalFatura(content)
@@ -182,6 +213,12 @@ public class SubscricaoView extends BricksScene {
             .map(value -> DocumentoImportacao.temPeriodoAnual(content) ? value / 12 : value);
     }
 
+    /**
+     * Executa a operação categoriaSubscricaoImportada.
+     *
+     * @param content valor usado pela operação
+     * @return resultado da operação
+     */
     private TipoDocumentoSubscricao categoriaSubscricaoImportada(String content) {
         TipoDocumentoSubscricao categoria = DocumentoImportacao
             .categoria(TipoDocumentoSubscricao.class, content, TipoDocumentoSubscricao.OUTRO);
@@ -209,6 +246,11 @@ public class SubscricaoView extends BricksScene {
         return TipoDocumentoSubscricao.OUTRO;
     }
 
+    /**
+     * Executa a operação subscricaoForm.
+     *
+     * @return resultado da operação
+     */
     private Component subscricaoForm() {
         return new Column()
             .gap(8)
@@ -236,6 +278,12 @@ public class SubscricaoView extends BricksScene {
             );
     }
 
+    /**
+     * Executa a operação preencherSubscricao.
+     *
+     * @param subscricao valor usado pela operação
+     * @param documento  valor usado pela operação
+     */
     private void preencherSubscricao(Subscricoes subscricao, DocumentosSubscricao documento) {
         vm.nomeSubscricao.set(subscricao.getNome());
         vm.servicoSubscricao.set(documento.getTitulo());
@@ -246,6 +294,12 @@ public class SubscricaoView extends BricksScene {
         vm.estadoSubscricao.set(documento.isAtiva());
     }
 
+    /**
+     * Executa a operação subscricaoDoDocumento.
+     *
+     * @param documento valor usado pela operação
+     * @return resultado da operação
+     */
     private Subscricoes subscricaoDoDocumento(DocumentosSubscricao documento) {
         return this.vm.listSubscricoes
             .get()
@@ -257,6 +311,12 @@ public class SubscricaoView extends BricksScene {
             );
     }
 
+    /**
+     * Executa a operação valorTexto.
+     *
+     * @param valor valor usado pela operação
+     * @return resultado da operação
+     */
     private String valorTexto(double valor) {
         return String.format("€%.2f", valor);
     }

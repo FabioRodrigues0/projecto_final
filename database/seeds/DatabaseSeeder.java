@@ -4,7 +4,9 @@
  * do App.java se necessário. Só deve correr quando a base de dados está vazia.
  */
 public class DatabaseSeeder {
-
+    /**
+     * Cria uma nova instância.
+     */
     private DatabaseSeeder() {
     }
 

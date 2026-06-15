@@ -14,11 +14,19 @@ import java.util.List;
 import theme.AppThemes;
 import viewModels.SettingsViewModel;
 
+/**
+ * Representa SettingsView na aplicação.
+ */
 public class SettingsView extends BricksScene {
 
     private final SettingsViewModel vm = new SettingsViewModel();
     private final BricksApplication app;
 
+    /**
+     * Cria uma nova instância.
+     *
+     * @param app valor usado pela operação
+     */
     public SettingsView(BricksApplication app) {
         super(app);
         use(this.vm);
@@ -27,6 +35,11 @@ public class SettingsView extends BricksScene {
         aplicarTema();
     }
 
+    /**
+     * Constrói o componente visual.
+     *
+     * @return resultado da operação
+     */
     @Override
     public Component render() {
         return new Column()
@@ -56,6 +69,9 @@ public class SettingsView extends BricksScene {
             );
     }
 
+    /**
+     * Executa a operação aplicarTema.
+     */
     private void aplicarTema() {
         app.setTheme(AppThemes.from(vm.tema.get()));
     }

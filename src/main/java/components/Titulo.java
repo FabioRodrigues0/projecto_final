@@ -11,6 +11,9 @@ import fabiorodrigues.bricks.style.BricksTheme;
 import fabiorodrigues.bricks.style.Modifier;
 import javafx.scene.paint.Color;
 
+/**
+ * Representa Titulo na aplicação.
+ */
 public class Titulo {
 
     private static final double DEFAULT_MODAL_WIDTH = 500.0;
@@ -30,53 +33,114 @@ public class Titulo {
     private double modalWidth = DEFAULT_MODAL_WIDTH;
     private double modalHeight = DEFAULT_MODAL_HEIGHT;
 
+    /**
+     * Cria uma nova instância.
+     *
+     * @param app    valor usado pela operação
+     * @param titulo valor usado pela operação
+     */
     public Titulo(BricksApplication app, String titulo) {
         this.app = app;
         this.titulo = titulo;
     }
 
+    /**
+     * Executa a operação subtitulo.
+     *
+     * @param subTitulo valor usado pela operação
+     * @return resultado da operação
+     */
     public Titulo subtitulo(String subTitulo) {
         this.subTitulo = subTitulo;
         return this;
     }
 
+    /**
+     * Executa a operação botao.
+     *
+     * @param iconButton valor usado pela operação
+     * @param textButton valor usado pela operação
+     * @return resultado da operação
+     */
     public Titulo botao(String iconButton, String textButton) {
         this.iconButton = iconButton;
         this.textButton = textButton;
         return this;
     }
 
+    /**
+     * Executa a operação tituloModal.
+     *
+     * @param tituloModal valor usado pela operação
+     * @return resultado da operação
+     */
     public Titulo tituloModal(String tituloModal) {
         this.tituloModal = tituloModal;
         return this;
     }
 
+    /**
+     * Executa a operação modalContent.
+     *
+     * @param modalContent valor usado pela operação
+     * @return resultado da operação
+     */
     public Titulo modalContent(Component modalContent) {
         this.modalContent = modalContent;
         return this;
     }
 
+    /**
+     * Executa a operação modalSize.
+     *
+     * @param width  valor usado pela operação
+     * @param height valor usado pela operação
+     * @return resultado da operação
+     */
     public Titulo modalSize(double width, double height) {
         this.modalWidth = width;
         this.modalHeight = height;
         return this;
     }
 
+    /**
+     * Executa a operação onSubmit.
+     *
+     * @param onSubmit valor usado pela operação
+     * @return resultado da operação
+     */
     public Titulo onSubmit(Runnable onSubmit) {
         this.onSubmit = onSubmit != null ? onSubmit : () -> {};
         return this;
     }
 
+    /**
+     * Executa a operação onClear.
+     *
+     * @param onClear valor usado pela operação
+     * @return resultado da operação
+     */
     public Titulo onClear(Runnable onClear) {
         this.onClear = onClear != null ? onClear : () -> {};
         return this;
     }
 
+    /**
+     * Executa a operação onClick.
+     *
+     * @param onClick valor usado pela operação
+     * @return resultado da operação
+     */
     public Titulo onClick(Runnable onClick) {
         this.onClick = onClick;
         return this;
     }
 
+    /**
+     * Constrói o componente visual.
+     *
+     * @return resultado da operação
+     */
     public Component render() {
         Row row = new Row()
             .gap(0)
@@ -105,6 +169,9 @@ public class Titulo {
         return row;
     }
 
+    /**
+     * Executa a operação abrirModal.
+     */
     private void abrirModal() {
         new FormularioModal(app, titulo)
             .size(modalWidth, modalHeight)
@@ -115,6 +182,12 @@ public class Titulo {
             .show();
     }
 
+    /**
+     * Executa a operação hasText.
+     *
+     * @param value valor usado pela operação
+     * @return resultado da operação
+     */
     private boolean hasText(String value) {
         return value != null && !value.isBlank();
     }

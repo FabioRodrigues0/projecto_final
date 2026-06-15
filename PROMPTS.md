@@ -1,7 +1,8 @@
 1. prompts para gerar o aspeto que ja nao conseguimos obter eles
-2. volta a traz no merge que foi feito? ele apagou grande parte dos ficheiros
-3. como se teve que criar a view de @src/main/java/views/VeiculosDocumentosView.java entao em @src/main/java/views/VeiculosView.java e no seu viewmodel ja nao precisam ter coisas relaciondas aos documentos pois neste caso dos veiculos vao estar separados por ficheiros depois os outros vesse entao cria um novo viewModel move coisas que estejam no @src/main/java/viewModels/VeiculosViewModel.java para esse novo viewModel e em @src/main/java/views/VeiculosDocumentosView.java chama esse viewmodel
-4. -*- mode: compilation; default-directory: "/var/home/fabio/Documents/projeto_final/" -*-
+2. pede para dar merge entre branches da main com a do remote com a master do remote
+3. volta a traz no merge que foi feito? ele apagou grande parte dos ficheiros
+4. como se teve que criar a view de @src/main/java/views/VeiculosDocumentosView.java entao em @src/main/java/views/VeiculosView.java e no seu viewmodel ja nao precisam ter coisas relaciondas aos documentos pois neste caso dos veiculos vao estar separados por ficheiros depois os outros vesse entao cria um novo viewModel move coisas que estejam no @src/main/java/viewModels/VeiculosViewModel.java para esse novo viewModel e em @src/main/java/views/VeiculosDocumentosView.java chama esse viewmodel
+5. -*- mode: compilation; default-directory: "/var/home/fabio/Documents/projeto_final/" -*-
 Compilation started at Thu May 28 22:58:55
 
 correr java
@@ -203,9 +204,9 @@ Compilation finished at Thu May 28 22:59:37, duration 42.2 s
 
 
 qual e o problema?
-5. o .settings/org.eclipse.buildship.core.prefs como temos 3 sistemas diferentes aqui a utillizarem o projeto eu com portatil a ser macos este a ser linux, e meu colega de grupo com windows esse ficheiro esta sempre a ser alterado mesmo estando no gitignore ele continua a ser identificado como alteracoes por ter sido enviado antes de ter sido adicionado a ele entao remove eles do remote, nas duas branchs para que o gitignore passe a funcionar
-6. e o que e este pasta que esta tambem sempre aparecer -666321368
-7. fabio@fabio-torre ~/D/projeto_final (master)> correr java
+6. o .settings/org.eclipse.buildship.core.prefs como temos 3 sistemas diferentes aqui a utillizarem o projeto eu com portatil a ser macos este a ser linux, e meu colega de grupo com windows esse ficheiro esta sempre a ser alterado mesmo estando no gitignore ele continua a ser identificado como alteracoes por ter sido enviado antes de ter sido adicionado a ele entao remove eles do remote, nas duas branchs para que o gitignore passe a funcionar
+7. e o que e este pasta que esta tambem sempre aparecer -666321368
+8. fabio@fabio-torre ~/D/projeto_final (master)> correr java
 Projeto Gradle detetado em /home/fabio/Documents/projeto_final
 
 > Task :run
@@ -362,7 +363,7 @@ Caused by: java.text.ParseException: Unparseable date: "2026-07-24" does not mat
 ^C^C⏎                                                                                                                                                                         fabio@fabio-torre ~/D/projeto_final (master) [SIGINT]>
 
 o problema foi na inserçao @src/main/java/viewModels/VeiculosDocumentosViewModel.java foi sem o tempo mesmo que seja zeros, agora nao consegue dar parse ajusta na base de dados e corrige a insersao
-8. hint: You have divergent branches and need to specify how to reconcile them.
+9. hint: You have divergent branches and need to specify how to reconcile them.
 hint: You can do so by running one of the following commands sometime before
 hint: your next pull:
 hint:
@@ -377,8 +378,12 @@ hint: invocation.
 fatal: Need to specify how to reconcile divergent branches.
 
 inicia para fazer o merge e verifico manualmente eles a indicar o que fica onde
-9. ao escolher escolhi mal em alguns volta ao inicio do merge
-10. ve @src/main/java/viewModels/DocumentosViewModel.java e ajusta o @src/main/java/viewModels/SubscricaoViewModel.java com mesma estrutura e ter para ter a lista de Subscricoes e de documentos, no caso das subscricoes cada subscricao devera so ter 1 subscricao
-11. extrai o que esta dentro do  ItemsColumn e cria o SubscricaoCard como tenho nos outros e vai para a pasta @src/main/java/components o como esta ainda e como rasconho os dias em atraso tem que ter mesma logica que outros cards tem em relacao as cores nome da subscricao e valor da subscricao e que ficam a bold o tipo e o plano ficam na mesma linha por debaixo do nome ficam cizentos e ligeiramnete mais pequenos
-12. em todas as views tem o modal que esta a ser criado juntamente com o titulo e o modal que se cria a parte para a edicao dos dados, cria um componete e mete em @src/main/java/components onde estar unificado o modal, em termos de estrutura do codigo ja sei que ao criares nao vai estar a 100% como quero entao faz e depois ajusta-se
-13. tem muitas alteracoes vindas do origin/master e tem alteracoes locais faz o merge delas
+10. ao escolher escolhi mal em alguns volta ao inicio do merge
+11. ve @src/main/java/viewModels/DocumentosViewModel.java e ajusta o @src/main/java/viewModels/SubscricaoViewModel.java com mesma estrutura e ter para ter a lista de Subscricoes e de documentos, no caso das subscricoes cada subscricao devera so ter 1 subscricao
+12. extrai o que esta dentro do  ItemsColumn e cria o SubscricaoCard como tenho nos outros e vai para a pasta @src/main/java/components o como esta ainda e como rasconho os dias em atraso tem que ter mesma logica que outros cards tem em relacao as cores nome da subscricao e valor da subscricao e que ficam a bold o tipo e o plano ficam na mesma linha por debaixo do nome ficam cizentos e ligeiramnete mais pequenos
+13. em todas as views tem o modal que esta a ser criado juntamente com o titulo e o modal que se cria a parte para a edicao dos dados, cria um componete e mete em @src/main/java/components onde estar unificado o modal, em termos de estrutura do codigo ja sei que ao criares nao vai estar a 100% como quero entao faz e depois ajusta-se
+14. no projeto foi adicionado o sistema de notificacoes no sistema mas no caso do mac penso que nao estavam a funcionar podes confirmar isso
+15. foi criado uma novo item na sidebar Settings mas ainda nao foi criado a view em views ve os outros e cria a base seguindo mesma estrutura
+16. no Calendario tem o BadgeEstado com record extrai ele e mete nos components sendo que ele possa ser usado em varios sitios
+17. passa pelo codigo e cria o javadocs nos metodos e classes todas que nao tem
+18. tem muitas alteracoes vindas do origin/master e tem alteracoes locais faz o merge delas

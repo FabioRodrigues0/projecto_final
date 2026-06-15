@@ -31,11 +31,19 @@ import javafx.stage.FileChooser;
 import models.Veiculo.Veiculos;
 import viewModels.VeiculosViewModel;
 
+/**
+ * Representa VeiculosView na aplicação.
+ */
 public class VeiculosView extends BricksScene {
 
     private final VeiculosViewModel vm = new VeiculosViewModel();
     private final BricksApplication app;
 
+    /**
+     * Cria uma nova instância.
+     *
+     * @param app valor usado pela operação
+     */
     public VeiculosView(BricksApplication app) {
         super(app);
         use(this.vm);
@@ -43,6 +51,11 @@ public class VeiculosView extends BricksScene {
         this.vm.carregarVeiculos();
     }
 
+    /**
+     * Constrói o componente visual.
+     *
+     * @return resultado da operação
+     */
     @Override
     public Component render() {
         return new Column()
@@ -84,6 +97,11 @@ public class VeiculosView extends BricksScene {
             );
     }
 
+    /**
+     * Executa a operação abrirVeiculoModal.
+     *
+     * @param veiculo valor usado pela operação
+     */
     private void abrirVeiculoModal(Veiculos veiculo) {
         boolean update = veiculo != null;
 
@@ -112,6 +130,12 @@ public class VeiculosView extends BricksScene {
             .show();
     }
 
+    /**
+     * Executa a operação veiculoForm.
+     *
+     * @param veiculo valor usado pela operação
+     * @return resultado da operação
+     */
     private Component veiculoForm(Veiculos veiculo) {
         return new Column()
             .gap(8)
@@ -164,6 +188,12 @@ public class VeiculosView extends BricksScene {
             );
     }
 
+    /**
+     * Executa a operação fotoLabel.
+     *
+     * @param veiculo valor usado pela operação
+     * @return resultado da operação
+     */
     private String fotoLabel(Veiculos veiculo) {
         if (!temFoto(veiculo)) {
             return "Sem foto";
@@ -171,10 +201,22 @@ public class VeiculosView extends BricksScene {
         return "Foto: " + Path.of(veiculo.getFoto()).getFileName().toString();
     }
 
+    /**
+     * Executa a operação temFoto.
+     *
+     * @param veiculo valor usado pela operação
+     * @return resultado da operação
+     */
     private boolean temFoto(Veiculos veiculo) {
         return veiculo != null && veiculo.getFoto() != null && !veiculo.getFoto().isBlank();
     }
 
+    /**
+     * Executa a operação fotoIconButton.
+     *
+     * @param veiculo valor usado pela operação
+     * @return resultado da operação
+     */
     private Component fotoIconButton(Veiculos veiculo) {
         return new IconButton("fas-camera")
             .tooltip(temFoto(veiculo) ? "Alterar foto" : "Adicionar foto")
@@ -189,6 +231,11 @@ public class VeiculosView extends BricksScene {
             .onClick(() -> guardarFotoVeiculo(veiculo));
     }
 
+    /**
+     * Executa a operação guardarFotoVeiculo.
+     *
+     * @param veiculo valor usado pela operação
+     */
     private void guardarFotoVeiculo(Veiculos veiculo) {
         File selected = escolherFoto();
         if (selected == null) {
@@ -213,6 +260,11 @@ public class VeiculosView extends BricksScene {
         NotificacoesApp.atualizado(app, vm);
     }
 
+    /**
+     * Executa a operação escolherFoto.
+     *
+     * @return resultado da operação
+     */
     private File escolherFoto() {
         FileChooser chooser = new FileChooser();
         chooser.setTitle("Foto do veículo");
@@ -222,6 +274,12 @@ public class VeiculosView extends BricksScene {
         return chooser.showOpenDialog(app.getStage());
     }
 
+    /**
+     * Executa a operação fotoPicker.
+     *
+     * @param veiculo valor usado pela operação
+     * @return resultado da operação
+     */
     private Component fotoPicker(Veiculos veiculo) {
         FilePicker picker = new FilePicker()
             .label(temFoto(veiculo) ? "Alterar foto" : "Adicionar foto")
@@ -237,6 +295,11 @@ public class VeiculosView extends BricksScene {
         });
     }
 
+    /**
+     * Executa a operação preencherVeiculo.
+     *
+     * @param veiculo valor usado pela operação
+     */
     private void preencherVeiculo(Veiculos veiculo) {
         vm.marcaVeiculo.set(veiculo.getNome());
         vm.modeloVeiculo.set("");
@@ -247,6 +310,9 @@ public class VeiculosView extends BricksScene {
         vm.notasVeiculo.set("");
     }
 
+    /**
+     * Executa a operação limparVeiculo.
+     */
     private void limparVeiculo() {
         vm.marcaVeiculo.set("");
         vm.modeloVeiculo.set("");

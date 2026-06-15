@@ -18,6 +18,9 @@ import javafx.scene.paint.Color;
 import models.Veiculo.Veiculos;
 import views.VeiculosDocumentosView;
 
+/**
+ * Representa VeiculosCard na aplicação.
+ */
 public class VeiculosCard {
 
     private final int id;
@@ -30,6 +33,15 @@ public class VeiculosCard {
     private final Runnable onApagar;
     private final Component fotoPicker;
 
+    /**
+     * Cria uma nova instância.
+     *
+     * @param app        valor usado pela operação
+     * @param veiculo    valor usado pela operação
+     * @param onEditar   valor usado pela operação
+     * @param onApagar   valor usado pela operação
+     * @param fotoPicker valor usado pela operação
+     */
     public VeiculosCard(BricksApplication app, Veiculos veiculo, Runnable onEditar, Runnable onApagar, Component fotoPicker) {
         this.app = app;
         this.id = veiculo.getId();
@@ -42,6 +54,11 @@ public class VeiculosCard {
         this.fotoPicker = fotoPicker;
     }
 
+    /**
+     * Constrói o componente visual.
+     *
+     * @return resultado da operação
+     */
     public Component render() {
         return new Card()
             .elevation(2)
@@ -113,6 +130,11 @@ public class VeiculosCard {
             );
     }
 
+    /**
+     * Executa a operação resolveImagePath.
+     *
+     * @return resultado da operação
+     */
     private String resolveImagePath() {
         if (this.foto == null || this.foto.isBlank()) {
             return "missing-cover-image";

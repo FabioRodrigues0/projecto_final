@@ -20,6 +20,9 @@ import javafx.scene.paint.Color;
 import models.Subscricao.DocumentosSubscricao;
 import models.Subscricao.Subscricoes;
 
+/**
+ * Representa SubscricaoCard na aplicação.
+ */
 public class SubscricaoCard {
 
     private final String nome;
@@ -31,6 +34,14 @@ public class SubscricaoCard {
     private final Runnable onEditar;
     private final Runnable onApagar;
 
+    /**
+     * Cria uma nova instância.
+     *
+     * @param subscricao valor usado pela operação
+     * @param documento  valor usado pela operação
+     * @param onEditar   valor usado pela operação
+     * @param onApagar   valor usado pela operação
+     */
     public SubscricaoCard(
                           Subscricoes subscricao, DocumentosSubscricao documento, Runnable onEditar, Runnable onApagar) {
         this.nome = subscricao.getNome();
@@ -43,6 +54,12 @@ public class SubscricaoCard {
         this.onApagar = onApagar;
     }
 
+    /**
+     * Executa a operação formatTipo.
+     *
+     * @param tipo valor usado pela operação
+     * @return resultado da operação
+     */
     private static String formatTipo(Enum<?> tipo) {
         if (tipo == null) {
             return "Sem tipo";
@@ -52,6 +69,13 @@ public class SubscricaoCard {
         return texto.substring(0, 1).toUpperCase() + texto.substring(1);
     }
 
+    /**
+     * Executa a operação resolverIcon.
+     *
+     * @param nome      valor usado pela operação
+     * @param documento valor usado pela operação
+     * @return resultado da operação
+     */
     private static String resolverIcon(String nome, DocumentosSubscricao documento) {
         String texto = normalizar(nome + " " + documento.getTitulo());
 
@@ -108,6 +132,12 @@ public class SubscricaoCard {
         };
     }
 
+    /**
+     * Executa a operação normalizar.
+     *
+     * @param texto valor usado pela operação
+     * @return resultado da operação
+     */
     private static String normalizar(String texto) {
         if (texto == null) {
             return "";
@@ -119,6 +149,11 @@ public class SubscricaoCard {
             .toLowerCase(Locale.ROOT);
     }
 
+    /**
+     * Executa a operação estado.
+     *
+     * @return resultado da operação
+     */
     private EstadoSubscricao estado() {
         if (this.dataRenovacao == null) {
             return new EstadoSubscricao(
@@ -134,6 +169,11 @@ public class SubscricaoCard {
         );
     }
 
+    /**
+     * Constrói o componente visual.
+     *
+     * @return resultado da operação
+     */
     public Component render() {
         EstadoSubscricao estado = estado();
 
@@ -203,6 +243,11 @@ public class SubscricaoCard {
             );
     }
 
+    /**
+     * Executa a operação planoTexto.
+     *
+     * @return resultado da operação
+     */
     private String planoTexto() {
         if (this.plano == null || this.plano.isBlank()) {
             return "-";
@@ -211,10 +256,18 @@ public class SubscricaoCard {
         return this.plano;
     }
 
+    /**
+     * Executa a operação valorTexto.
+     *
+     * @return resultado da operação
+     */
     private String valorTexto() {
         return String.format("€%.2f", this.custo);
     }
 
+    /**
+     * Representa os dados imutáveis de EstadoSubscricao.
+     */
     private record EstadoSubscricao(String tempo, BadgeEstado badge, Color corTexto) {
     }
 }
